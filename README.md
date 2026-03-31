@@ -12,3 +12,11 @@ Atualização e organização das tarefas no Jira
 Estruturação da base do projeto no GitHub
 
 Desenvolvimento da base visual e protótipo no Figma para definição de layout e fluxo do sistema
+
+📌 3 - Figma e Jira
+
+Criamos o protótipo do site no Figma
+
+Definimos os requisitos no Jira
+
+Organizamos as tarefas do projeto
