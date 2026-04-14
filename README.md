@@ -20,3 +20,13 @@ Criamos o protótipo do site no Figma
 Definimos os requisitos no Jira
 
 Organizamos as tarefas do projeto
+
+📌 3 - Supabase, Diagrama, Canva e Jira
+
+Análise do Supabase para utilização como banco de dados do projeto
+
+Criação do diagrama da estrutura do sistema
+
+Melhorias no protótipo utilizando o Canva
+
+Atualização e organização das tarefas no Jira conforme as atividades do dia
