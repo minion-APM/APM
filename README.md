@@ -21,7 +21,7 @@ Definimos os requisitos no Jira
 
 Organizamos as tarefas do projeto
 
-📌 3 - Supabase, Diagrama, Canva e Jira
+📌 4 - Supabase, Diagrama, Canva e Jira
 
 Análise do Supabase para utilização como banco de dados do projeto
 
