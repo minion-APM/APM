@@ -34,7 +34,7 @@ def tela_home(
     if usuario is None:
         return templates.TemplateResponse(
             request,
-            "index.html",
+            "base.html",
             {"request": request}
         )
     return templates.TemplateResponse(
