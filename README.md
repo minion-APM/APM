@@ -30,3 +30,26 @@ Criação do diagrama da estrutura do sistema
 Melhorias no protótipo utilizando o Canva
 
 Atualização e organização das tarefas no Jira conforme as atividades do dia
+
+
+📌 5 - Supabase e Back-end
+
+Tentativas de criação e configuração do banco de dados no Supabase
+
+Criação das tabelas iniciais do sistema
+
+Integração do banco de dados com o back-end
+
+Desenvolvimento das primeiras funções do sistema
+
+Ocorreram problemas na criação e conexão do banco devido à instabilidade da internet no SENAI
+
+📌 6 - Banco de Dados, Front-end e Back-end
+
+Criação da estrutura inicial das pastas do front-end
+
+Desenvolvimento das funções CRUD no back-end
+
+Implementação do sistema de cadastro de usuários e administrador
+
+Organização da integração entre front-end, back-end e banco de dados
