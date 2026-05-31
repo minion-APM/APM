@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block titulo %}AAPM - SENAI{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+ 
+    <!--header-->
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo-area">
+                <div class="logo-icon">⚙</div>
+                <div class="logo-text">
+                    <span class="logo-aapm">AAPM</span>
+                    <span class="logo-senai">SENAI</span>
+                </div>
+            </div>
+      {% if session.get('usuario_id') %}
+      <nav class="nav">
+        <a href="/dashboard" class="nav-link">Dashboard</a>
+        <a href="/categorias" class="nav-link">Categorias</a>
+        <a href="/produtos" class="nav-link">Produtos</a>
+        {% if session.get('role') == 'ADMIN' %}
+          <a href="/usuarios" class="nav-link">Usuários</a>
+        {% endif %}
+      </nav>
+
+      <div class="header-user">
+        <span class="header-user__name">{{ session.get('nome', 'Usuário') }}</span>
+        <span class="header-user__role role-badge role-badge--{{ session.get('role', 'funcionario')|lower }}">
+          {{ session.get('role', '') }}
+        </span>
+        <a href="/logout" class="btn-logout">Sair</a>
+      </div>
+      {% endif %}
+    </div>
+  </header>
+
+  <!-- conteudo principal-->
+  <main class="main-content">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for categoria, mensagem in messages %}
+          <div class="alert alert--{{ categoria }}">{{ mensagem }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% block conteudo %}{% endblock%}
+  </main>
+ 
+  <!-- rodapé -->
+  <footer class="footer">
+    <div class="footer-inner">
+        <span class="footer-brand">AAPM &mdash; Sistema de Gestão</span>
+        <span class="footer-sep">|</span>
+        <span class="footer-info">SENAI &copy; {{ 2025 }}</span>
+    </div>
+  </footer>
+ 
+</body>
+</html>
