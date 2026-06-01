@@ -53,3 +53,11 @@ Desenvolvimento das funções CRUD no back-end
 Implementação do sistema de cadastro de usuários e administrador
 
 Organização da integração entre front-end, back-end e banco de dados
+
+
+📌 7 - Front-end e Back-end
+Correção de bugs identificados no front-end.
+Ajustes na interface para melhorar o funcionamento do sistema.
+Implementação de novas funcionalidades no back-end.
+Integração e testes entre front-end e back-end.
+Continuação do desenvolvimento e aprimoramento do sistema.
