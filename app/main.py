@@ -7,7 +7,7 @@ from app.controllers import auth_controller
 from app.controllers import admin_controller
 from app.controllers import categoria_controller
 from app.controllers import produto_controller
-
+from app.controllers import movimentacao_controller
 from app.auth import get_usuario_opcional
 
 app = FastAPI(title="Sistema MVC")
@@ -23,6 +23,7 @@ app.include_router(auth_controller.router)
 app.include_router(admin_controller.router)
 app.include_router(categoria_controller.router)
 app.include_router(produto_controller.router)
+app.include_router(movimentacao_controller.router)
 
 @app.get("/")
 def tela_home(
@@ -34,14 +35,14 @@ def tela_home(
     if usuario is None:
         return templates.TemplateResponse(
             request,
-            "base.html",
+            "index.html",
             {"request": request}
         )
     
     # Logado
     return templates.TemplateResponse( 
             request,
-            "dashboard.html",
+            "home.html",
             {"request": request, "usuario": usuario}
         )   
     
