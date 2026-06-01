@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block titulo %}Dashboard — AAPM SENAI{% endblock %}
+ 
+{% block conteudo %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Dashboard</h1>
+    <p class="page-subtitle">
+      Bem-vindo, <strong>{{ session.get('nome', 'Usuário') }}</strong>!
+      Você está conectado como
+      <span class="role-badge role-badge--{{ session.get('role', 'funcionario')|lower }}">
+        {{ session.get('role', 'FUNCIONARIO') }}
+      </span>
+    </p>
+  </div>
+  <a href="/logout" class="btn-outline">Sair do sistema</a>
+</div>
+
+<!--cards de resumo-->
+<div class="stats-grid">
+  <div class="stat-card">
+    <span class="stat-card__icon">📦</span>
+    <div class="stat-card__info">
+      <span class="stat-card__label">Produtos</span>
+      <span class="stat-card__value">{{ total_produtos | default('—') }}</span>
+    </div>
+  </div>
+  <div class="stat-card">
+    <span class="stat-card__icon">🏷</span>
+    <div class="stat-card__info">
+      <span class="stat-card__label">Categorias</span>
+      <span class="stat-card__value">{{ total_categorias | default('-') }}</span>
+    </div>
+  </div>
+  {% if session.get('role') == 'ADMIN' %}
+  <div class="stat-card">
+    <span class="stat-card__icon">👥</span>
+    <div class="stat-card__info">
+      <span class="stat-card__label">Usuários</span>
+      <span class="stat-card__value">{{ total_usuarios | default('—') }}</span>
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+<!-- menu dinâmico -->
+<section class="menu-section">
+  <h2 class="section-title">Menu do sistema</h2>
+  <div class="menu-grid">
+
+    <a href="/categorias" class="menu-card">
+      <span class="menu-card__icon">🏷</span>
+      <span class="menu-card__label">Categorias</span>
+      <span class="menu-card__desc">Gerenciar categorias de produtos</span>
+    </a>
+
+    <a href="/produtos" class="menu-card">
+      <span class="menu-card__icon">📦</span>
+      <span class="menu-card__label">Produtos</span>
+      <span class="menu-card__desc">Consultar e cadastrar produtos</span>
+    </a>
+    
+    {% if session.get('role') == 'ADMIN' %}
+    <a href="/usuarios" class="menu-card menu-card--admin">
+      <span class="menu-card__icon">👥</span>
+      <span class="menu-card__label">Usuários</span>
+      <span class="menu-card__desc">Gerenciar acessos do sistema</span>
+      <span class="menu-card__badge">admin</span>
+    </a>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
+
+
+
