@@ -1,15 +1,86 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bem-vindo ao sistema</title>
-</head>
-<body>
-    <h1>Sistema MVC</h1>
-    <p>Faça login para acessar o sistema</p>
+{% extends "base.html" %}
+{% block titulo %}AAPM SENAI - Materiais Escolares{% endblock %}
 
-    <a href="/auth/login">Entrar</a>
-    <a href="/auth/cadastro">Criar conta</a>
-</body>
-</html>
+{% block conteudo %}
+
+<section class="hero">
+    <div class="hero-content">
+        <span class="hero-badge">AAPM SENAI</span>
+
+        <h1 class="hero-title">
+            Materiais escolares para alunos do
+            SENAI Têxtil, Moda e Tech
+        </h1>
+
+        <p class="hero-text">
+            Consulte produtos disponíveis, realize pedidos e acompanhe
+            suas compras de forma rápida e organizada.
+        </p>
+
+        <div class="hero-actions">
+            <a href="/login" class="btn-primary">Entrar no Sistema</a>
+        </div>
+    </div>
+
+    <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1517842645767-c639042777db?w=800"
+             alt="Materiais escolares">
+    </div>
+</section>
+
+<section class="categorias">
+    <h2 class="section-title-home">Categorias Disponíveis</h2>
+
+    <div class="categoria-grid">
+
+        <div class="categoria-card">
+            <span class="categoria-icon">📚</span>
+            <h3>Livros e Apostilas</h3>
+            <p>Materiais didáticos utilizados nos cursos.</p>
+        </div>
+
+        <div class="categoria-card">
+            <span class="categoria-icon">✏️</span>
+            <h3>Papelaria</h3>
+            <p>Cadernos, lápis, canetas e itens essenciais.</p>
+        </div>
+
+        <div class="categoria-card">
+            <span class="categoria-icon">🧵</span>
+            <h3>Têxtil e Moda</h3>
+            <p>Tecidos, linhas e materiais para projetos.</p>
+        </div>
+
+        <div class="categoria-card">
+            <span class="categoria-icon">💻</span>
+            <h3>Tech</h3>
+            <p>Kits, componentes e materiais tecnológicos.</p>
+        </div>
+
+    </div>
+</section>
+
+<section class="beneficios">
+    <h2 class="section-title-home">Por que usar o sistema?</h2>
+
+    <div class="beneficios-grid">
+
+        <div class="beneficio-card">
+            <h3>⚡ Rápido</h3>
+            <p>Encontre materiais em poucos segundos.</p>
+        </div>
+
+        <div class="beneficio-card">
+            <h3>📦 Organizado</h3>
+            <p>Controle de estoque e pedidos centralizados.</p>
+        </div>
+
+        <div class="beneficio-card">
+            <h3>🔒 Seguro</h3>
+            <p>Acesso apenas para usuários autorizados.</p>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

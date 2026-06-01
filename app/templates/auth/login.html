@@ -1,32 +1,38 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
-<body>
-    <h1>Entrar no sistema</h1>
+{% extends "base.html" %}
+{% block titulo %}Login — AAPM SENAI{% endblock %}
 
-    {% if request.query_params.get("cadastro") == "ok" %}
-        <p style="color: green;">Cadastro realizado! Faça login.</p>
+{% block conteudo %}
+<div class="login-wrapper">
+  <div class="login-brand">
+    <div class="login-logo-icon">⚙</div>
+    <h1 class="login-title">AAPM</h1>
+    <p class="login-subtitle">Sistema de Gestão · SENAI</p>
+  </div>
+
+  <div class="login-card">
+    <h2 class="login-card__heading">Acesse sua conta</h2>
+
+    {% if request.query_params.get('cadastro') == 'ok' %}
+      <div class="alert alert--success"><span class="alert-icon">✓</span> Cadastro realizado! Faça login.</div>
     {% endif %}
 
-    <form action="/auth/login" method="post">
-        E-mail: <input type="email" name="email" required>
-        <br><br>
-        Senha: <input type="password" name="senha" >
-        <br><br>
+    {% if erro %}
+      <div class="alert alert--danger"><span class="alert-icon">✕</span> {{ erro }}</div>
+    {% endif %}
 
-        {% if erro %}
-            <p style="color: red;">{{ erro }}</p>
-        {% endif %}
-
-
-
-        <button type="submit">Entrar</button>
+    <form method="POST" action="/auth/login" class="login-form">
+      <div class="form-group">
+        <label for="email" class="form-label">E-mail</label>
+        <input type="email" id="email" name="email" class="form-input" placeholder="seu@email.com" required autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label for="senha" class="form-label">Senha</label>
+        <input type="password" id="senha" name="senha" class="form-input" placeholder="••••••••" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn-primary btn--full">Entrar no sistema</button>
     </form>
+  </div>
 
-    <p>Não tem conta? <a href="/auth/cadastro">Cadastre-se</a></p>
-</body>
-</html>
+  <p class="login-footer-note">Acesso restrito a colaboradores SENAI</p>
+</div>
+{% endblock %}

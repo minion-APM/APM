@@ -1,0 +1,168 @@
+/* ==========================================================================
+   TELA DE LOGIN (ESTILO DA IMAGEM)
+   ========================================================================== */
+
+/* Container que centraliza o formulário na tela */
+.login-wrapper {
+    max-width: 420px;
+    margin: 4rem auto;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Área da Logo Superior */
+.login-brand {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #0b2240; /* Azul escuro original */
+}
+
+.login-logo-icon {
+    color: #ffcc00; /* Amarelo engrenagem */
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.login-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    letter-spacing: 1.5px;
+    line-height: 1;
+    margin-bottom: 0.2rem;
+}
+
+.login-subtitle {
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #718096;
+}
+
+/* Card Branco com Borda Amarela */
+.login-card {
+    background-color: #ffffff;
+    border: 1px solid #cbd5e0;
+    border-top: 4px solid #ffcc00; /* Detalhe amarelo superior */
+    border-radius: 8px;
+    padding: 2rem 1.5rem;
+    width: 100%;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1rem;
+}
+
+.login-card__heading {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0b2240;
+    margin-bottom: 1.5rem;
+}
+
+/* Estrutura do Formulário */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.form-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #4a5568;
+    letter-spacing: 0.5px;
+}
+
+/* Inputs Escuros idênticos aos da foto */
+.form-input {
+    background-color: #ffffff; /* Fundo escuro do input */
+    color: #000000; /* Texto branco digitado */
+    border: 1px solid #4a5568;
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-input::placeholder {
+    color: #718096; /* Cor do placeholder seu@email.com */
+}
+
+.form-input:focus {
+    border-color: #ffcc00; /* Borda amarela ao focar */
+}
+
+/* Botão Entrar */
+.btn--full {
+    width: 100%;
+}
+
+/* Na imagem o botão está cinza claro com texto apagado (comportamento de desabilitado) 
+   Mas abaixo configurei para herdar o azul padrão, aplicando o visual apagado caso queira */
+.login-form .btn-primary {
+    background-color: #0b2240;
+    color: #ffcc00;
+    border: 1px solid #edf2f7;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+/* Estado quando o formulário estiver pronto para envio ou hovered (Ativo) */
+.login-form .btn-primary:hover,
+.login-form .btn-primary:focus {
+    background-color: #0b2240;
+    color: #ffcc00;
+    border-color: #0b2240;
+}
+
+/* Notas de rodapé específicas da tela de login */
+.login-footer-note {
+    font-size: 0.75rem;
+    color: #a0aec0;
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+/* Alertas de Erro / Sucesso */
+.alert {
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.alert--success {
+    background-color: #e6fffa;
+    color: #234e52;
+    border: 1px solid #b2f5ea;
+}
+
+.alert--danger {
+    background-color: #fff5f5;
+    color: #742a2a;
+    border: 1px solid #fed7d7;
+}
+
+.alert-icon {
+    font-weight: 700;
+} 
