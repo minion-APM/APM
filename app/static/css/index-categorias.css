@@ -1,0 +1,69 @@
+/* ==========================================
+   AÇÕES (CORREÇÃO DE LAYOUT)
+========================================== */
+
+.td-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap; /* Garante que os botões fiquem sempre na mesma linha */
+}
+
+/* IMPORTANTE: Isola e reseta o formulário intruso dentro da tabela */
+.td-actions form {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    display: inline-flex !important;
+}
+
+/* ==========================================
+   BOTÕES DA TABELA
+========================================== */
+
+.btn-table {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 90px;
+    height: 34px;
+    padding: 0 14px;
+
+    border: 1px solid transparent; 
+    border-radius: 6px;
+
+    background: #06224a; /* Azul padrão do seu cabeçalho */
+    color: #f5b400 !important; /* Força o texto a ficar branco, ignorando o padrão de link azul */
+
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-table:hover {
+    background: #004085;
+    text-decoration: none;
+}
+
+/* BOTÃO DESATIVAR / ATIVAR */
+.btn-table--warn {
+    /* Cores suaves baseadas no seu amarelo */
+    background: #f5b400 !important;
+    color: #06224a !important;
+    border: 1px solid rgba(245, 180, 0, 0.4) !important;
+}
+
+.btn-table--warn:hover {
+    background: #ffce46 !important;
+    color: #06224a !important;
+}
+
+.btn-table:active {
+    transform: scale(0.98);
+}
