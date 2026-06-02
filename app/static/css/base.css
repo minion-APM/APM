@@ -218,8 +218,8 @@ td{
     border-bottom:1px solid #e5e7eb;
 }
 
-tr:hover{
-    background:#f8fafc;
+tbody tr:hover{
+    background:rgb(236, 236, 236);
 }
 
 /* =========================
@@ -234,7 +234,42 @@ tr:hover{
 }
 
 .btn-primary{
-    background:#f5b400;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:12px 22px;
+
+    background:linear-gradient(135deg,#f5b400,#ffce46);
+    color:#06224a;
+
+    border:none;
+    border-radius:10px;
+
+    font-size:14px;
+    font-weight:700;
+
+    text-decoration:none;
+
+    box-shadow:0 4px 12px rgba(245,180,0,.30);
+
+    transition:all .25s ease;
+}
+
+.btn-primary:hover{
+    background:linear-gradient(135deg,#ffce46,#ffd867);
+    color:#06224a;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 8px 18px rgba(245,180,0,.40);
+}
+
+.btn-primary:active{
+    transform:translateY(0);
+}
+
+.btn-primary:visited{
     color:#06224a;
 }
 
@@ -277,6 +312,7 @@ textarea:focus{
     border-color:#f5b400;
 }
 
+
 /* =========================
    FOOTER
 ========================= */
@@ -296,4 +332,13 @@ textarea:focus{
 .footer-brand{
     color:#f5b400;
     font-weight:700;
+}
+
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-top:20px;
+    margin-bottom:30px;
 }
