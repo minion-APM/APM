@@ -7,63 +7,123 @@
 {% endblock %}
 
 {% block conteudo %}
-
 <div class="dash-container">
 
-    <!-- HEADER -->
     <div class="dash-header">
         <div>
             <h1>Dashboard</h1>
-            <p>Bem-vindo, {{ usuario.nome }}</p>
+            <p>Bem-vindo ao sistema</p>
         </div>
-
         <a href="/pdv" class="btn-pdv">Ir para PDV</a>
     </div>
 
-    <!-- CARDS -->
     <div class="dash-cards">
 
         <div class="card card-blue">
             <h3>Produtos</h3>
-            <p>{{ total_produtos }}</p>
+            <p class="card-number">{{ total_produtos | default(0) }}</p>
         </div>
 
         <div class="card card-orange">
             <h3>Categorias</h3>
-            <p>{{ total_categorias }}</p>
+            <p class="card-number">{{ total_categorias | default(0) }}</p>
         </div>
 
         <div class="card card-dark">
             <h3>Usuários</h3>
-            <p>{{ total_usuarios }}</p>
+            <p class="card-number">{{ total_usuarios | default(0) }}</p>
         </div>
 
         <div class="card card-gray">
             <h3>Movimentações</h3>
-            <p>{{ total_movimentacoes }}</p>
+            <p class="card-number">{{ total_movimentacoes | default(0) }}</p>
         </div>
 
     </div>
 
-    <!-- GRÁFICOS -->
     <div class="dash-grid">
 
-        <div class="box large">
-            <h3>Vendas / Movimentações</h3>
-            <div class="chart-placeholder">
-                📊 Aqui vai seu gráfico depois (PDV)
+        <div class="dash-left">
+            
+            <div class="box large">
+                <h3>Vendas / Movimentações</h3>
+                <div class="chart-placeholder">
+                    📊 Aqui vai seu gráfico depois (PDV)
+                </div>
             </div>
+
+            <div class="box table-box">
+                <h3>Últimas Vendas / Movimentações</h3>
+                <table class="dash-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tipo</th>
+                            <th>Quantidade</th>
+                            <th>Data/Hora</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for mov in ultimas_movimentacoes %}
+                        <tr>
+                            <td>#{{ mov.id }}</td>
+                            <td>
+                                <span class="badge {{ 'badge-entrada' if mov.tipo == 'entrada' else 'badge-saida' }}">
+                                    {{ mov.tipo | upper }}
+                                </span>
+                            </td>
+                            <td>{{ mov.quantidade }} un</td>
+                            <td>{{ mov.criado_em.strftime('%d/%m %H:%M') if mov.criado_em else 'Agora' }}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="4" class="table-empty">Nenhuma movimentação recente registrada.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
         </div>
 
-        <div class="box small">
-            <h3>Resumo</h3>
-            <p>Total de produtos: {{ total_produtos }}</p>
-            <p>Total de vendas: {{ total_movimentacoes }}</p>
-            <p>Total de usuários: {{ total_usuarios }}</p>
+        <div class="dash-right">
+            
+            <div class="box small">
+                <h3>Resumo Geral</h3>
+                <div class="resumo-item">
+                    <span>Total de produtos:</span>
+                    <strong>{{ total_produtos | default(0) }}</strong>
+                </div>
+                <div class="resumo-item">
+                    <span>Total de vendas:</span>
+                    <strong>{{ total_movimentacoes | default(0) }}</strong>
+                </div>
+                <div class="resumo-item">
+                    <span>Total de usuários:</span>
+                    <strong>{{ total_usuarios | default(0) }}</strong>
+                </div>
+            </div>
+
+            <div class="box small-products">
+                <h3>Recém Cadastrados</h3>
+                <div class="produtos-lista">
+                    {% for prod in ultimos_produtos %}
+                    <div class="produto-item">
+                        <div>
+                            <p class="p-nome">{{ prod.nome }}</p>
+                            <p class="p-detalhe">ID: #{{ prod.id }}</p>
+                        </div>
+                        <span class="p-preco">R$ {{ "%.2f"|format(prod.preco) if prod.preco else '0.00' }}</span>
+                    </div>
+                    {% else %}
+                    <p class="lista-empty">Nenhum produto cadastrado recentemente.</p>
+                    {% endfor %}
+                </div>
+            </div>
+
         </div>
 
     </div>
 
 </div>
-
 {% endblock %}

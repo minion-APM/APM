@@ -1,7 +1,10 @@
+/* CONTAINER PRINCIPAL */
 .dash-container {
     padding: 25px;
-    background: #f4f6fb;
+    background-color: #f4f6fb !important;
     min-height: 100vh;
+    box-sizing: border-box;
+    font-family: sans-serif;
 }
 
 /* HEADER */
@@ -9,92 +12,191 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .dash-header h1 {
     margin: 0;
-    font-size: 24px;
+    font-size: 26px;
+    color: #111827;
 }
 
 .dash-header p {
     margin: 5px 0 0;
-    color: #666;
+    color: #6b7280;
+    font-size: 14px;
 }
 
 /* BOTÃO PDV */
 .btn-pdv {
-    background: #ff7a00;
-    color: white;
-    padding: 10px 18px;
+    background-color: #ff7a00;
+    color: #ffffff !important;
+    padding: 12px 20px;
     border-radius: 8px;
     text-decoration: none;
     font-weight: bold;
+    font-size: 14px;
+    transition: background 0.2s;
 }
 
-/* CARDS */
+.btn-pdv:hover {
+    background-color: #e06b00;
+}
+
+/* ESTRUTURA DOS CARDS */
 .dash-cards {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
+    gap: 20px;
     margin-bottom: 25px;
 }
 
 .card {
-    background: white;
+    background-color: #ffffff !important;
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .card h3 {
     margin: 0;
     font-size: 14px;
-    color: #666;
+    color: #4b5563;
 }
 
-.card p {
-    font-size: 26px;
-    font-weight: bold;
-    margin-top: 10px;
+/* ESTILO DO NÚMERO */
+.card-number {
+    font-size: 32px !important;
+    font-weight: 700 !important;
+    color: #111827 !important; 
+    margin: 10px 0 0 0 !important;
+    display: block !important;
 }
 
-/* CORES */
+/* BORDAS DOS CARDS */
 .card-blue { border-left: 5px solid #2563eb; }
 .card-orange { border-left: 5px solid #ff7a00; }
 .card-dark { border-left: 5px solid #111827; }
 .card-gray { border-left: 5px solid #9ca3af; }
 
-/* GRID */
+/* ESTRUTURA DO GRID EM COLUNAS */
 .dash-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: 15px;
+    gap: 20px;
+    align-items: start;
 }
 
+.dash-left, .dash-right {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Cria o espaçamento perfeito entre os blocos verticais */
+}
+
+/* BOX BASE */
 .box {
-    background: white;
+    background-color: #ffffff !important;
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
 }
 
-.large {
-    height: 300px;
+.box h3 {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    color: #111827;
 }
 
-.small {
-    height: 300px;
+.large { min-height: 280px; }
+.table-box { min-height: 260px; }
+.small { min-height: 200px; }
+
+/* NOVO BLOCO DE PRODUTOS */
+.small-products {
+    background-color: #ffffff !important;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+    min-height: 240px;
 }
 
-/* PLACEHOLDER GRAFICO */
+/* ITENS DO RESUMO LATERAL */
+.resumo-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 14px;
+}
+
+.resumo-item:last-child { border-bottom: none; }
+.resumo-item span { color: #4b5563; }
+.resumo-item strong { color: #111827; font-size: 16px; }
+
+/* PLACEHOLDER DO GRÁFICO */
 .chart-placeholder {
-    height: 220px;
+    height: 190px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #888;
-    border: 2px dashed #ddd;
+    color: #9ca3af;
+    border: 2px dashed #e5e7eb;
     border-radius: 10px;
-    margin-top: 15px;
+    background-color: #f9fafb;
+    font-size: 14px;
 }
+
+/* TABELA DE MOVIMENTAÇÕES (LADO ESQUERDO) */
+.dash-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.dash-table th {
+    text-align: left;
+    padding: 10px;
+    color: #ffffff;
+    font-weight: 600;
+    border-bottom: 2px solid #ffffff;
+}
+
+.dash-table td {
+    padding: 12px 10px;
+    color: #111827;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.table-empty {
+    text-align: center;
+    color: #9ca3af;
+    padding: 30px 0 !important;
+}
+
+/* BADGES DE STATUS (ENTRADA/SAÍDA) */
+.badge {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: bold;
+    display: inline-block;
+}
+.badge-entrada { background-color: #d1fae5; color: #065f46; }
+.badge-saida { background-color: #fee2e2; color: #991b1b; }
+
+/* LISTA DE PRODUTOS (LADO DIREITO) */
+.produto-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+.produto-item:last-child { border-bottom: none; }
+
+.p-nome { margin: 0; font-size: 14px; font-weight: 600; color: #111827; }
+.p-detalhe { margin: 2px 0 0 0; font-size: 12px; color: #9ca3af; }
+.p-preco { font-size: 14px; font-weight: bold; color: #ff7a00; }
+.lista-empty { text-align: center; color: #9ca3af; font-size: 14px; padding-top: 20px; }
