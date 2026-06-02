@@ -58,6 +58,8 @@ body{
     font-weight:700;
     font-size:1.3rem;
     letter-spacing:1px;
+    justify-content:space-between;
+    width:100px;
 }
 
 .logo-senai{
@@ -72,6 +74,8 @@ body{
 .nav{
     display:flex;
     gap:12px;
+    justify-content:space-between;
+    width:800px;
 }
 
 .nav-link{

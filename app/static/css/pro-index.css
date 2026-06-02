@@ -1,0 +1,280 @@
+/* ==================================
+   PRODUTOS
+================================== */
+
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:20px 0 30px;
+}
+
+.page-title{
+    font-size:32px;
+    font-weight:700;
+    color:#06224a;
+}
+
+.page-subtitle{
+    color:#6b7280;
+    margin-top:4px;
+}
+
+/* ==================================
+   CARD
+================================== */
+
+.card{
+    background:#fff;
+    border-radius:12px;
+    padding:25px;
+    border:1px solid #d9e1ea;
+    box-shadow:0 3px 12px rgba(0,0,0,.05);
+}
+
+/* ==================================
+   FILTROS
+================================== */
+
+.card form{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    align-items:center;
+
+    margin-bottom:25px;
+
+    background:none;
+    box-shadow:none;
+    padding:0;
+}
+
+.form-input{
+    padding:12px 14px;
+    border:1px solid #d1d5db;
+    border-radius:10px;
+    font-size:14px;
+}
+
+.form-input:focus{
+    outline:none;
+    border-color:#f5b400;
+    box-shadow:0 0 0 4px rgba(245,180,0,.15);
+}
+
+.form-select{
+    cursor:pointer;
+}
+
+/* ==================================
+   BOTÃO NOVO PRODUTO
+================================== */
+
+.btn-primary{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:12px 20px;
+
+    background:linear-gradient(
+        135deg,
+        #f5b400,
+        #ffce46
+    );
+
+    color:#06224a;
+    font-weight:700;
+
+    border:none;
+    border-radius:10px;
+
+    text-decoration:none;
+
+    box-shadow:0 4px 12px rgba(245,180,0,.25);
+
+    transition:.2s;
+}
+
+.btn-primary:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 18px rgba(245,180,0,.35);
+}
+
+/* ==================================
+   BOTÃO LIMPAR
+================================== */
+
+.btn-outline{
+    padding:12px 18px;
+
+    border:2px solid #06224a;
+    border-radius:10px;
+
+    text-decoration:none;
+
+    color:#06224a;
+    font-weight:600;
+
+    transition:.2s;
+}
+
+.btn-outline:hover{
+    background:#06224a;
+    color:white;
+}
+
+/* ==================================
+   ALERTAS
+================================== */
+
+.alert{
+    padding:14px 16px;
+    border-radius:10px;
+    margin-bottom:20px;
+}
+
+.alert--success{
+    background:#dcfce7;
+    color:#166534;
+    border-left:4px solid #22c55e;
+}
+
+/* ==================================
+   TABELA
+================================== */
+
+.table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.table thead{
+    background:#06224a;
+}
+
+.table th{
+    color:#f5b400;
+    padding:14px;
+    text-align:left;
+    font-size:14px;
+}
+
+.table td{
+    padding:14px;
+    border-bottom:1px solid #e5e7eb;
+    vertical-align:middle;
+}
+
+.table tbody tr:hover{
+    background:#f8fafc;
+}
+
+/* ==================================
+   IMAGENS
+================================== */
+
+.table img{
+    width:48px;
+    height:48px;
+
+    border-radius:8px;
+
+    object-fit:cover;
+
+    border:1px solid #e5e7eb;
+}
+
+/* ==================================
+   LINKS PRODUTOS
+================================== */
+
+.table td a{
+    color:#06224a;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.table td a:hover{
+    color:#f5b400;
+}
+
+
+/* ==================================
+   AÇÕES
+================================== */
+
+.td-actions{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    white-space:nowrap;
+}
+
+.td-actions form{
+    margin:0;
+    padding:0;
+    background:none;
+    border:none;
+    box-shadow:none;
+}
+
+.btn-table{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    min-width:90px;
+    height:36px;
+
+    border:none;
+    border-radius:8px;
+
+    background:#06224a;
+    color:#f5b400;
+
+    text-decoration:none;
+    font-size:13px;
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.btn-table:hover{
+    background:#0a326a;
+}
+
+.btn-table--warn{
+    background:#f5b400;
+    color:#06224a;
+}
+
+.btn-table--warn:hover{
+    background:#ffce46;
+}
+
+/* ==================================
+   RESPONSIVO
+================================== */
+
+@media(max-width:768px){
+
+    .page-header{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:15px;
+    }
+
+    .card form{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .form-input,
+    .form-select{
+        width:100%;
+    }
+    
+}
