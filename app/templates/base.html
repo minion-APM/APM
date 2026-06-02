@@ -34,11 +34,13 @@
  
       {% if usuario %}
       <nav class="nav">
-        <a href="/dashboard"  class="nav-link">Dashboard</a>
-        <a href="/categorias" class="nav-link">Categorias</a>
+        <a href="/"  class="nav-link">Dashboard</a>
+        <a href="/pdv/"   class="nav-link">Ponto de Vendas</a>
+        <a href="/pdv/historico"   class="nav-link">Historico de Vendas</a>
         <a href="/produtos"   class="nav-link">Produtos</a>
-        <a href="/movimentacoes" class="nav-link">Movimentações</a>
         {% if usuario.role == 'admin' %}
+        <a href="/movimentacoes" class="nav-link">Movimentações</a>
+        <a href="/categorias" class="nav-link">Categorias</a>
           <a href="/usuarios" class="nav-link">Usuários</a>
         {% endif %}
       </nav>
