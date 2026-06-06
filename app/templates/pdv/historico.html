@@ -1,46 +1,107 @@
-<!-- templantes/pdv/historico.html -->
-<!DOCTYPE html>
-<html lang="pt-br">
-<head><meta charset="UTF-8"><title>Histórico de Vendas — AAPM SENAI</title></head>
-<body>
-    <h1>Histórico de vendas</h1>
-    <a href="/pdv">← Voltar ao PDV</a>
+{% extends "base.html" %}
 
-    <table border="1" cellpadding="8">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Data</th>
-                <th>Cliente</th>
-                <th>Itens</th>
-                <th>Desconto</th>
-                <th>Total</th>
-                <th>Operador</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for v in vendas %}
-            <tr>
-                <td><a href="/pdv/venda/{{ v.id }}">#{{ v.id }}</a></td>
-                <td>{{ v.criado_em.strftime('%d/%m/%Y %H:%M') }}</td>
-                <td>{{ v.cliente.nome if v.cliente else "Balcão" }}</td>
-                <td>{{ v.itens | length }}</td>
-                <td>
-                    {% if v.desconto_percentual > 0 %}
-                        <span style="color:green">
-                            {{ v.desconto_percentual|int }}%
-                            (− R$ {{ "%.2f"|format(v.desconto_valor) }})
-                        </span>
-                    {% else %}—{% endif %}
-                </td>
-                <td>R$ {{ "%.2f"|format(v.total_liquido) }}</td>
-                <td>{{ v.usuario.nome if v.usuario else "—" }}</td>
-            </tr>
-            {% endfor %}
-            {% if not vendas %}
-            <tr><td colspan="7" style="text-align:center">Nenhuma venda.</td></tr>
-            {% endif %}
-        </tbody>
-    </table>
-</body>
-</html>
+{% block titulo %}
+Histórico de Vendas - AAPM SENAI
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/pdv-historico.css">
+{% endblock %}
+
+{% block conteudo %}
+
+<div class="historico-container">
+
+    <div class="historico-header">
+
+        <div>
+            <h1>Histórico de Vendas</h1>
+            <p class="subtitulo">
+                Consulte todas as vendas realizadas no sistema.
+            </p>
+        </div>
+
+        <a href="/pdv" class="btn-voltar">
+            ← Voltar ao PDV
+        </a>
+
+    </div>
+
+    <div class="card-tabela">
+
+        <table class="historico-table">
+
+            <thead>
+                <tr>
+                    <th># Venda</th>
+                    <th>Data</th>
+                    <th>Cliente</th>
+                    <th>Itens</th>
+                    <th>Desconto</th>
+                    <th>Total</th>
+                    <th>Operador</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for v in vendas %}
+                <tr>
+
+                    <td>
+                        <a href="/pdv/venda/{{ v.id }}" class="link-venda">
+                            #{{ v.id }}
+                        </a>
+                    </td>
+
+                    <td>
+                        {{ v.criado_em.strftime('%d/%m/%Y %H:%M') }}
+                    </td>
+
+                    <td>
+                        {{ v.cliente.nome if v.cliente else "Balcão" }}
+                    </td>
+
+                    <td>
+                        {{ v.itens | length }}
+                    </td>
+
+                    <td>
+                        {% if v.desconto_percentual > 0 %}
+                            <span class="badge-desconto">
+                                {{ v.desconto_percentual|int }}%
+                                (- R$ {{ "%.2f"|format(v.desconto_valor) }})
+                            </span>
+                        {% else %}
+                            —
+                        {% endif %}
+                    </td>
+
+                    <td class="valor-total">
+                        R$ {{ "%.2f"|format(v.total_liquido) }}
+                    </td>
+
+                    <td>
+                        {{ v.usuario.nome if v.usuario else "—" }}
+                    </td>
+
+                </tr>
+                {% endfor %}
+
+                {% if not vendas %}
+                <tr>
+                    <td colspan="7" class="sem-registros">
+                        Nenhuma venda encontrada.
+                    </td>
+                </tr>
+                {% endif %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}
