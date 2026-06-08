@@ -1,0 +1,170 @@
+/* ==========================================
+   CONTAINER
+========================================== */
+
+.cliente-form-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 32px;
+
+    background: #fff;
+
+    border-radius: 12px;
+
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================
+   TÍTULO
+========================================== */
+
+.cliente-form-title {
+    margin-bottom: 24px;
+
+    font-family: "Barlow Condensed", sans-serif;
+
+    font-size: 2rem;
+
+    color: #06224a;
+}
+
+/* ==========================================
+   ERRO
+========================================== */
+
+.cliente-erro {
+    background: #fee2e2;
+
+    color: #b91c1c;
+
+    padding: 12px;
+
+    border-radius: 8px;
+
+    margin-bottom: 20px;
+}
+
+/* ==========================================
+   FORMULÁRIO
+========================================== */
+
+.cliente-form {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+/* ==========================================
+   LABELS
+========================================== */
+
+.cliente-form label {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+
+    font-weight: 600;
+
+    color: #374151;
+}
+
+/* ==========================================
+   INPUTS
+========================================== */
+
+.cliente-form input[type="text"] {
+    padding: 12px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+    font-family: inherit;
+}
+
+.cliente-form input[type="text"]:focus {
+    outline: none;
+
+    border-color: #06224a;
+
+    box-shadow: 0 0 0 3px rgba(6, 34, 74, 0.15);
+}
+
+/* ==========================================
+   CHECKBOX
+========================================== */
+
+.cliente-checkbox-label {
+    flex-direction: row !important;
+
+    align-items: center;
+
+    gap: 10px !important;
+
+    font-weight: 600;
+}
+
+.cliente-checkbox-label input {
+    width: 18px;
+    height: 18px;
+}
+
+/* ==========================================
+   BOTÕES
+========================================== */
+
+.cliente-form-actions {
+    display: flex;
+
+    gap: 12px;
+
+    margin-top: 12px;
+}
+
+.btn-cliente-form {
+    background: #06224a;
+
+    color: #f5b400;
+
+    border: none;
+
+    padding: 12px 18px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-weight: 600;
+
+    transition: .2s;
+}
+
+.btn-cliente-form:hover {
+    background: #004085;
+}
+
+.btn-cliente-cancelar {
+    background: #f5b400;
+
+    color: #06224a;
+
+    text-decoration: none;
+
+    padding: 12px 18px;
+
+    border-radius: 8px;
+
+    font-weight: 600;
+
+    transition: .2s;
+}
+
+.btn-cliente-cancelar:hover {
+    background: #ffce46;
+}

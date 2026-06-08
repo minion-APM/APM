@@ -1,0 +1,245 @@
+/* ==========================================
+   CONTAINER
+========================================== */
+
+.clientes-page {
+    padding: 20px;
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.clientes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.clientes-header h1 {
+    margin: 0;
+    color: #06224a;
+}
+
+.clientes-header p {
+    margin-top: 4px;
+    color: #666;
+}
+
+/* ==========================================
+   ALERTAS
+========================================== */
+
+.cliente-alert {
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.cliente-alert--success {
+    background: #d4edda;
+    color: #155724;
+}
+
+/* ==========================================
+   CARD ESTATÍSTICAS
+========================================== */
+
+.cliente-stats-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+
+.cliente-stats-title {
+    display: block;
+    color: #666;
+    font-size: 14px;
+}
+
+.cliente-stats-value {
+    display: block;
+    margin-top: 5px;
+    font-size: 32px;
+    font-weight: bold;
+    color: #06224a;
+}
+
+/* ==========================================
+   FILTROS
+========================================== */
+
+.cliente-filter-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+
+.cliente-filter-form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.cliente-search {
+    flex: 1;
+    min-width: 250px;
+    height: 38px;
+    padding: 0 12px;
+    border: 1px solid #dcdcdc;
+    border-radius: 6px;
+}
+
+.cliente-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* ==========================================
+   TABELA
+========================================== */
+
+.cliente-table-card {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+
+.cliente-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cliente-table thead {
+    background: #06224a;
+}
+
+.cliente-table th {
+    color: #f5b400;
+    padding: 14px;
+    text-align: left;
+}
+
+.cliente-table td {
+    padding: 14px;
+    border-bottom: 1px solid #ececec;
+}
+
+.cliente-table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+/* ==========================================
+   BADGES
+========================================== */
+
+.cliente-badge {
+    padding: 5px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.cliente-badge--associado {
+    background: #d4edda;
+    color: #155724;
+}
+
+.cliente-badge--ativo {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.cliente-badge--inativo {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.cliente-badge--normal {
+    background: #e9ecef;
+    color: #495057;
+}
+
+/* ==========================================
+   AÇÕES
+========================================== */
+
+.cliente-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.cliente-actions form {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    display: inline-flex !important;
+}
+
+/* ==========================================
+   BOTÕES
+========================================== */
+
+.btn-cliente {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 90px;
+    height: 34px;
+    padding: 0 14px;
+
+    border: 1px solid transparent;
+    border-radius: 6px;
+
+    background: #06224a;
+    color: #f5b400 !important;
+
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: background-color .2s ease,
+                transform .1s ease;
+}
+
+.btn-cliente:hover {
+    background: #004085;
+}
+
+.btn-cliente--warn {
+    background: #f5b400 !important;
+    color: #06224a !important;
+    border: 1px solid rgba(245, 180, 0, 0.4) !important;
+}
+
+.btn-cliente--warn:hover {
+    background: #ffce46 !important;
+}
+
+.btn-cliente:active {
+    transform: scale(0.98);
+}
+
+/* ==========================================
+   VAZIO
+========================================== */
+
+.cliente-empty {
+    text-align: center;
+    padding: 20px !important;
+    color: #777;
+}
