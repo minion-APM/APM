@@ -57,7 +57,7 @@ def form_nova_categoria(
     """Exibe o formulário de cadastro de categoria."""
     return templates.TemplateResponse(
         request,
-        "categorias/form.html",
+        "categorias/add-categorias.html",
         {
             "request":  request,
             "usuario":  admin,
@@ -82,7 +82,7 @@ def criar_categoria(
     if existente:
         return templates.TemplateResponse(
             request,
-            "categorias/form.html",
+            "categorias/add-categorias.html",
             {
                 "request":  request,
                 "usuario":  admin,
@@ -120,7 +120,7 @@ def form_editar_categoria(
 
     return templates.TemplateResponse(
         request,
-        "categorias/form.html",
+        "categorias/add-categorias.html",
         {
             "request":  request,
             "usuario":  admin,
@@ -154,7 +154,7 @@ def editar_categoria(
     if conflito:
         return templates.TemplateResponse(
             request,
-            "categorias/form.html",
+            "categorias/add-categorias.html",
             {
                 "request":  request,
                 "usuario":  admin,
