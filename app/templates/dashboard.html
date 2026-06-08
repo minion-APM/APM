@@ -47,8 +47,8 @@
             
             <div class="box large">
                 <h3>Vendas / Movimentações</h3>
-                <div class="chart-placeholder">
-                    📊 Aqui vai seu gráfico depois (PDV)
+                <div class="chart-container">
+                    <canvas id="vendasChart"></canvas>
                 </div>
             </div>
 
@@ -126,4 +126,16 @@
     </div>
 
 </div>
+
+<script>
+    window.dashboardData = {
+        produtos: Number("{{ total_produtos | default(0) }}"),
+        categorias: Number("{{ total_categorias | default(0) }}"),
+        usuarios: Number("{{ total_usuarios | default(0) }}"),
+        movimentacoes: Number("{{ total_movimentacoes | default(0) }}")
+    };
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/static/js/dashboard.js"></script>
 {% endblock %}
