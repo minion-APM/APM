@@ -1,0 +1,14 @@
+form{
+    max-width:800px;
+    margin:auto;
+}
+
+label{
+    display:block;
+    font-weight:600;
+    color:#06224a;
+}
+
+textarea{
+    resize:none;
+}

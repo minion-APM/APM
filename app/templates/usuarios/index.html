@@ -1,63 +1,124 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Usuários — Estoque</title>
-</head>
-<body>
-    <h1>Usuários</h1>
+{% extends "base.html" %}
 
-    <a href="/usuarios/novo">+ Novo usuário</a>
+{% block titulo %}
+Usuários
+{% endblock %}
 
-    <!-- Mensagens de feedback via query string -->
-    {% if request.query_params.get('criado') == 'ok' %}
-        <p style="color: green;">Usuário criado com sucesso!</p>
-    {% endif %}
-    {% if request.query_params.get('editado') == 'ok' %}
-        <p style="color: green;">Usuário atualizado com sucesso!</p>
-    {% endif %}
-    {% if request.query_params.get('erro') == 'autoproprio' %}
-        <p style="color: red;">Você não pode desativar sua própria conta.</p>
-    {% endif %}
+{% block conteudo %}
 
-    <table border="1" cellpadding="8">
+<div class="page-header">
+
+    <div>
+        <h1>Usuários do Sistema</h1>
+        <p>Gerenciamento de contas e permissões</p>
+    </div>
+
+    <a href="/usuarios/novo" class="btn-primary">
+        + Novo Usuário
+    </a>
+
+</div>
+
+{% if request.query_params.get('criado') == 'ok' %}
+<div class="alert alert-success">
+    Usuário criado com sucesso!
+</div>
+{% endif %}
+
+{% if request.query_params.get('editado') == 'ok' %}
+<div class="alert alert-success">
+    Usuário atualizado com sucesso!
+</div>
+{% endif %}
+
+{% if request.query_params.get('erro') == 'autoproprio' %}
+<div class="alert alert-danger">
+    Você não pode desativar sua própria conta.
+</div>
+{% endif %}
+
+<div class="card">
+
+    <h2 class="card-title">
+        Lista de Usuários
+    </h2>
+
+    <table>
+
         <thead>
             <tr>
                 <th>Nome</th>
                 <th>E-mail</th>
                 <th>Perfil</th>
                 <th>Status</th>
-                <th>Ações</th>
+                <th width="220">Ações</th>
             </tr>
         </thead>
+
         <tbody>
+
             {% for u in usuarios %}
             <tr>
-                <td>{{ u.nome }}</td>
-                <td>{{ u.email }}</td>
-                <td>{{ u.role }}</td>
-                <td>{{ "Ativo" if u.ativo else "Inativo" }}</td>
-                <td>
-                    <a href="/usuarios/{{ u.id }}/editar">Editar</a>
 
-                    <!--
-                        Usamos um form com POST para ações destrutivas.
-                        Links GET podem ser acionados acidentalmente
-                        (pré-fetch do browser, bots, etc.)
-                    -->
-                    <form action="/usuarios/{{ u.id }}/toggle-ativo"
-                          method="post"
-                          style="display:inline">
-                        <button type="submit">
-                            {{ "Desativar" if u.ativo else "Ativar" }}
-                        </button>
-                    </form>
+                <td>{{ u.nome }}</td>
+
+                <td>{{ u.email }}</td>
+
+                <td>
+                    <span class="perfil-badge">
+                        {{ u.role }}
+                    </span>
                 </td>
+
+                <td>
+                    {% if u.ativo %}
+                        <span class="status ativo">Ativo</span>
+                    {% else %}
+                        <span class="status inativo">Inativo</span>
+                    {% endif %}
+                </td>
+
+                <td>
+
+                    <div class="acoes">
+
+                        <a href="/usuarios/{{ u.id }}/editar"
+                           class="btn btn-editar">
+                            Editar
+                        </a>
+
+                        <form
+                            action="/usuarios/{{ u.id }}/toggle-ativo"
+                            method="post"
+                        >
+
+                            {% if u.ativo %}
+                            <button
+                                type="submit"
+                                class="btn btn-desativar">
+                                Desativar
+                            </button>
+                            {% else %}
+                            <button
+                                type="submit"
+                                class="btn btn-ativar">
+                                Ativar
+                            </button>
+                            {% endif %}
+
+                        </form>
+
+                    </div>
+
+                </td>
+
             </tr>
             {% endfor %}
+
         </tbody>
+
     </table>
 
-    <p><a href="/">← Voltar ao dashboard</a></p>
-</body>
-</html>
+</div>
+
+{% endblock %}

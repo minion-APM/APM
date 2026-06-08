@@ -1,0 +1,148 @@
+/* =========================
+   HEADER DA PÁGINA
+========================= */
+
+.page-header h1{
+    color:#06224a;
+    font-size:2rem;
+    margin-bottom:5px;
+}
+
+.page-header p{
+    color:#6b7280;
+}
+
+/* =========================
+   ALERTAS
+========================= */
+
+.alert{
+    padding:15px 20px;
+    border-radius:10px;
+    margin-bottom:20px;
+    font-weight:600;
+}
+
+.alert-success{
+    background:#dcfce7;
+    color:#166534;
+    border-left:5px solid #22c55e;
+}
+
+.alert-danger{
+    background:#fee2e2;
+    color:#991b1b;
+    border-left:5px solid #ef4444;
+}
+
+/* =========================
+   TABELA
+========================= */
+
+.card{
+    overflow:hidden;
+}
+
+table{
+    margin-top:15px;
+}
+
+td{
+    vertical-align:middle;
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.status{
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:.8rem;
+    font-weight:700;
+}
+
+.status.ativo{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.status.inativo{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+/* =========================
+   PERFIL
+========================= */
+
+.perfil-badge{
+    background:#dbeafe;
+    color:#1e40af;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:.8rem;
+    font-weight:700;
+}
+
+/* =========================
+   AÇÕES
+========================= */
+
+.acoes{
+    display:flex;
+    gap:8px;
+    align-items:center;
+}
+
+.acoes form{
+    margin:0;
+    padding:0;
+    background:none;
+    box-shadow:none;
+}
+
+.btn-editar{
+    background:#3b82f6;
+    color:white;
+    text-decoration:none;
+}
+
+.btn-editar:hover{
+    background:#2563eb;
+}
+
+.btn-ativar{
+    background:#22c55e;
+    color:white;
+}
+
+.btn-ativar:hover{
+    background:#16a34a;
+}
+
+.btn-desativar{
+    background:#ef4444;
+    color:white;
+}
+
+.btn-desativar:hover{
+    background:#dc2626;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media (max-width:768px){
+
+    .acoes{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    table{
+        font-size:.9rem;
+    }
+
+}
