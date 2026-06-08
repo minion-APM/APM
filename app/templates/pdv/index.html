@@ -41,7 +41,7 @@
                  data-nome-lower="{{ p.nome.lower() }}"
                  onclick="adicionarAoCarrinho(this)">
 
-                <img src="{{ p.imagem_url if p.imagem_url else '/static/img/sem-foto.png' }}" 
+                <img src="{{ url_for('static', path=p.imagem_path) }}" 
                      onerror="this.src='/static/img/sem-foto.png'; this.onerror=null;">
                 <div class="produto-card-nome">{{ p.nome }}</div>
                 <div class="produto-card-preco">R$ {{ "%.2f"|format(p.preco)|replace('.', ',') }}</div>

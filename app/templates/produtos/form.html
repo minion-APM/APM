@@ -79,14 +79,14 @@
         </label>
 
         {% if editando and editando.imagem_path %}
-            <div>
+            <div class="imagem-atual-container">
                 <p>Imagem atual:</p>
-
                 <img
                     class="preview-img"
-                    src="{{ editando.imagem_url }}"
+                    src="{{ url_for('static', path=editando.imagem_path) }}"
                     alt="{{ editando.nome }}"
                     width="120"
+                    style="object-fit: contain; background: #f9fafb; padding: 5px; border-radius: 6px; border: 1px solid #e5e7eb;"
                 >
             </div>
         {% endif %}
@@ -98,7 +98,7 @@
                 type="file"
                 name="imagem"
                 accept=".jpg,.jpeg,.png,.webp"
-            >
+            >   
         </label>
 
         <div class="form-actions">
