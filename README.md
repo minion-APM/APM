@@ -55,9 +55,30 @@ Implementação do sistema de cadastro de usuários e administrador
 Organização da integração entre front-end, back-end e banco de dados
 
 
-📌 7 - Front-end e Back-end
-Correção de bugs identificados no front-end.
-Ajustes na interface para melhorar o funcionamento do sistema.
-Implementação de novas funcionalidades no back-end.
-Integração e testes entre front-end e back-end.
-Continuação do desenvolvimento e aprimoramento do sistema.
+📌 7 - Desenvolvimento Front-end e Back-end
+
+Correção de bugs identificados durante os testes do sistema.
+
+Ajustes e melhorias na interface do usuário para proporcionar melhor usabilidade e navegação.
+
+Implementação de novas funcionalidades no back-end para ampliar os recursos do sistema.
+
+Integração entre front-end e back-end, garantindo a comunicação correta entre as páginas e as funcionalidades do sistema.
+
+Realização de testes de funcionamento e validação das funcionalidades desenvolvidas.
+
+Continuação do desenvolvimento geral do projeto, com foco em estabilidade e desempenho.
+
+📌 8 - Integração, Dashboard e Interface
+
+Correção e ajuste das rotas do back-end responsáveis pela comunicação com o front-end.
+
+Desenvolvimento da Dashboard utilizando JavaScript, incluindo exibição dinâmica de informações e indicadores do sistema.
+
+Melhorias na página inicial (Index), com ajustes visuais e otimização da experiência do usuário.
+
+Criação e finalização das telas pendentes do sistema.
+
+Correção de erros identificados durante a integração das páginas com o banco de dados e o back-end.
+
+Realização de testes para garantir o funcionamento adequado das novas funcionalidades implementadas.
