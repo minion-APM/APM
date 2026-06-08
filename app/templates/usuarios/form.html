@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+{{ "Editar Usuário" if editando else "Novo Usuário" }}
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', path='css/novo_usuario.css') }}">
+{% endblock %}
+
+{% block conteudo %}
+
+<div class="page-header">
+
+    <div>
+        <h1>
+            {{ "Editar Usuário" if editando else "Novo Usuário" }}
+        </h1>
+
+        <p>
+            {{ "Atualize os dados do usuário" if editando else "Cadastre um novo usuário no sistema" }}
+        </p>
+    </div>
+
+    <a href="/usuarios" class="btn-primary">
+        Voltar
+    </a>
+
+</div>
+
+{% if erro %}
+<div class="alert alert-danger">
+    {{ erro }}
+</div>
+{% endif %}
+
+<div class="usuario-card">
+
+    <h2>
+        {{ "Edição de Usuário" if editando else "Cadastro de Usuário" }}
+    </h2>
+
+    <p>
+        Preencha os dados abaixo.
+    </p>
+
+</div>
+
+<form action="{{ '/usuarios/' + editando.id|string + '/editar' if editando else '/usuarios/novo' }}"
+      method="post">
+
+    <div class="form-grid">
+
+        <div class="form-group">
+
+            <label>Nome Completo</label>
+
+            <input
+                type="text"
+                name="nome"
+                value="{{ editando.nome if editando else (valores.nome if valores else '') }}"
+                required>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>E-mail</label>
+
+            <input
+                type="email"
+                name="email"
+                value="{{ editando.email if editando else (valores.email if valores else '') }}"
+                required>
+
+        </div>
+
+    </div>
+
+    <div class="form-grid">
+
+        <div class="form-group">
+
+            <label>Senha</label>
+
+            <input
+                type="password"
+                name="senha"
+                {% if editando %}
+                    placeholder="Deixe em branco para não alterar"
+                {% else %}
+                    required
+                    minlength="6"
+                {% endif %}
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Perfil de Acesso</label>
+
+            <select name="role">
+
+                <option value="operador"
+                    {{ 'selected' if (editando and editando.role == 'operador') or (valores and valores.role == 'operador') else '' }}>
+                    Operador
+                </option>
+
+                <option value="admin"
+                    {{ 'selected' if (editando and editando.role == 'admin') or (valores and valores.role == 'admin') else '' }}>
+                    Administrador
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+    <div class="form-actions">
+
+        <button type="submit" class="btn-salvar">
+
+            {{ "Salvar Alterações" if editando else "Criar Usuário" }}
+
+        </button>
+
+        <a href="/usuarios" class="btn-voltar">
+            Cancelar
+        </a>
+
+    </div>
+
+</form>
+
+{% endblock %}
