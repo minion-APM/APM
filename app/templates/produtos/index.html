@@ -50,7 +50,7 @@
         {% for p in produtos %}
         <tr>
           <td><img src="{{ url_for('static', path=p.imagem_path) }}" alt="{{ p.nome }}" width="48" height="48" style="object-fit:cover;border-radius:8px"></td>
-          <td><a href="/produtos/{{ p.id }}" style="color:#ff6400;font-weight:500">{{ p.nome }}</a></td>
+          <td class="produto-nome">{{ p.nome }}</td>
           <td>{{ p.categoria.nome if p.categoria else "—" }}</td>
           <td>R$ {{ "%.2f"|format(p.preco) }}</td>
           <td>{{ p.estoque_atual }}</td>
