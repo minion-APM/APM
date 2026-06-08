@@ -10,7 +10,112 @@
 
     {% if erro %}
         <p style="color:red">{{ erro }}</p>
+    {% endif %}{% extends "base.html" %}
+
+{% block titulo %}
+Nova Movimentação | AAPM SENAI
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/movimentacoes-form.css">
+{% endblock %}
+
+{% block conteudo %}
+
+<section class="card form-card">
+
+    <div class="card-header">
+        <h1>Registrar Movimentação</h1>
+    </div>
+
+    {% if erro %}
+    <div class="alert alert-error">
+        {{ erro }}
+    </div>
     {% endif %}
+
+    <form method="POST" class="mov-form">
+
+        <div class="form-group">
+
+            <label>Material</label>
+
+            <select name="material_id" required>
+
+                <option value="">
+                    Selecione um material
+                </option>
+
+                {% for material in materiais %}
+
+                <option value="{{ material.id }}">
+                    {{ material.nome }}
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Tipo da Movimentação</label>
+
+            <select name="tipo" required>
+                <option value="">Selecione</option>
+                <option value="ENTRADA">Entrada</option>
+                <option value="SAIDA">Saída</option>
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Quantidade</label>
+
+            <input
+                type="number"
+                name="quantidade"
+                min="1"
+                required
+            >
+
+        </div>
+
+        <div class="form-group full">
+
+            <label>Observação</label>
+
+            <textarea
+                name="observacao"
+                rows="5"
+                placeholder="Descreva a movimentação..."
+            ></textarea>
+
+        </div>
+
+        <div class="acoes-form">
+
+            <a href="/movimentacoes"
+               class="btn btn-outline">
+                Cancelar
+            </a>
+
+            <button type="submit"
+                    class="btn btn-primary">
+
+                Salvar Movimentação
+
+            </button>
+
+        </div>
+
+    </form>
+
+</section>
+
+{% endblock %}
 
     <form action="/movimentacoes/nova" method="post">
 

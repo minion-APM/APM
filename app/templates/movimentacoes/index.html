@@ -1,91 +1,153 @@
-<!-- templates/movimentacoes/index.html -->
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Movimentações — AAPM SENAI</title>
-</head>
-<body>
-    <h1>Histórico de movimentações</h1>
+{% extends "base.html" %}
 
-    <!-- Filtros -->
-    <form method="get" action="/movimentacoes">
-        <select name="produto_id">
-            <option value="0">Todos os produtos</option>
-            {% for p in produtos %}
-                <option value="{{ p.id }}"
-                    {{ 'selected' if produto_id == p.id else '' }}>
-                    {{ p.nome }}
-                </option>
-            {% endfor %}
-        </select>
+{% block titulo %}
+Movimentações | AAPM SENAI
+{% endblock %}
 
-        <select name="tipo">
-            <option value="">Todos os tipos</option>
-            <option value="entrada" {{ 'selected' if tipo == 'entrada' else '' }}>
-                Entrada
-            </option>
-            <option value="saida" {{ 'selected' if tipo == 'saida' else '' }}>
-                Saída
-            </option>
-        </select>
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/movimentacoes-index.css">
+{% endblock %}
 
-        <button type="submit">Filtrar</button>
+{% block conteudo %}
 
-        {% if produto_id or tipo %}
-            <a href="/movimentacoes">Limpar</a>
-        {% endif %}
-    </form>
+<section class="page-header">
 
-    <a href="/movimentacoes/nova">+ Registrar movimentação</a>
+    <div>
+        <h1>Movimentações de Estoque</h1>
+        <p>
+            Controle de entradas e saídas dos materiais escolares.
+        </p>
+    </div>
 
-    <table border="1" cellpadding="8">
+    <a href="/movimentacoes/nova" class="btn btn-primary">
+        + Nova Movimentação
+    </a>
+
+</section>
+
+<section class="cards-resumo">
+
+    <div class="card resumo-card">
+
+        <div class="resumo-icon">
+            📥
+        </div>
+
+        <h3>Entradas</h3>
+
+        <span class="numero">
+            {{ total_entradas or 0 }}
+        </span>
+
+    </div>
+
+    <div class="card resumo-card">
+
+        <div class="resumo-icon">
+            📤
+        </div>
+
+        <h3>Saídas</h3>
+
+        <span class="numero">
+            {{ total_saidas or 0 }}
+        </span>
+
+    </div>
+
+    <div class="card resumo-card">
+
+        <div class="resumo-icon">
+            📊
+        </div>
+
+        <h3>Movimentações</h3>
+
+        <span class="numero">
+            {{ total_movimentacoes or 0 }}
+        </span>
+
+    </div>
+
+</section>
+
+<section class="card">
+
+    <div class="card-header">
+
+        <h2>Últimas Movimentações</h2>
+
+        <a href="/movimentacoes/historico"
+           class="btn btn-outline">
+            Ver Histórico
+        </a>
+
+    </div>
+
+    <table>
+
         <thead>
+
             <tr>
                 <th>Data</th>
-                <th>Produto</th>
+                <th>Material</th>
                 <th>Tipo</th>
                 <th>Quantidade</th>
-                <th>Preço unit.</th>
-                <th>Total</th>
-                <th>Observação</th>
-                <th>Registrado por</th>
+                <th>Usuário</th>
             </tr>
+
         </thead>
+
         <tbody>
-            {% for m in movimentacoes %}
+
+            {% for mov in movimentacoes %}
+
             <tr>
-                <td>{{ m.criado_em.strftime('%d/%m/%Y %H:%M') }}</td>
+
+                <td>{{ mov.data }}</td>
+
+                <td>{{ mov.material }}</td>
+
                 <td>
-                    <a href="/produtos/{{ m.produto_id }}">
-                        {{ m.produto.nome }}
-                    </a>
-                </td>
-                <td>
-                    {% if m.tipo.value == 'entrada' %}
-                        <span style="color:green">▲ Entrada</span>
+
+                    {% if mov.tipo == 'ENTRADA' %}
+
+                    <span class="badge badge-entrada">
+                        Entrada
+                    </span>
+
                     {% else %}
-                        <span style="color:red">▼ Saída</span>
+
+                    <span class="badge badge-saida">
+                        Saída
+                    </span>
+
                     {% endif %}
+
                 </td>
-                <td>{{ m.quantidade }}</td>
-                <td>R$ {{ "%.2f"|format(m.preco_unitario) }}</td>
-                <td>R$ {{ "%.2f"|format(m.valor_total) }}</td>
-                <td>{{ m.observacao or "—" }}</td>
-                <td>{{ m.usuario.nome if m.usuario else "—" }}</td>
+
+                <td>{{ mov.quantidade }}</td>
+
+                <td>{{ mov.usuario }}</td>
+
             </tr>
+
             {% endfor %}
 
             {% if not movimentacoes %}
+
             <tr>
-                <td colspan="8" style="text-align:center">
+                <td colspan="5" class="empty-table">
                     Nenhuma movimentação encontrada.
                 </td>
             </tr>
+
             {% endif %}
+
         </tbody>
+
     </table>
 
-    <p><a href="/">← Dashboard</a></p>
-</body>
-</html>
+</section>
+
+{% endblock %}
