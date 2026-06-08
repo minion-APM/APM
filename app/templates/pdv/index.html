@@ -70,7 +70,10 @@
                 
                 <!-- O botão renderiza abaixo do select exclusivamente para o Administrador -->
                 {% if usuario and usuario.role == 'admin' %}
-                <button type="button" class="btn-novo-cliente" onclick="abrirModalCadastro()" title="Cadastrar Novo Associado">
+                <button type="button"
+                    class="btn-novo-cliente"
+                    onclick="window.location.href='/clientes/novo'"
+                    title="Cadastrar Novo Associado">
                     Criar Associado
                 </button>
                 {% endif %}
