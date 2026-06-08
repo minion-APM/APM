@@ -4,147 +4,71 @@
 Histórico de Movimentações | AAPM SENAI
 {% endblock %}
 
-{% block extra_css %}
-<link rel="stylesheet" href="/static/css/movimentacoes-historico.css">
-{% endblock %}
-
 {% block conteudo %}
 
-<h1 class="titulo-pagina">
-    Histórico de Movimentações
-</h1>
+<div class="main-content">
 
-<section class="card filtros-card">
+    <!-- HEADER DA PÁGINA -->
+    <div class="page-header">
 
-    <form method="GET"
-          class="filtros-form">
-
-        <div class="filtro-item">
-
-            <label>Material</label>
-
-            <input
-                type="text"
-                name="material"
-                placeholder="Pesquisar material"
-            >
-
+        <div>
+            <h1>Histórico de Movimentações</h1>
+            <p>Controle de entradas e saídas de materiais escolares</p>
         </div>
 
-        <div class="filtro-item">
+        <a href="/movimentacoes/novo" class="btn-primary">
+            Nova Movimentação
+        </a>
 
-            <label>Tipo</label>
+    </div>
 
-            <select name="tipo">
+    <!-- CARD DA TABELA -->
+    <div class="card">
 
-                <option value="">
-                    Todos
-                </option>
+        <table>
 
-                <option value="ENTRADA">
-                    Entrada
-                </option>
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Tipo</th>
+                    <th>Material</th>
+                    <th>Quantidade</th>
+                    <th>Responsável</th>
+                </tr>
+            </thead>
 
-                <option value="SAIDA">
-                    Saída
-                </option>
+            <tbody>
 
-            </select>
+                {% for m in movimentacoes %}
 
-        </div>
+                <tr>
+                    <td>{{ m.data }}</td>
 
-        <div class="filtro-item">
+                    <td>
+                        {% if m.tipo == 'entrada' %}
+                            <span style="color:#16a34a; font-weight:700;">
+                                Entrada
+                            </span>
+                        {% else %}
+                            <span style="color:#dc2626; font-weight:700;">
+                                Saída
+                            </span>
+                        {% endif %}
+                    </td>
 
-            <label>Data Inicial</label>
+                    <td>{{ m.material }}</td>
+                    <td>{{ m.quantidade }}</td>
+                    <td>{{ m.responsavel }}</td>
+                </tr>
 
-            <input
-                type="date"
-                name="data_inicio"
-            >
+                {% endfor %}
 
-        </div>
+            </tbody>
 
-        <div class="filtro-item">
+        </table>
 
-            <label>Data Final</label>
+    </div>
 
-            <input
-                type="date"
-                name="data_fim"
-            >
-
-        </div>
-
-        <button type="submit"
-                class="btn btn-primary">
-
-            Filtrar
-
-        </button>
-
-    </form>
-
-</section>
-
-<section class="card">
-
-    <table>
-
-        <thead>
-
-            <tr>
-                <th>Data</th>
-                <th>Material</th>
-                <th>Tipo</th>
-                <th>Quantidade</th>
-                <th>Usuário</th>
-                <th>Observação</th>
-            </tr>
-
-        </thead>
-
-        <tbody>
-
-            {% for mov in movimentacoes %}
-
-            <tr>
-
-                <td>{{ mov.data }}</td>
-
-                <td>{{ mov.material }}</td>
-
-                <td>
-
-                    {% if mov.tipo == 'ENTRADA' %}
-
-                    <span class="badge badge-entrada">
-                        Entrada
-                    </span>
-
-                    {% else %}
-
-                    <span class="badge badge-saida">
-                        Saída
-                    </span>
-
-                    {% endif %}
-
-                </td>
-
-                <td>{{ mov.quantidade }}</td>
-
-                <td>{{ mov.usuario }}</td>
-
-                <td>{{ mov.observacao }}</td>
-
-            </tr>
-
-            {% endfor %}
-
-        </tbody>
-
-    </table>
-
-</section>
+</div>
 
 {% endblock %}

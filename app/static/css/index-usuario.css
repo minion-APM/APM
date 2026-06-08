@@ -1,120 +1,114 @@
-/* =========================
-   PAGE HEADER
-========================= */
+/* ==================================
+   USUÁRIOS
+================================== */
 
 .page-header{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:30px;
+    margin:20px 0 30px;
 }
 
 .page-header h1{
     color:#06224a;
-    font-size:2rem;
-    font-weight:700;
+    font-size:32px;
+    margin-bottom:4px;
 }
 
 .page-header p{
     color:#6b7280;
-    margin-top:5px;
 }
 
-/* =========================
+/* ==================================
    ALERTAS
-========================= */
+================================== */
 
 .alert{
-    padding:15px 20px;
+    padding:14px 16px;
     border-radius:10px;
     margin-bottom:20px;
-    font-weight:600;
+    font-weight:500;
 }
 
 .alert-success{
     background:#dcfce7;
     color:#166534;
-    border-left:5px solid #22c55e;
+    border-left:4px solid #22c55e;
 }
 
 .alert-danger{
     background:#fee2e2;
     color:#991b1b;
-    border-left:5px solid #ef4444;
+    border-left:4px solid #ef4444;
 }
 
-/* =========================
+/* ==================================
    CARD
-========================= */
+================================== */
 
 .card{
     background:#fff;
-    border-radius:16px;
-    padding:20px;
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
-    border:1px solid #dbe2ea;
+    border-radius:12px;
+    padding:25px;
+    border:1px solid #d9e1ea;
+    box-shadow:0 3px 12px rgba(0,0,0,.05);
 }
 
-/* =========================
+.card-title{
+    color:#06224a;
+    margin-bottom:20px;
+}
+
+/* ==================================
    TABELA
-========================= */
+================================== */
+
+.table-wrapper{
+    overflow-x:auto;
+}
 
 table{
     width:100%;
     border-collapse:collapse;
-    margin-top:15px;
 }
 
 thead{
     background:#06224a;
 }
 
-th{
+thead th{
     color:#f5b400;
-    padding:16px;
+    padding:14px;
     text-align:left;
 }
 
-td{
-    padding:18px 16px;
+tbody td{
+    padding:14px;
     border-bottom:1px solid #e5e7eb;
-}
-
-tbody tr{
-    transition:.2s;
 }
 
 tbody tr:hover{
     background:#f8fafc;
 }
 
-/* =========================
-   PERFIL
-========================= */
+/* ==================================
+   BADGES
+================================== */
 
 .perfil-badge{
     background:#dbeafe;
     color:#1e40af;
     padding:6px 12px;
-    border-radius:20px;
-    font-size:.8rem;
-    font-weight:700;
+    border-radius:999px;
+    font-size:.85rem;
+    font-weight:600;
 }
-
-.perfil-badge.admin{
-    background:#fef3c7;
-    color:#92400e;
-}
-
-/* =========================
-   STATUS
-========================= */
 
 .status{
     padding:6px 12px;
-    border-radius:20px;
-    font-size:.8rem;
-    font-weight:700;
+    border-radius:999px;
+    font-size:.85rem;
+    font-weight:600;
 }
 
 .status.ativo{
@@ -127,67 +121,56 @@ tbody tr:hover{
     color:#991b1b;
 }
 
-/* =========================
+/* ==================================
    AÇÕES
-========================= */
+================================== */
 
 .acoes{
     display:flex;
+    gap:8px;
     align-items:center;
-    gap:10px;
+    flex-wrap:wrap;
 }
 
-/* remove o estilo global do form */
 .acoes form{
-    background:none !important;
-    padding:0 !important;
-    margin:0 !important;
-    box-shadow:none !important;
-    border:none !important;
-    display:inline;
+    margin:0;
+    padding:0;
+    background:none;
+    border:none;
+    box-shadow:none;
 }
 
-/* botão base */
 .btn-editar,
 .btn-desativar,
 .btn-ativar{
     border:none;
     border-radius:8px;
     padding:10px 14px;
-    font-size:.85rem;
+    font-size:13px;
     font-weight:600;
     cursor:pointer;
     text-decoration:none;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    min-width:90px;
-    transition:.2s;
+    display:inline-block;
 }
 
-/* editar */
 .btn-editar{
-    background:#2563eb;
-    color:white;
+    background:#06224a;
+    color:#f5b400;
 }
 
 .btn-editar:hover{
-    background:#1d4ed8;
-    transform:translateY(-2px);
+    background:#0a326a;
 }
 
-/* desativar */
 .btn-desativar{
-    background:#ef4444;
-    color:white;
+    background:#f5b400;
+    color:#06224a;
 }
 
 .btn-desativar:hover{
-    background:#dc2626;
-    transform:translateY(-2px);
+    background:#ffce46;
 }
 
-/* ativar */
 .btn-ativar{
     background:#22c55e;
     color:white;
@@ -195,14 +178,13 @@ tbody tr:hover{
 
 .btn-ativar:hover{
     background:#16a34a;
-    transform:translateY(-2px);
 }
 
-/* =========================
+/* ==================================
    RESPONSIVO
-========================= */
+================================== */
 
-@media (max-width:768px){
+@media(max-width:768px){
 
     .page-header{
         flex-direction:column;
@@ -215,8 +197,21 @@ tbody tr:hover{
         align-items:stretch;
     }
 
-    table{
-        font-size:.9rem;
+    .btn-editar,
+    .btn-desativar,
+    .btn-ativar{
+        width:100%;
+        text-align:center;
     }
-
 }
+
+
+
+
+
+
+
+
+
+
+

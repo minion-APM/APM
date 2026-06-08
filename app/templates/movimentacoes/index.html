@@ -1,153 +1,55 @@
 {% extends "base.html" %}
 
 {% block titulo %}
-Movimentações | AAPM SENAI
-{% endblock %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="/static/css/movimentacoes-index.css">
+Histórico de Movimentações | AAPM SENAI
 {% endblock %}
 
 {% block conteudo %}
 
-<section class="page-header">
+<div class="main-content">
 
-    <div>
-        <h1>Movimentações de Estoque</h1>
-        <p>
-            Controle de entradas e saídas dos materiais escolares.
-        </p>
-    </div>
-
-    <a href="/movimentacoes/nova" class="btn btn-primary">
-        + Nova Movimentação
-    </a>
-
-</section>
-
-<section class="cards-resumo">
-
-    <div class="card resumo-card">
-
-        <div class="resumo-icon">
-            📥
+    <div class="page-header">
+        <div>
+            <h1>Histórico de Movimentações</h1>
+            <p>Entradas e saídas de materiais</p>
         </div>
 
-        <h3>Entradas</h3>
-
-        <span class="numero">
-            {{ total_entradas or 0 }}
-        </span>
-
-    </div>
-
-    <div class="card resumo-card">
-
-        <div class="resumo-icon">
-            📤
-        </div>
-
-        <h3>Saídas</h3>
-
-        <span class="numero">
-            {{ total_saidas or 0 }}
-        </span>
-
-    </div>
-
-    <div class="card resumo-card">
-
-        <div class="resumo-icon">
-            📊
-        </div>
-
-        <h3>Movimentações</h3>
-
-        <span class="numero">
-            {{ total_movimentacoes or 0 }}
-        </span>
-
-    </div>
-
-</section>
-
-<section class="card">
-
-    <div class="card-header">
-
-        <h2>Últimas Movimentações</h2>
-
-        <a href="/movimentacoes/historico"
-           class="btn btn-outline">
-            Ver Histórico
+        <a href="/movimentacoes/novo" class="btn-primary">
+            Nova Movimentação
         </a>
-
     </div>
 
+    <!-- TABELA -->
     <table>
 
         <thead>
-
             <tr>
                 <th>Data</th>
-                <th>Material</th>
                 <th>Tipo</th>
+                <th>Material</th>
                 <th>Quantidade</th>
-                <th>Usuário</th>
+                <th>Responsável</th>
             </tr>
-
         </thead>
 
         <tbody>
 
-            {% for mov in movimentacoes %}
+            {% for m in movimentacoes %}
 
             <tr>
-
-                <td>{{ mov.data }}</td>
-
-                <td>{{ mov.material }}</td>
-
-                <td>
-
-                    {% if mov.tipo == 'ENTRADA' %}
-
-                    <span class="badge badge-entrada">
-                        Entrada
-                    </span>
-
-                    {% else %}
-
-                    <span class="badge badge-saida">
-                        Saída
-                    </span>
-
-                    {% endif %}
-
-                </td>
-
-                <td>{{ mov.quantidade }}</td>
-
-                <td>{{ mov.usuario }}</td>
-
+                <td>{{ m.data }}</td>
+                <td>{{ m.tipo }}</td>
+                <td>{{ m.material }}</td>
+                <td>{{ m.quantidade }}</td>
+                <td>{{ m.responsavel }}</td>
             </tr>
 
             {% endfor %}
-
-            {% if not movimentacoes %}
-
-            <tr>
-                <td colspan="5" class="empty-table">
-                    Nenhuma movimentação encontrada.
-                </td>
-            </tr>
-
-            {% endif %}
 
         </tbody>
 
     </table>
 
-</section>
+</div>
 
 {% endblock %}
