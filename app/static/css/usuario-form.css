@@ -1,0 +1,141 @@
+/* ==========================================
+   CONTAINER DA PÁGINA
+========================================== */
+
+.form-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 32px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================
+   TÍTULO
+========================================== */
+
+.form-title {
+    margin-bottom: 24px;
+    font-family: "Barlow Condensed", sans-serif;
+    font-size: 2rem;
+    color: #1f2937;
+}
+
+/* ==========================================
+   MENSAGEM DE ERRO
+========================================== */
+
+.erro {
+    background: #fee2e2;
+    color: #b91c1c;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* ==========================================
+   FORMULÁRIO
+========================================== */
+
+.usuario-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* ==========================================
+   LABELS
+========================================== */
+
+.usuario-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-weight: 600;
+    color: #374151;
+}
+
+/* ==========================================
+   INPUTS E SELECT
+========================================== */
+
+.usuario-form input,
+.usuario-form select {
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: inherit;
+    color: #111827;
+    background: #fff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.usuario-form input:focus,
+.usuario-form select:focus {
+    outline: none;
+    border-color: #06224a;
+    box-shadow: 0 0 0 3px rgba(6, 34, 74, 0.12);
+}
+
+/* Input de senha — fonte mono pra ficar legível */
+.usuario-form input[type="password"] {
+    font-family: monospace;
+    letter-spacing: 0.1em;
+}
+
+/* ==========================================
+   ÁREA DOS BOTÕES
+========================================== */
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+/* ==========================================
+   BOTÃO SALVAR
+========================================== */
+
+.btn-salvar {
+    background: #06224a;
+    color: #f5b400;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    font-family: inherit;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-salvar:hover {
+    background: #004085;
+}
+
+.btn-salvar:active {
+    transform: scale(0.98);
+}
+
+/* ==========================================
+   BOTÃO CANCELAR
+========================================== */
+
+.btn-cancelar {
+    background: #e5e7eb;
+    color: #111827;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-cancelar:hover {
+    background: #d1d5db;
+    text-decoration: none;
+}

@@ -1,133 +1,63 @@
-
-
 {% extends "base.html" %}
-
-{% block titulo %}
-Usuários
-{% endblock %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="/static/css/usuarios.css">
-{% endblock %}
+{% block titulo %}Usuários — AAPM SENAI{% endblock %}
 
 {% block conteudo %}
-
 <div class="page-header">
-
-    <div>
-        <h1>Usuários do Sistema</h1>
-        <p>Gerenciamento de contas e permissões</p>
-    </div>
-
-    <a href="/usuarios/novo" class="btn-primary">
-        + Novo Usuário
-    </a>
-
+  <div>
+    <h1 class="page-title">Usuários</h1>
+    <p class="page-subtitle">Gerencie os usuários do sistema</p>
+  </div>
+  <a href="/usuarios/novo" class="btn-primary">+ Novo usuário</a>
 </div>
 
 {% if request.query_params.get('criado') == 'ok' %}
-<div class="alert alert-success">
-    Usuário criado com sucesso!
-</div>
+  <div class="alert alert--success"><span class="alert-icon">✓</span> Usuário criado com sucesso!</div>
 {% endif %}
-
 {% if request.query_params.get('editado') == 'ok' %}
-<div class="alert alert-success">
-    Usuário atualizado com sucesso!
-</div>
+  <div class="alert alert--success"><span class="alert-icon">✓</span> Usuário atualizado com sucesso!</div>
 {% endif %}
-
 {% if request.query_params.get('erro') == 'autoproprio' %}
-<div class="alert alert-danger">
-    Você não pode desativar sua própria conta.
-</div>
+  <div class="alert alert--danger"><span class="alert-icon">✕</span> Você não pode desativar sua própria conta.</div>
 {% endif %}
 
 <div class="card">
-
-    <h2 class="card-title">
-        Lista de Usuários
-    </h2>
-
-    <div class="table-wrapper">
-
-        <table>
-
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>E-mail</th>
-                    <th>Perfil</th>
-                    <th>Status</th>
-                    <th width="220">Ações</th>
-                </tr>
-            </thead>
-
-            <tbody>
-
-                {% for u in usuarios %}
-                <tr>
-
-                    <td>{{ u.nome }}</td>
-
-                    <td>{{ u.email }}</td>
-
-                    <td>
-                        <span class="perfil-badge">
-                            {{ u.role }}
-                        </span>
-                    </td>
-
-                    <td>
-                        {% if u.ativo %}
-                            <span class="status ativo">Ativo</span>
-                        {% else %}
-                            <span class="status inativo">Inativo</span>
-                        {% endif %}
-                    </td>
-
-                    <td>
-
-                        <div class="acoes">
-
-                            <a href="/usuarios/{{ u.id }}/editar"
-                               class="btn-editar">
-                                Editar
-                            </a>
-
-                            <form
-                                action="/usuarios/{{ u.id }}/toggle-ativo"
-                                method="post">
-
-                                {% if u.ativo %}
-                                <button
-                                    type="submit"
-                                    class="btn-desativar">
-                                    Desativar
-                                </button>
-                                {% else %}
-                                <button
-                                    type="submit"
-                                    class="btn-ativar">
-                                    Ativar
-                                </button>
-                                {% endif %}
-
-                            </form>
-
-                        </div>
-
-                    </td>
-
-                </tr>
-                {% endfor %}
-
-            </tbody>
-
-        </table>
-
-    </div>
-
+  <div class="table-wrapper">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>E-mail</th>
+          <th>Perfil</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for u in usuarios %}
+        <tr>
+          <td>{{ u.nome }}</td>
+          <td>{{ u.email }}</td>
+          <td>{{ u.role }}</td>
+          <td>
+            <span class="status-badge status-badge--{{ 'ativo' if u.ativo else 'inativo' }}">
+              {{ "Ativo" if u.ativo else "Inativo" }}
+            </span>
+          </td>
+          <td class="td-actions">
+            <a href="/usuarios/{{ u.id }}/editar" class="btn-table">Editar</a>
+            <form action="/usuarios/{{ u.id }}/toggle-ativo" method="post" style="display:inline;">
+              <button type="submit" class="btn-table btn-table--warn">
+                {{ "Desativar" if u.ativo else "Ativar" }}
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+        {% if not usuarios %}
+        <tr><td colspan="5" style="text-align:center;color:#718096">Nenhum usuário cadastrado.</td></tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
 </div>
-
 {% endblock %}

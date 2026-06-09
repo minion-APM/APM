@@ -1,217 +1,235 @@
-/* ==================================
-   USUÁRIOS
-================================== */
+/* ==========================================
+   AÇÕES (CORREÇÃO DE LAYOUT)
+========================================== */
 
-.page-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin:20px 0 30px;
+.td-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
 }
 
-.page-header h1{
-    color:#06224a;
-    font-size:32px;
-    margin-bottom:4px;
+/* Isola e reseta o formulário dentro da tabela */
+.td-actions form {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    display: inline-flex !important;
 }
 
-.page-header p{
-    color:#6b7280;
+/* ==========================================
+   BOTÕES DA TABELA
+========================================== */
+
+.btn-table {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 90px;
+    height: 34px;
+    padding: 0 14px;
+
+    border: 1px solid transparent;
+    border-radius: 6px;
+
+    background: #06224a;
+    color: #f5b400 !important;
+
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-/* ==================================
+.btn-table:hover {
+    background: #004085;
+    text-decoration: none;
+}
+
+/* BOTÃO DESATIVAR / ATIVAR */
+.btn-table--warn {
+    background: #f5b400 !important;
+    color: #06224a !important;
+    border: 1px solid rgba(245, 180, 0, 0.4) !important;
+}
+
+.btn-table--warn:hover {
+    background: #ffce46 !important;
+    color: #06224a !important;
+}
+
+.btn-table:active {
+    transform: scale(0.98);
+}
+
+/* ==========================================
+   STATUS BADGE
+========================================== */
+
+.status-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-badge--ativo {
+    background: rgba(34, 139, 34, 0.12);
+    color: #2e7d32;
+    border: 1px solid rgba(34, 139, 34, 0.25);
+}
+
+.status-badge--inativo {
+    background: rgba(0, 0, 0, 0.06);
+    color: #718096;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+/* ==========================================
    ALERTAS
-================================== */
+========================================== */
 
-.alert{
-    padding:14px 16px;
-    border-radius:10px;
-    margin-bottom:20px;
-    font-weight:500;
+.alert {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 16px;
 }
 
-.alert-success{
-    background:#dcfce7;
-    color:#166534;
-    border-left:4px solid #22c55e;
+.alert-icon {
+    font-size: 13px;
+    font-weight: 700;
 }
 
-.alert-danger{
-    background:#fee2e2;
-    color:#991b1b;
-    border-left:4px solid #ef4444;
+.alert--success {
+    background: rgba(34, 139, 34, 0.08);
+    border: 1px solid rgba(34, 139, 34, 0.25);
+    color: #2e7d32;
 }
 
-/* ==================================
-   CARD
-================================== */
-
-.card{
-    background:#fff;
-    border-radius:12px;
-    padding:25px;
-    border:1px solid #d9e1ea;
-    box-shadow:0 3px 12px rgba(0,0,0,.05);
+.alert--danger {
+    background: rgba(220, 53, 69, 0.08);
+    border: 1px solid rgba(220, 53, 69, 0.25);
+    color: #c0392b;
 }
 
-.card-title{
-    color:#06224a;
-    margin-bottom:20px;
-}
-
-/* ==================================
+/* ==========================================
    TABELA
-================================== */
+========================================== */
 
-.table-wrapper{
-    overflow-x:auto;
+.table-wrapper {
+    overflow-x: auto;
 }
 
-table{
-    width:100%;
-    border-collapse:collapse;
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
 }
 
-thead{
-    background:#06224a;
+.table thead {
+    background: #f8f9fa;
 }
 
-thead th{
-    color:#f5b400;
-    padding:14px;
-    text-align:left;
+.table th {
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #718096;
+    border-bottom: 1px solid #e2e8f0;
+    white-space: nowrap;
 }
 
-tbody td{
-    padding:14px;
-    border-bottom:1px solid #e5e7eb;
+.table td {
+    padding: 13px 16px;
+    border-bottom: 1px solid #f0f2f5;
+    color: #2d3748;
+    vertical-align: middle;
 }
 
-tbody tr:hover{
-    background:#f8fafc;
+.table tbody tr:last-child td {
+    border-bottom: none;
 }
 
-/* ==================================
-   BADGES
-================================== */
-
-.perfil-badge{
-    background:#dbeafe;
-    color:#1e40af;
-    padding:6px 12px;
-    border-radius:999px;
-    font-size:.85rem;
-    font-weight:600;
+.table tbody tr:hover {
+    background: #f8faff;
 }
 
-.status{
-    padding:6px 12px;
-    border-radius:999px;
-    font-size:.85rem;
-    font-weight:600;
+/* ==========================================
+   CARD
+========================================== */
+
+.card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
 }
 
-.status.ativo{
-    background:#dcfce7;
-    color:#166534;
+/* ==========================================
+   PAGE HEADER
+========================================== */
+
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
-.status.inativo{
-    background:#fee2e2;
-    color:#991b1b;
+.page-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #06224a;
+    margin: 0;
 }
 
-/* ==================================
-   AÇÕES
-================================== */
-
-.acoes{
-    display:flex;
-    gap:8px;
-    align-items:center;
-    flex-wrap:wrap;
+.page-subtitle {
+    font-size: 13px;
+    color: #718096;
+    margin-top: 2px;
 }
 
-.acoes form{
-    margin:0;
-    padding:0;
-    background:none;
-    border:none;
-    box-shadow:none;
+/* ==========================================
+   BOTÃO PRIMÁRIO
+========================================== */
+
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    padding: 0 18px;
+    background: #06224a;
+    color: #f5b400 !important;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-.btn-editar,
-.btn-desativar,
-.btn-ativar{
-    border:none;
-    border-radius:8px;
-    padding:10px 14px;
-    font-size:13px;
-    font-weight:600;
-    cursor:pointer;
-    text-decoration:none;
-    display:inline-block;
+.btn-primary:hover {
+    background: #004085;
+    text-decoration: none;
 }
 
-.btn-editar{
-    background:#06224a;
-    color:#f5b400;
+.btn-primary:active {
+    transform: scale(0.98);
 }
-
-.btn-editar:hover{
-    background:#0a326a;
-}
-
-.btn-desativar{
-    background:#f5b400;
-    color:#06224a;
-}
-
-.btn-desativar:hover{
-    background:#ffce46;
-}
-
-.btn-ativar{
-    background:#22c55e;
-    color:white;
-}
-
-.btn-ativar:hover{
-    background:#16a34a;
-}
-
-/* ==================================
-   RESPONSIVO
-================================== */
-
-@media(max-width:768px){
-
-    .page-header{
-        flex-direction:column;
-        align-items:flex-start;
-        gap:15px;
-    }
-
-    .acoes{
-        flex-direction:column;
-        align-items:stretch;
-    }
-
-    .btn-editar,
-    .btn-desativar,
-    .btn-ativar{
-        width:100%;
-        text-align:center;
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
