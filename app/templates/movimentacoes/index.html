@@ -1,55 +1,88 @@
 {% extends "base.html" %}
+{% block titulo %}Movimentações — AAPM SENAI{% endblock %}
 
-{% block titulo %}
-Histórico de Movimentações | AAPM SENAI
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/movimnetacoes-index.css">
 {% endblock %}
 
 {% block conteudo %}
-
-<div class="main-content">
-
-    <div class="page-header">
-        <div>
-            <h1>Histórico de Movimentações</h1>
-            <p>Entradas e saídas de materiais</p>
-        </div>
-
-        <a href="/movimentacoes/novo" class="btn-primary">
-            Nova Movimentação
-        </a>
-    </div>
-
-    <!-- TABELA -->
-    <table>
-
-        <thead>
-            <tr>
-                <th>Data</th>
-                <th>Tipo</th>
-                <th>Material</th>
-                <th>Quantidade</th>
-                <th>Responsável</th>
-            </tr>
-        </thead>
-
-        <tbody>
-
-            {% for m in movimentacoes %}
-
-            <tr>
-                <td>{{ m.data }}</td>
-                <td>{{ m.tipo }}</td>
-                <td>{{ m.material }}</td>
-                <td>{{ m.quantidade }}</td>
-                <td>{{ m.responsavel }}</td>
-            </tr>
-
-            {% endfor %}
-
-        </tbody>
-
-    </table>
-
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Histórico de movimentações</h1>
+    <p class="page-subtitle">Entradas e saídas de materiais</p>
+  </div>
+  <a href="/movimentacoes/nova" class="btn-primary">+ Registrar movimentação</a>
 </div>
 
+<!-- FILTROS -->
+<form class="filtros-form" method="get" action="/movimentacoes">
+  <select name="produto_id" class="filtro-select">
+    <option value="0">Todos os produtos</option>
+    {% for p in produtos %}
+      <option value="{{ p.id }}" {{ 'selected' if produto_id == p.id else '' }}>
+        {{ p.nome }}
+      </option>
+    {% endfor %}
+  </select>
+
+  <select name="tipo" class="filtro-select">
+    <option value="">Todos os tipos</option>
+    <option value="entrada" {{ 'selected' if tipo == 'entrada' else '' }}>Entrada</option>
+    <option value="saida" {{ 'selected' if tipo == 'saida' else '' }}>Saída</option>
+  </select>
+
+  <button type="submit" class="btn-filtrar">Filtrar</button>
+
+  {% if produto_id or tipo %}
+    <a href="/movimentacoes" class="btn-limpar">Limpar</a>
+  {% endif %}
+</form>
+
+<div class="card">
+  <div class="table-wrapper">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Produto</th>
+          <th>Tipo</th>
+          <th>Quantidade</th>
+          <th>Preço unit.</th>
+          <th>Total</th>
+          <th>Observação</th>
+          <th>Registrado por</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for m in movimentacoes %}
+        <tr>
+          <td>{{ m.criado_em.strftime('%d/%m/%Y %H:%M') }}</td>
+          <td>
+            <a href="/produtos/{{ m.produto_id }}" class="link-produto">
+              {{ m.produto.nome }}
+            </a>
+          </td>
+          <td>
+            <span class="status-badge status-badge--{{ m.tipo.value }}">
+              {{ "▲ Entrada" if m.tipo.value == 'entrada' else "▼ Saída" }}
+            </span>
+          </td>
+          <td>{{ m.quantidade }}</td>
+          <td>R$ {{ "%.2f"|format(m.preco_unitario) }}</td>
+          <td>R$ {{ "%.2f"|format(m.valor_total) }}</td>
+          <td>{{ m.observacao or "—" }}</td>
+          <td>{{ m.usuario.nome if m.usuario else "—" }}</td>
+        </tr>
+        {% endfor %}
+        {% if not movimentacoes %}
+        <tr>
+          <td colspan="8" style="text-align:center;color:#718096">Nenhuma movimentação encontrada.</td>
+        </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<a href="/" class="back-link">← Dashboard</a>
 {% endblock %}

@@ -1,74 +1,52 @@
 {% extends "base.html" %}
+{% block titulo %}Histórico de Movimentações — AAPM SENAI{% endblock %}
 
-{% block titulo %}
-Histórico de Movimentações | AAPM SENAI
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/movimentacoes-historico.css">
 {% endblock %}
 
 {% block conteudo %}
-
-<div class="main-content">
-
-    <!-- HEADER DA PÁGINA -->
-    <div class="page-header">
-
-        <div>
-            <h1>Histórico de Movimentações</h1>
-            <p>Controle de entradas e saídas de materiais escolares</p>
-        </div>
-
-        <a href="/movimentacoes/novo" class="btn-primary">
-            Nova Movimentação
-        </a>
-
-    </div>
-
-    <!-- CARD DA TABELA -->
-    <div class="card">
-
-        <table>
-
-            <thead>
-                <tr>
-                    <th>Data</th>
-                    <th>Tipo</th>
-                    <th>Material</th>
-                    <th>Quantidade</th>
-                    <th>Responsável</th>
-                </tr>
-            </thead>
-
-            <tbody>
-
-                {% for m in movimentacoes %}
-
-                <tr>
-                    <td>{{ m.data }}</td>
-
-                    <td>
-                        {% if m.tipo == 'entrada' %}
-                            <span style="color:#16a34a; font-weight:700;">
-                                Entrada
-                            </span>
-                        {% else %}
-                            <span style="color:#dc2626; font-weight:700;">
-                                Saída
-                            </span>
-                        {% endif %}
-                    </td>
-
-                    <td>{{ m.material }}</td>
-                    <td>{{ m.quantidade }}</td>
-                    <td>{{ m.responsavel }}</td>
-                </tr>
-
-                {% endfor %}
-
-            </tbody>
-
-        </table>
-
-    </div>
-
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Histórico de Movimentações</h1>
+    <p class="page-subtitle">Controle de entradas e saídas de materiais escolares</p>
+  </div>
+  <a href="/movimentacoes/nova" class="btn-primary">+ Nova movimentação</a>
 </div>
 
+<div class="card">
+  <div class="table-wrapper">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Tipo</th>
+          <th>Material</th>
+          <th>Quantidade</th>
+          <th>Responsável</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for m in movimentacoes %}
+        <tr>
+          <td>{{ m.data }}</td>
+          <td>
+            <span class="status-badge status-badge--{{ 'entrada' if m.tipo == 'entrada' else 'saida' }}">
+              {{ "▲ Entrada" if m.tipo == 'entrada' else "▼ Saída" }}
+            </span>
+          </td>
+          <td>{{ m.material }}</td>
+          <td>{{ m.quantidade }}</td>
+          <td>{{ m.responsavel }}</td>
+        </tr>
+        {% endfor %}
+        {% if not movimentacoes %}
+        <tr>
+          <td colspan="5" style="text-align:center;color:#718096">Nenhuma movimentação registrada.</td>
+        </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</div>
 {% endblock %}

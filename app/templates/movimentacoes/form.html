@@ -1,44 +1,140 @@
 {% extends "base.html" %}
+{% block titulo %}Nova Movimentação — AAPM SENAI{% endblock %}
 
-{% block titulo %}
-Nova Movimentação | AAPM SENAI
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/movimentacoes-form.css">
 {% endblock %}
 
 {% block conteudo %}
+<div class="form-container">
 
-<div class="main-content">
+  <h1 class="form-title">Registrar movimentação</h1>
 
-    <div class="page-header">
-        <h1>Nova Movimentação</h1>
+  {% if erro %}
+    <div class="erro">{{ erro }}</div>
+  {% endif %}
+
+  <form class="movimentacao-form" action="/movimentacoes/nova" method="post">
+
+    <label>
+      Produto
+      <select name="produto_id" id="select-produto" required>
+        <option value="">Selecione...</option>
+        {% for p in produtos %}
+          <option
+            value="{{ p.id }}"
+            data-estoque="{{ p.estoque_atual }}"
+            data-preco="{{ p.preco }}"
+            {{ 'selected' if produto_id == p.id else '' }}
+          >
+            {{ p.nome }} — estoque: {{ p.estoque_atual }}
+          </option>
+        {% endfor %}
+      </select>
+    </label>
+
+    <div id="info-estoque" class="info-box" style="display:none">
+      Estoque atual: <strong id="valor-estoque">0</strong>
     </div>
 
-    <form method="POST">
+    <label>
+      Tipo
+      <select name="tipo" id="select-tipo" required>
+        <option value="">Selecione...</option>
+        {% for t in tipos %}
+          <option value="{{ t.value }}">
+            {{ "▲ Entrada" if t.value == 'entrada' else "▼ Saída" }}
+          </option>
+        {% endfor %}
+      </select>
+    </label>
 
-        <label>Tipo de Movimentação</label>
-        <select name="tipo" required>
-            <option value="">Selecione</option>
-            <option value="entrada">Entrada</option>
-            <option value="saida">Saída</option>
-        </select>
+    <label>
+      Quantidade
+      <input
+        type="number"
+        name="quantidade"
+        id="input-quantidade"
+        min="1"
+        required
+      >
+    </label>
 
-        <label>Material</label>
-        <input type="text" name="material" required>
+    <label>
+      Preço unitário (R$)
+      <input
+        type="number"
+        name="preco_unitario"
+        id="input-preco"
+        step="0.01"
+        min="0"
+        required
+      >
+    </label>
 
-        <label>Quantidade</label>
-        <input type="number" name="quantidade" required>
+    <div id="info-subtotal" class="info-box info-box--destaque" style="display:none">
+      Subtotal: <strong id="valor-subtotal">R$ 0,00</strong>
+    </div>
 
-        <label>Responsável</label>
-        <input type="text" name="responsavel" required>
+    <label>
+      Observação <span class="label-opcional">(opcional)</span>
+      <input
+        type="text"
+        name="observacao"
+        maxlength="255"
+        placeholder="Ex: Compra fornecedor X, Venda balcão..."
+      >
+    </label>
 
-        <label>Observação</label>
-        <textarea name="observacao"></textarea>
+    <div class="form-actions">
+      <button type="submit" class="btn-salvar">Registrar</button>
+      <a href="/movimentacoes" class="btn-cancelar">Cancelar</a>
+    </div>
 
-        <button type="submit" class="btn-primary">
-            Salvar Movimentação
-        </button>
-
-    </form>
-
+  </form>
 </div>
 
+<script>
+  const selectProduto   = document.getElementById('select-produto');
+  const inputQuantidade = document.getElementById('input-quantidade');
+  const inputPreco      = document.getElementById('input-preco');
+  const infoEstoque     = document.getElementById('info-estoque');
+  const valorEstoque    = document.getElementById('valor-estoque');
+  const infoSubtotal    = document.getElementById('info-subtotal');
+  const valorSubtotal   = document.getElementById('valor-subtotal');
+
+  selectProduto.addEventListener('change', function () {
+    const option = this.options[this.selectedIndex];
+    const estoque = option.dataset.estoque;
+    const preco   = option.dataset.preco;
+
+    if (estoque !== undefined) {
+      valorEstoque.textContent = estoque;
+      infoEstoque.style.display = 'block';
+      inputPreco.value = parseFloat(preco).toFixed(2);
+    } else {
+      infoEstoque.style.display = 'none';
+    }
+
+    atualizarSubtotal();
+  });
+
+  function atualizarSubtotal() {
+    const qtd   = parseFloat(inputQuantidade.value) || 0;
+    const preco = parseFloat(inputPreco.value) || 0;
+    const total = qtd * preco;
+
+    if (qtd > 0 && preco > 0) {
+      valorSubtotal.textContent = total.toLocaleString('pt-BR', {
+        style: 'currency', currency: 'BRL'
+      });
+      infoSubtotal.style.display = 'block';
+    } else {
+      infoSubtotal.style.display = 'none';
+    }
+  }
+
+  inputQuantidade.addEventListener('input', atualizarSubtotal);
+  inputPreco.addEventListener('input', atualizarSubtotal);
+</script>
 {% endblock %}

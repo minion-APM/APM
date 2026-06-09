@@ -53,69 +53,6 @@
 }
 
 /* ==========================================
-   FILTROS
-========================================== */
-
-.filtros-form {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-    padding: 14px 16px;
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 10px;
-}
-
-.filtro-select {
-    padding: 8px 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 7px;
-    font-size: 13px;
-    font-family: inherit;
-    color: #374151;
-    background: #fff;
-    cursor: pointer;
-    transition: border-color 0.2s;
-}
-
-.filtro-select:focus {
-    outline: none;
-    border-color: #06224a;
-}
-
-.btn-filtrar {
-    height: 34px;
-    padding: 0 16px;
-    background: #06224a;
-    color: #f5b400;
-    border: none;
-    border-radius: 7px;
-    font-size: 13px;
-    font-weight: 600;
-    font-family: inherit;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.btn-filtrar:hover {
-    background: #004085;
-}
-
-.btn-limpar {
-    font-size: 13px;
-    color: #718096;
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.btn-limpar:hover {
-    color: #c0392b;
-    text-decoration: underline;
-}
-
-/* ==========================================
    CARD
 ========================================== */
 
@@ -194,36 +131,4 @@
     background: rgba(220, 53, 69, 0.08);
     color: #c0392b;
     border: 1px solid rgba(220, 53, 69, 0.25);
-}
-
-/* ==========================================
-   LINK PRODUTO
-========================================== */
-
-.link-produto {
-    color: #06224a;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.link-produto:hover {
-    color: #f5b400;
-    text-decoration: underline;
-}
-
-/* ==========================================
-   VOLTAR
-========================================== */
-
-.back-link {
-    display: inline-block;
-    margin-top: 16px;
-    font-size: 13px;
-    color: #718096;
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.back-link:hover {
-    color: #06224a;
 }
