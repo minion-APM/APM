@@ -110,8 +110,8 @@
 }
 
 .btn-salvar {
-    background: #06224a;
-    color: #f5b400;
+    background: #f5b400;
+    color: #06224a;
     border: none;
     padding: 12px 20px;
     border-radius: 8px;
@@ -123,7 +123,7 @@
 }
 
 .btn-salvar:hover {
-    background: #004085;
+    background: #ffce46;
 }
 
 .btn-salvar:active {

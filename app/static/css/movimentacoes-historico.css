@@ -34,8 +34,8 @@
     justify-content: center;
     height: 38px;
     padding: 0 18px;
-    background: #06224a;
-    color: #f5b400 !important;
+    background: #f5b400;
+    color: #06224a !important;
     text-decoration: none;
     border-radius: 8px;
     font-size: 13px;
@@ -44,7 +44,7 @@
 }
 
 .btn-primary:hover {
-    background: #004085;
+    background: #ffce46;
     text-decoration: none;
 }
 
