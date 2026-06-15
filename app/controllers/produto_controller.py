@@ -149,7 +149,7 @@ def detalhe_produto(
 
     return templates.TemplateResponse(
         request,
-        "produtos/detalhe.html",
+        "produtos/index.html",
         {"request": request, "usuario": usuario, "produto": produto}
     )
 
@@ -199,7 +199,6 @@ async def editar_produto(
     if not editando:
         return RedirectResponse(url="/produtos", status_code=302)
 
-    # Verifica conflito de nome com outro produto
     conflito = db.query(Produto).filter(
         Produto.nome.ilike(nome),
         Produto.id != produto_id
@@ -219,10 +218,9 @@ async def editar_produto(
             status_code=400
         )
 
-    # Processa nova imagem — só substitui se um arquivo foi enviado
     nova_imagem_path = await _salvar_imagem(imagem)
+
     if nova_imagem_path:
-        # Remove a imagem antiga do disco para não acumular arquivos
         _remover_imagem(editando.imagem_path)
         editando.imagem_path = nova_imagem_path
 
@@ -233,7 +231,7 @@ async def editar_produto(
 
     db.commit()
 
-    return RedirectResponse(url=f"/produtos/{produto_id}?editado=ok", status_code=302)
+    return RedirectResponse(url="/produtos?editado=ok", status_code=302)
 
 
 # ============================================================
