@@ -31,7 +31,7 @@ def listar_usuarios(
         "usuarios/index.html",
         {
             "request": request,
-            "admin": admin,
+            "usuario": admin,
             "usuarios": usuarios
 
         }
