@@ -128,7 +128,7 @@ async def criar_produto(
     db.add(produto)
     db.commit()
 
-    return RedirectResponse(url="/produtos?criado=ok", status_code=302)
+    return RedirectResponse(url="/produtos", status_code=302)
 
 
 # DETALHE
@@ -233,7 +233,7 @@ async def editar_produto(
 
     db.commit()
 
-    return RedirectResponse(url=f"/produtos/{produto_id}?editado=ok", status_code=302)
+    return RedirectResponse(url=f"/produtos", status_code=302)
 
 
 # ============================================================
@@ -252,7 +252,7 @@ def desativar_produto(
         produto.ativo = False
         db.commit()
 
-    return RedirectResponse(url="/produtos?desativado=ok", status_code=302)
+    return RedirectResponse(url="/produtos", status_code=302)
 
 
 # ============================================================
