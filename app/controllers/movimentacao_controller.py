@@ -198,7 +198,7 @@ def registrar_movimentacao(
     db.commit()  # salva produto (estoque) + movimentação juntos
 
     return RedirectResponse(
-        url=f"/produtos/{produto_id}?movimentacao=ok",
+        url=f"/produtos",
         status_code=302
     )
 
