@@ -1,24 +1,24 @@
 {% extends "base.html" %}
 {% block titulo %}Produtos — AAPM SENAI{% endblock %}
-
 {% block conteudo %}
 <div class="page-header">
   <div>
     <h1 class="page-title">Produtos</h1>
     <p class="page-subtitle">Consulte e gerencie o estoque</p>
   </div>
-  {% if usuario.role == 'admin' %}
+  {% if usuario['role'] == 'admin' %}
     <a href="/produtos/novo" class="btn-primary">+ Novo produto</a>
   {% endif %}
 </div>
-
 {% if request.query_params.get('criado') == 'ok' %}
   <div class="alert alert--success"><span class="alert-icon">✓</span> Produto criado com sucesso!</div>
 {% endif %}
 {% if request.query_params.get('desativado') == 'ok' %}
   <div class="alert alert--success"><span class="alert-icon">✓</span> Produto desativado.</div>
 {% endif %}
-
+{% if request.query_params.get('ativado') == 'ok' %}
+  <div class="alert alert--success"><span class="alert-icon">✓</span> Produto ativado.</div>
+{% endif %}
 <div class="card">
   <form method="get" action="/produtos" style="display:flex;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap">
     <input type="text" name="busca" class="form-input" placeholder="Buscar por nome..." value="{{ busca }}" style="flex:1;min-width:200px">
@@ -33,7 +33,6 @@
       <a href="/produtos" class="btn-outline">Limpar</a>
     {% endif %}
   </form>
-
   <div class="table-wrapper">
     <table class="table">
       <thead>
@@ -43,7 +42,9 @@
           <th>Categoria</th>
           <th>Preço</th>
           <th>Estoque</th>
-          <th>Ações</th>
+          {% if usuario['role'] == 'admin' %}
+            <th>Ações</th>
+          {% endif %}
         </tr>
       </thead>
       <tbody>
@@ -54,14 +55,16 @@
           <td>{{ p.categoria.nome if p.categoria else "—" }}</td>
           <td>R$ {{ "%.2f"|format(p.preco) }}</td>
           <td>{{ p.estoque_atual }}</td>
-          <td class="td-actions">
-            {% if usuario.role == 'admin' %}
+          {% if usuario['role'] == 'admin' %}
+            <td class="td-actions">
               <a href="/produtos/{{ p.id }}/editar" class="btn-table">Editar</a>
-              <form action="/produtos/{{ p.id }}/desativar" method="post" style="display:inline" onsubmit="return confirm('Desativar {{ p.nome }}?')">
-                <button type="submit" class="btn-table btn-table--warn">Desativar</button>
+              <form action="/produtos/{{ p.id }}/desativar" method="post" style="display:inline">
+                <button type="submit" class="btn-table btn-table--warn">
+                  {% if p.ativo %}Desativar{% else %}Ativar{% endif %}
+                </button>
               </form>
-            {% endif %}
-          </td>
+            </td>
+          {% endif %}
         </tr>
         {% endfor %}
         {% if not produtos %}

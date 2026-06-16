@@ -29,11 +29,14 @@ os.makedirs(UPLOAD_DIR, exist_ok=True)  # cria a pasta se não existir
 def listar_produtos(
     request: Request,
     busca: str = "",
-    categoria_id: int = 0,       # 0 = todas as categorias
+    categoria_id: int = 0,
     db: Session = Depends(get_db),
     usuario = Depends(get_usuario_logado)
 ):
-    query = db.query(Produto).filter(Produto.ativo == True)
+    query = db.query(Produto)
+
+    if usuario['role'] != 'admin':
+        query = query.filter(Produto.ativo == True)
 
     if busca:
         query = query.filter(Produto.nome.ilike(f"%{busca}%"))
@@ -41,8 +44,8 @@ def listar_produtos(
     if categoria_id:
         query = query.filter(Produto.categoria_id == categoria_id)
 
-    produtos    = query.order_by(Produto.nome).all()
-    categorias  = db.query(Categoria).filter(Categoria.ativo == True).all()
+    produtos   = query.order_by(Produto.nome).all()
+    categorias = db.query(Categoria).filter(Categoria.ativo == True).all()
 
     return templates.TemplateResponse(
         request,
@@ -246,12 +249,14 @@ def desativar_produto(
 ):
     produto = db.query(Produto).filter(Produto.id == produto_id).first()
 
-    if produto:
-        produto.ativo = False
-        db.commit()
+    if not produto:
+        return RedirectResponse(url="/produtos", status_code=302)
 
-    return RedirectResponse(url="/produtos?desativado=ok", status_code=302)
+    produto.ativo = not produto.ativo
+    db.commit()
 
+    status = "ativado" if produto.ativo else "desativado"
+    return RedirectResponse(url=f"/produtos?{status}=ok", status_code=302)
 
 # ============================================================
 # FUNÇÕES AUXILIARES DE IMAGEM
