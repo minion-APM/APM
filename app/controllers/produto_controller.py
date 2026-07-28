@@ -6,19 +6,20 @@ from fastapi import APIRouter, Depends, Request, Form, UploadFile, File, status
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
+from typing import List, Optional
 
 from app.database import get_db
 from app.models.produto import Produto
 from app.models.categoria import Categoria
+from app.models.produto_tamanho import ProdutoTamanho
 from app.auth import get_usuario_logado, get_admin
 
 router = APIRouter(prefix="/produtos", tags=["Produtos"])
 
 templates = Jinja2Templates(directory="app/templates")
 
-# Pasta onde as imagens serão salvas dentro de /static
 UPLOAD_DIR = "app/static/uploads"
-os.makedirs(UPLOAD_DIR, exist_ok=True)  # cria a pasta se não existir
+os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 
 # ============================================================
@@ -88,18 +89,19 @@ def form_novo_produto(
 @router.post("/novo")
 async def criar_produto(
     request: Request,
-    nome: str          = Form(...),
-    preco: float       = Form(...),
-    estoque_atual: int = Form(...),
-    categoria_id: int  = Form(0),   # 0 = sem categoria
-    imagem: UploadFile = File(None), # None = campo opcional
-    db: Session        = Depends(get_db),
-    admin              = Depends(get_admin)
+    nome: str                    = Form(...),
+    preco: float                 = Form(...),
+    estoque_atual: int           = Form(...),
+    categoria_id: int            = Form(0),
+    imagem: UploadFile           = File(None),
+    tamanho_id: List[str]        = Form(default=[]),
+    tamanho: List[str]           = Form(default=[]),
+    tamanho_estoque: List[int]   = Form(default=[]),
+    db: Session                  = Depends(get_db),
+    admin                        = Depends(get_admin)
 ):
     categorias = db.query(Categoria).filter(Categoria.ativo == True).all()
 
-    # Verifica duplicidade de nome
-    # ilike() para comparação case-insensitive, evitando produtos "Camiseta" e "camiseta".
     if db.query(Produto).filter(Produto.nome.ilike(nome)).first():
         return templates.TemplateResponse(
             request,
@@ -117,24 +119,37 @@ async def criar_produto(
             status_code=400
         )
 
-    # Processa o upload da imagem
     imagem_path = await _salvar_imagem(imagem)
 
     produto = Produto(
         nome          = nome,
         preco         = preco,
         estoque_atual = estoque_atual,
-        categoria_id  = categoria_id or None,  # 0 vira NULL no banco
+        categoria_id  = categoria_id or None,
         imagem_path   = imagem_path,
     )
 
     db.add(produto)
+    db.flush()  # gera o produto.id sem commitar ainda
+
+    # Salva os tamanhos
+    for tam, est in zip(tamanho, tamanho_estoque):
+        if tam:
+            db.add(ProdutoTamanho(
+                produto_id = produto.id,
+                tamanho    = tam,
+                estoque    = est
+            ))
+
     db.commit()
 
     return RedirectResponse(url="/produtos?criado=ok", status_code=302)
 
 
+# ============================================================
 # DETALHE
+# ============================================================
+
 @router.get("/{produto_id}")
 def detalhe_produto(
     produto_id: int,
@@ -157,8 +172,10 @@ def detalhe_produto(
     )
 
 
-
+# ============================================================
 # EDIÇÃO
+# ============================================================
+
 @router.get("/{produto_id}/editar")
 def form_editar_produto(
     produto_id: int,
@@ -188,13 +205,16 @@ def form_editar_produto(
 async def editar_produto(
     produto_id: int,
     request: Request,
-    nome: str          = Form(...),
-    preco: float       = Form(...),
-    estoque_atual: int = Form(...),
-    categoria_id: int  = Form(0),
-    imagem: UploadFile = File(None),
-    db: Session        = Depends(get_db),
-    admin              = Depends(get_admin)
+    nome: str                    = Form(...),
+    preco: float                 = Form(...),
+    estoque_atual: int           = Form(...),
+    categoria_id: int            = Form(0),
+    imagem: UploadFile           = File(None),
+    tamanho_id: List[str]        = Form(default=[]),
+    tamanho: List[str]           = Form(default=[]),
+    tamanho_estoque: List[int]   = Form(default=[]),
+    db: Session                  = Depends(get_db),
+    admin                        = Depends(get_admin)
 ):
     editando   = db.query(Produto).filter(Produto.id == produto_id).first()
     categorias = db.query(Categoria).filter(Categoria.ativo == True).all()
@@ -232,6 +252,30 @@ async def editar_produto(
     editando.estoque_atual = estoque_atual
     editando.categoria_id  = categoria_id or None
 
+    # Atualiza tamanhos
+    ids_existentes = [tid for tid in tamanho_id if tid]  # ids que vieram do form
+
+    # Remove os que não vieram mais no form
+    for t in editando.tamanhos:
+        if str(t.id) not in ids_existentes:
+            db.delete(t)
+
+    # Atualiza ou cria
+    for tid, tam, est in zip(tamanho_id, tamanho, tamanho_estoque):
+        if not tam:
+            continue
+        if tid:  # já existe no banco, atualiza
+            registro = db.query(ProdutoTamanho).filter(ProdutoTamanho.id == int(tid)).first()
+            if registro:
+                registro.tamanho = tam
+                registro.estoque = est
+        else:  # novo tamanho, cria
+            db.add(ProdutoTamanho(
+                produto_id = produto_id,
+                tamanho    = tam,
+                estoque    = est
+            ))
+
     db.commit()
 
     return RedirectResponse(url="/produtos?editado=ok", status_code=302)
@@ -258,45 +302,31 @@ def desativar_produto(
     status = "ativado" if produto.ativo else "desativado"
     return RedirectResponse(url=f"/produtos?{status}=ok", status_code=302)
 
+
 # ============================================================
 # FUNÇÕES AUXILIARES DE IMAGEM
 # ============================================================
 
 async def _salvar_imagem(imagem: UploadFile | None):
-    """
-    Salva o arquivo enviado em /static/uploads/ e retorna
-    o path relativo para guardar no banco.
-
-    Retorna None se nenhum arquivo foi enviado ou se o
-    arquivo enviado estiver vazio (campo deixado em branco).
-    """
-    # UploadFile com filename vazio = campo não preenchido
     if not imagem or not imagem.filename:
         return None
 
-    # Valida a extensão — aceita apenas imagens
     extensoes_permitidas = {".jpg", ".jpeg", ".png", ".webp"}
     _, ext = os.path.splitext(imagem.filename.lower())
 
     if ext not in extensoes_permitidas:
-        return None  # ignora silenciosamente — pode virar erro em produção
+        return None
 
-    # Garante nome de arquivo único usando o nome original
-    # Em produção: use uuid4() para evitar colisões e exposição de nomes
-    # nome_arquivo = f"{imagem.filename}"
-    nome_arquivo = f"{uuid.uuid4()}{ext}"
+    nome_arquivo     = f"{uuid.uuid4()}{ext}"
     caminho_completo = os.path.join(UPLOAD_DIR, nome_arquivo)
 
-    # Salva o arquivo no disco
     with open(caminho_completo, "wb") as buffer:
         shutil.copyfileobj(imagem.file, buffer)
 
-    # Retorna o path relativo ao /static (para montar a URL)
     return f"uploads/{nome_arquivo}"
 
 
 def _remover_imagem(imagem_path: str | None) -> None:
-    """Remove o arquivo de imagem do disco se ele existir."""
     if not imagem_path:
         return
 
