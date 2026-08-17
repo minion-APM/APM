@@ -1,11 +1,6 @@
 # ============================================================
 # controllers/movimentacao_controller.py
 # ============================================================
-# Entradas e saídas de estoque.
-# Qualquer usuário logado pode registrar movimentações.
-# Somente admins podem ver o histórico completo de todos
-# os produtos — operadores veem apenas suas próprias.
-# ============================================================
 
 from fastapi import APIRouter, Depends, Request, Form
 from fastapi.responses import RedirectResponse
@@ -15,50 +10,88 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models.movimentacao import Movimentacao, Tipo_de_movimentacao
 from app.models.produto import Produto
+from app.models.produto_tamanho import ProdutoTamanho
 from app.auth import get_usuario_logado, get_admin
 
-router = APIRouter(prefix="/movimentacoes", tags=["Movimentações"])
+
+router = APIRouter(
+    prefix="/movimentacoes",
+    tags=["Movimentações"]
+)
 
 templates = Jinja2Templates(directory="app/templates")
 
 
 # ============================================================
-# HISTÓRICO GERAL — somente admin
+# HISTÓRICO GERAL
 # ============================================================
 
 @router.get("/")
 def listar_movimentacoes(
     request: Request,
-    produto_id: int = 0,     # filtra por produto específico
-    tipo: str = "",          # "entrada" ou "saida"
+    produto_id: int = 0,
+    tipo: str = "",
     db: Session = Depends(get_db),
     admin = Depends(get_admin)
 ):
-    """
-    Exibe o histórico completo de movimentações com filtros
-    por produto e tipo. Acessível apenas por admins.
-    """
-    query = db.query(Movimentacao).order_by(Movimentacao.criado_em.desc())
+    query = db.query(Movimentacao).order_by(
+        Movimentacao.criado_em.desc()
+    )
 
     if produto_id:
-        query = query.filter(Movimentacao.produto_id == produto_id)
+        query = query.filter(
+            Movimentacao.produto_id == produto_id
+        )
 
     if tipo in ("entrada", "saida", "cancelamento", "ajuste"):
-        query = query.filter(Movimentacao.tipo == tipo)
+        query = query.filter(
+            Movimentacao.tipo == tipo
+        )
 
-    movimentacoes = query.limit(200).all()  # limita para não sobrecarregar
-    produtos      = db.query(Produto).filter(Produto.ativo == True).all()
+    movimentacoes = query.limit(200).all()
+
+    produtos = db.query(Produto).filter(
+        Produto.ativo == True
+    ).all()
 
     return templates.TemplateResponse(
         request,
         "movimentacoes/index.html",
         {
-            "request":        request,
-            "usuario":        admin,
-            "movimentacoes":  movimentacoes,
-            "produtos":       produtos,
-            "produto_id":     produto_id,
-            "tipo":           tipo,
+            "request": request,
+            "usuario": admin,
+            "movimentacoes": movimentacoes,
+            "produtos": produtos,
+            "produto_id": produto_id,
+            "tipo": tipo,
+        }
+    )
+
+
+# ============================================================
+# FORMULÁRIO
+# ============================================================
+
+@router.get("/nova")
+def form_nova_movimentacao(
+    request: Request,
+    produto_id: int = 0,
+    db: Session = Depends(get_db),
+    usuario = Depends(get_usuario_logado)
+):
+    produtos = db.query(Produto).filter(
+        Produto.ativo == True
+    ).all()
+
+    return templates.TemplateResponse(
+        request,
+        "movimentacoes/form.html",
+        {
+            "request": request,
+            "usuario": usuario,
+            "produtos": produtos,
+            "produto_id": produto_id,
+            "tipos": Tipo_de_movimentacao,
         }
     )
 
@@ -67,143 +100,223 @@ def listar_movimentacoes(
 # REGISTRAR MOVIMENTAÇÃO
 # ============================================================
 
-@router.get("/nova")
-def form_nova_movimentacao(
-    request: Request,
-    produto_id: int = 0,   # pré-seleciona o produto se vier da página de detalhe
-    db: Session = Depends(get_db),
-    usuario = Depends(get_usuario_logado)
-):
-    """
-    Exibe o formulário de registro de movimentação.
-    Pode receber produto_id via query string para
-    pré-selecionar o produto direto da página de detalhe.
-    """
-    produtos = db.query(Produto).filter(Produto.ativo == True).all()
-
-    return templates.TemplateResponse(
-        request,
-        "movimentacoes/form.html",
-        {
-            "request":    request,
-            "usuario":    usuario,
-            "produtos":   produtos,
-            "produto_id": produto_id,
-            "tipos":      Tipo_de_movimentacao,  # passa o enum para o template
-        }
-    )
-
-
 @router.post("/nova")
 def registrar_movimentacao(
     request: Request,
-    produto_id: int     = Form(...),
-    tipo: str           = Form(...),
-    quantidade: int     = Form(...),
+    produto_id: int = Form(...),
+    tamanho_id: int = Form(0),
+    tipo: str = Form(...),
+    quantidade: int = Form(...),
     preco_unitario: float = Form(...),
-    observacao: str     = Form(""),
-    db: Session         = Depends(get_db),
-    usuario             = Depends(get_usuario_logado)
+    observacao: str = Form(""),
+    db: Session = Depends(get_db),
+    usuario = Depends(get_usuario_logado)
 ):
-    """
-    Registra a movimentação e atualiza o estoque do produto
-    em uma única transação — garante consistência.
 
-    Se qualquer operação falhar, o rollback desfaz tudo:
-    nem a movimentação é salva nem o estoque é alterado.
-    """
-    produtos = db.query(Produto).filter(Produto.ativo == True).all()
+    produtos = db.query(Produto).filter(
+        Produto.ativo == True
+    ).all()
 
-    # Valida se o tipo enviado é válido
-    if tipo not in (Tipo_de_movimentacao.ENTRADA, Tipo_de_movimentacao.SAIDA):
+
+    # ========================================================
+    # VALIDA TIPO
+    # ========================================================
+
+    if tipo not in (
+        Tipo_de_movimentacao.ENTRADA,
+        Tipo_de_movimentacao.SAIDA
+    ):
         return templates.TemplateResponse(
             request,
             "movimentacoes/form.html",
             {
-                "request":    request,
-                "usuario":    usuario,
-                "produtos":   produtos,
+                "request": request,
+                "usuario": usuario,
+                "produtos": produtos,
                 "produto_id": produto_id,
-                "tipos":      Tipo_de_movimentacao,
-                "erro":       "Tipo de movimentação inválido.",
+                "tipos": Tipo_de_movimentacao,
+                "erro": "Tipo de movimentação inválido.",
             },
             status_code=400
         )
+
+
+    # ========================================================
+    # VALIDA QUANTIDADE
+    # ========================================================
 
     if quantidade <= 0:
         return templates.TemplateResponse(
             request,
             "movimentacoes/form.html",
             {
-                "request":    request,
-                "usuario":    usuario,
-                "produtos":   produtos,
+                "request": request,
+                "usuario": usuario,
+                "produtos": produtos,
                 "produto_id": produto_id,
-                "tipos":      Tipo_de_movimentacao,
-                "erro":       "A quantidade deve ser maior que zero.",
+                "tipos": Tipo_de_movimentacao,
+                "erro": "A quantidade deve ser maior que zero.",
             },
             status_code=400
         )
 
-    # Busca o produto com lock para evitar race condition:
-    # se dois usuários registrarem saída ao mesmo tempo,
-    # with_for_update() garante que um espera o outro terminar.
+
+    # ========================================================
+    # BUSCA PRODUTO
+    # ========================================================
+
     produto = db.query(Produto).filter(
         Produto.id == produto_id
     ).with_for_update().first()
 
     if not produto:
-        return RedirectResponse(url="/movimentacoes/nova", status_code=302)
-
-    # Impede saída maior que o estoque disponível
-    if tipo == Tipo_de_movimentacao.SAIDA and quantidade > produto.estoque_atual:
-        return templates.TemplateResponse(
-            request,
-            "movimentacoes/form.html",
-            {
-                "request":    request,
-                "usuario":    usuario,
-                "produtos":   produtos,
-                "produto_id": produto_id,
-                "tipos":      Tipo_de_movimentacao,
-                "erro": (
-                    f"Estoque insuficiente. "
-                    f"Disponível: {produto.estoque_atual} unidade(s)."
-                ),
-            },
-            status_code=400
+        return RedirectResponse(
+            url="/movimentacoes/nova",
+            status_code=302
         )
 
-    # ----------------------------------------------------------
-    # Atualiza o estoque do produto
-    # ----------------------------------------------------------
-    if tipo == Tipo_de_movimentacao.ENTRADA:
-        produto.estoque_atual += quantidade
-    else:
-        produto.estoque_atual -= quantidade
 
-    # ----------------------------------------------------------
-    # Registra a movimentação no histórico
-    # ----------------------------------------------------------
+    tamanho_movimentado = None
+
+
+    # ========================================================
+    # PRODUTO COM TAMANHO
+    # ========================================================
+
+    if produto.tamanhos:
+
+        tamanho_movimentado = db.query(
+            ProdutoTamanho
+        ).filter(
+            ProdutoTamanho.id == tamanho_id,
+            ProdutoTamanho.produto_id == produto.id
+        ).with_for_update().first()
+
+
+        if not tamanho_movimentado:
+            return templates.TemplateResponse(
+                request,
+                "movimentacoes/form.html",
+                {
+                    "request": request,
+                    "usuario": usuario,
+                    "produtos": produtos,
+                    "produto_id": produto_id,
+                    "tipos": Tipo_de_movimentacao,
+                    "erro": "Selecione um tamanho.",
+                },
+                status_code=400
+            )
+
+
+        # SAÍDA
+        if tipo == Tipo_de_movimentacao.SAIDA:
+
+            if quantidade > tamanho_movimentado.estoque:
+
+                return templates.TemplateResponse(
+                    request,
+                    "movimentacoes/form.html",
+                    {
+                        "request": request,
+                        "usuario": usuario,
+                        "produtos": produtos,
+                        "produto_id": produto_id,
+                        "tipos": Tipo_de_movimentacao,
+                        "erro": (
+                            f"Estoque insuficiente no tamanho "
+                            f"{tamanho_movimentado.tamanho}. "
+                            f"Disponível: "
+                            f"{tamanho_movimentado.estoque}."
+                        ),
+                    },
+                    status_code=400
+                )
+
+            tamanho_movimentado.estoque -= quantidade
+
+
+        # ENTRADA
+        else:
+            tamanho_movimentado.estoque += quantidade
+
+
+        # Atualiza o estoque total do produto
+        produto.estoque_atual = sum(
+            t.estoque
+            for t in produto.tamanhos
+        )
+
+
+    # ========================================================
+    # PRODUTO SEM TAMANHO
+    # ========================================================
+
+    else:
+
+        # SAÍDA
+        if tipo == Tipo_de_movimentacao.SAIDA:
+
+            if quantidade > produto.estoque_atual:
+
+                return templates.TemplateResponse(
+                    request,
+                    "movimentacoes/form.html",
+                    {
+                        "request": request,
+                        "usuario": usuario,
+                        "produtos": produtos,
+                        "produto_id": produto_id,
+                        "tipos": Tipo_de_movimentacao,
+                        "erro": (
+                            f"Estoque insuficiente. "
+                            f"Disponível: "
+                            f"{produto.estoque_atual}."
+                        ),
+                    },
+                    status_code=400
+                )
+
+            produto.estoque_atual -= quantidade
+
+
+        # ENTRADA
+        else:
+            produto.estoque_atual += quantidade
+
+
+    # ========================================================
+    # SALVA MOVIMENTAÇÃO
+    # ========================================================
+
     movimentacao = Movimentacao(
-        tipo           = tipo,
-        quantidade     = quantidade,
-        preco_unitario = preco_unitario,
-        observacao     = observacao or None,
-        produto_id     = produto_id,
-        usuario_id     = usuario.get("id"),
+        tipo=tipo,
+        quantidade=quantidade,
+        preco_unitario=preco_unitario,
+        observacao=observacao or None,
+        produto_id=produto_id,
+
+        tamanho_id=(
+            tamanho_movimentado.id
+            if tamanho_movimentado
+            else None
+        ),
+
+        usuario_id=usuario.get("id"),
     )
 
     db.add(movimentacao)
-    db.commit()  # salva produto (estoque) + movimentação juntos
+    db.commit()
+
 
     return RedirectResponse(
         url="/movimentacoes?movimentacao=ok",
         status_code=302
     )
 
+
 # ============================================================
-# HISTÓRICO POR PRODUTO — acessível por qualquer logado
+# HISTÓRICO POR PRODUTO
 # ============================================================
 
 @router.get("/produto/{produto_id}")
@@ -213,41 +326,53 @@ def historico_produto(
     db: Session = Depends(get_db),
     usuario = Depends(get_usuario_logado)
 ):
-    """
-    Exibe o histórico de movimentações de um produto específico
-    com o resumo de entradas, saídas e saldo.
-    """
-    produto = db.query(Produto).filter(Produto.id == produto_id).first()
+
+    produto = db.query(Produto).filter(
+        Produto.id == produto_id
+    ).first()
 
     if not produto:
-        return RedirectResponse(url="/produtos", status_code=302)
+        return RedirectResponse(
+            url="/produtos",
+            status_code=302
+        )
+
 
     movimentacoes = (
         db.query(Movimentacao)
-        .filter(Movimentacao.produto_id == produto_id)
-        .order_by(Movimentacao.criado_em.desc())
+        .filter(
+            Movimentacao.produto_id == produto_id
+        )
+        .order_by(
+            Movimentacao.criado_em.desc()
+        )
         .all()
     )
 
-    # Resumo calculado em Python a partir do histórico
+
     total_entradas = sum(
-        m.quantidade for m in movimentacoes
+        m.quantidade
+        for m in movimentacoes
         if m.tipo == Tipo_de_movimentacao.ENTRADA
     )
+
+
     total_saidas = sum(
-        m.quantidade for m in movimentacoes
+        m.quantidade
+        for m in movimentacoes
         if m.tipo == Tipo_de_movimentacao.SAIDA
     )
+
 
     return templates.TemplateResponse(
         request,
         "movimentacoes/historico.html",
         {
-            "request":        request,
-            "usuario":        usuario,
-            "produto":        produto,
-            "movimentacoes":  movimentacoes,
+            "request": request,
+            "usuario": usuario,
+            "produto": produto,
+            "movimentacoes": movimentacoes,
             "total_entradas": total_entradas,
-            "total_saidas":   total_saidas,
+            "total_saidas": total_saidas,
         }
     )

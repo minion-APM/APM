@@ -20,10 +20,12 @@ class Movimentacao(Base):
     observacao = Column(String(255), nullable=True)
     criado_em = Column(DateTime, server_default=func.now())
     produto_id = Column(Integer, ForeignKey("produtos.id", ondelete="CASCADE"), nullable=False)
+    tamanho_id = Column(Integer, ForeignKey("produto_tamanhos.id", ondelete="SET NULL"), nullable=True)
     usuario_id = Column(Integer, ForeignKey("usuarios.id", ondelete="SET NULL"), nullable=False)
 
     #Relacionamento
     produto = relationship("Produto", backref="movimentacoes")
+    tamanho = relationship("ProdutoTamanho")
     usuario = relationship("Usuario", backref="movimentacoes")
 
     @property

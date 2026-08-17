@@ -1,43 +1,43 @@
-/* ==========================================
-   CONTAINER
-========================================== */
+/* CONTAINER */
 
 .form-container {
     max-width: 700px;
     margin: 40px auto;
     padding: 32px;
+
     background: #fff;
     border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+
+    box-shadow: 0 4px 16px rgba(0,0,0,.08);
 }
 
-/* ==========================================
-   TÍTULO
-========================================== */
+
+/* TÍTULO */
 
 .form-title {
     margin-bottom: 24px;
+
     font-family: "Barlow Condensed", sans-serif;
     font-size: 2rem;
+
     color: #1f2937;
 }
 
-/* ==========================================
-   ERRO
-========================================== */
+
+/* ERRO */
 
 .erro {
+    padding: 12px;
+    margin-bottom: 20px;
+
     background: #fee2e2;
     color: #b91c1c;
-    padding: 12px;
+
     border-radius: 8px;
-    margin-bottom: 20px;
-    font-size: 14px;
 }
 
-/* ==========================================
-   FORMULÁRIO
-========================================== */
+
+/* FORM */
 
 .movimentacao-form {
     display: flex;
@@ -49,101 +49,154 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
-    font-weight: 600;
+
     color: #374151;
-    font-size: 14px;
+    font-weight: 600;
 }
 
-.label-opcional {
-    font-weight: 400;
-    color: #9ca3af;
-    font-size: 12px;
-}
+
+/* INPUTS */
 
 .movimentacao-form input,
 .movimentacao-form select {
+    width: 100%;
+
     padding: 12px;
+
     border: 1px solid #d1d5db;
     border-radius: 8px;
+
     font-size: 15px;
     font-family: inherit;
-    color: #111827;
-    background: #fff;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    box-sizing: border-box;
 }
 
 .movimentacao-form input:focus,
 .movimentacao-form select:focus {
     outline: none;
-    border-color: #06224a;
-    box-shadow: 0 0 0 3px rgba(6, 34, 74, 0.12);
+
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(37,99,235,.15);
 }
 
-/* ==========================================
-   INFO BOXES (estoque / subtotal)
-========================================== */
+
+/* TAMANHO */
+
+.area-tamanho {
+    display: none;
+
+    padding: 18px;
+
+    background: #f8fafc;
+
+    border: 1px solid #d9e1ea;
+    border-radius: 12px;
+}
+
+
+/* INFORMAÇÕES */
 
 .info-box {
-    padding: 10px 14px;
+    display: none;
+
+    padding: 12px 14px;
+
+    background: #f8fafc;
+
+    border: 1px solid #d9e1ea;
     border-radius: 8px;
-    font-size: 14px;
-    background: #f0f4ff;
-    border: 1px solid #c7d7f5;
+
     color: #374151;
 }
 
-.info-box--destaque {
-    background: #fffbea;
-    border-color: #f5d97a;
-    color: #92610a;
-    font-size: 15px;
+.info-box strong {
+    color: #06224a;
 }
 
-/* ==========================================
-   BOTÕES
-========================================== */
+.info-box--destaque {
+    background: #fff8dc;
+    border-color: #f5b400;
+}
+
+
+/* OPCIONAL */
+
+.label-opcional {
+    font-size: 12px;
+    font-weight: 400;
+    color: #6b7280;
+}
+
+
+/* BOTÕES */
 
 .form-actions {
     display: flex;
     gap: 12px;
+
     margin-top: 12px;
 }
 
 .btn-salvar {
-    background: #f5b400;
-    color: #06224a;
+    padding: 12px 18px;
+
+    background: #2563eb;
+    color: white;
+
     border: none;
-    padding: 12px 20px;
     border-radius: 8px;
-    cursor: pointer;
+
     font-weight: 600;
-    font-size: 14px;
-    font-family: inherit;
-    transition: background-color 0.2s ease, transform 0.1s ease;
+
+    cursor: pointer;
+    transition: .2s;
 }
 
 .btn-salvar:hover {
-    background: #ffce46;
-}
-
-.btn-salvar:active {
-    transform: scale(0.98);
+    background: #1d4ed8;
+    transform: translateY(-1px);
 }
 
 .btn-cancelar {
-    display: inline-flex;
-    align-items: center;
+    padding: 12px 18px;
+
     background: #e5e7eb;
     color: #111827;
-    text-decoration: none;
-    padding: 12px 20px;
+
     border-radius: 8px;
+
+    text-decoration: none;
     font-weight: 600;
-    font-size: 14px;
-    transition: background-color 0.2s ease;
+
+    transition: .2s;
 }
 
 .btn-cancelar:hover {
     background: #d1d5db;
-    text-decoration: none;
+}
+
+
+/* RESPONSIVO */
+
+@media (max-width: 600px) {
+
+    .form-container {
+        margin: 20px;
+        padding: 22px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .btn-salvar,
+    .btn-cancelar {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
 }
