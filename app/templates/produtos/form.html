@@ -9,17 +9,11 @@
 {% endblock %}
 
 {% block conteudo %}
-
 <div class="form-container">
-
-    <h1 class="form-title">
-        {{ "Editar produto" if editando else "Novo produto" }}
-    </h1>
+    <h1 class="form-title">{{ "Editar produto" if editando else "Novo produto" }}</h1>
 
     {% if erro %}
-        <div class="erro">
-            {{ erro }}
-        </div>
+        <div class="erro">{{ erro }}</div>
     {% endif %}
 
     <form
@@ -27,8 +21,8 @@
         action="{{ '/produtos/' + editando.id|string + '/editar' if editando else '/produtos/novo' }}"
         method="post"
         enctype="multipart/form-data"
+        id="produto-form"
     >
-
         <label>
             Nome
             <input
@@ -51,16 +45,85 @@
             >
         </label>
 
-        <label>
-            Estoque atual
-            <input
-                type="number"
-                name="estoque_atual"
-                min="0"
-                value="{{ editando.estoque_atual if editando else (valores.estoque_atual if valores else '0') }}"
-                required
-            >
-        </label>
+        <div id="estoque-geral-container">
+            <label>
+                Estoque
+                <input
+                    type="number"
+                    name="estoque_atual"
+                    id="estoque_atual"
+                    min="0"
+                    value="{{ editando.estoque_atual if editando else (valores.estoque_atual if valores else 0) }}"
+                    required
+                >
+            </label>
+        </div>
+
+        <div class="variacoes-container">
+            <div class="variacoes-header">
+                <h3>Tamanhos e estoque</h3>
+                <p>Marque os tamanhos apenas se este produto possuir tamanho.</p>
+            </div>
+
+            <div class="tamanhos-grid">
+                {% for tam in ["P", "M", "G", "GG"] %}
+                    {% set ns = namespace(encontrado=false, id='', estoque=0) %}
+
+                    {% if editando %}
+                        {% for item in editando.tamanhos %}
+                            {% if item.tamanho == tam %}
+                                {% set ns.encontrado = true %}
+                                {% set ns.id = item.id %}
+                                {% set ns.estoque = item.estoque %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="tamanho-card">
+                        <div class="tamanho-topo">
+                            <span class="tamanho-badge">{{ tam }}</span>
+
+                            <label class="checkbox-tamanho">
+                                <input
+                                    type="checkbox"
+                                    class="tamanho-check"
+                                    {% if ns.encontrado %}checked{% endif %}
+                                >
+                                Disponível
+                            </label>
+                        </div>
+
+                        <input
+                            type="hidden"
+                            name="tamanho_id"
+                            class="tamanho-id"
+                            value="{{ ns.id }}"
+                            {% if not ns.encontrado %}disabled{% endif %}
+                        >
+
+                        <input
+                            type="hidden"
+                            name="tamanho"
+                            class="tamanho-valor"
+                            value="{{ tam }}"
+                            {% if not ns.encontrado %}disabled{% endif %}
+                        >
+
+                        <label class="estoque-tamanho-label">
+                            Estoque
+                            <input
+                                type="number"
+                                name="tamanho_estoque"
+                                class="tamanho-estoque"
+                                min="0"
+                                value="{{ ns.estoque }}"
+                                {% if not ns.encontrado %}disabled{% endif %}
+                            >
+                        </label>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
 
         <label>
             Categoria
@@ -70,7 +133,10 @@
                 {% for c in categorias %}
                     <option
                         value="{{ c.id }}"
-                        {{ 'selected' if (editando and editando.categoria_id == c.id) or (valores and valores.categoria_id == c.id) else '' }}
+                        {% if (editando and editando.categoria_id == c.id)
+                            or (valores and valores.categoria_id == c.id) %}
+                            selected
+                        {% endif %}
                     >
                         {{ c.nome }}
                     </option>
@@ -86,35 +152,91 @@
                     src="{{ url_for('static', path=editando.imagem_path) }}"
                     alt="{{ editando.nome }}"
                     width="120"
-                    style="object-fit: contain; background: #f9fafb; padding: 5px; border-radius: 6px; border: 1px solid #e5e7eb;"
                 >
             </div>
         {% endif %}
 
         <label>
             {{ "Nova imagem (deixe vazio para manter a atual):" if editando else "Imagem" }}
-
             <input
                 type="file"
                 name="imagem"
                 accept=".jpg,.jpeg,.png,.webp"
-            >   
+            >
         </label>
 
         <div class="form-actions">
-
             <button type="submit" class="btn-salvar">
                 {{ "Salvar alterações" if editando else "Criar produto" }}
             </button>
 
-            <a href="/produtos" class="btn-cancelar">
-                Cancelar
-            </a>
-
+            <a href="/produtos" class="btn-cancelar">Cancelar</a>
         </div>
-
     </form>
-
 </div>
 
+<script>
+const cards = document.querySelectorAll(".tamanho-card");
+const estoqueGeralContainer = document.getElementById("estoque-geral-container");
+const estoqueAtual = document.getElementById("estoque_atual");
+
+function atualizarFormulario() {
+    let temTamanho = false;
+
+    cards.forEach(card => {
+        const check = card.querySelector(".tamanho-check");
+        const id = card.querySelector(".tamanho-id");
+        const tamanho = card.querySelector(".tamanho-valor");
+        const estoque = card.querySelector(".tamanho-estoque");
+        const estoqueLabel = card.querySelector(".estoque-tamanho-label");
+
+        if (check.checked) {
+            temTamanho = true;
+            id.disabled = false;
+            tamanho.disabled = false;
+            estoque.disabled = false;
+            estoqueLabel.style.display = "";
+        } else {
+            id.disabled = true;
+            tamanho.disabled = true;
+            estoque.disabled = true;
+            estoqueLabel.style.display = "none";
+        }
+    });
+
+    if (temTamanho) {
+        estoqueGeralContainer.style.display = "none";
+        estoqueAtual.required = false;
+    } else {
+        estoqueGeralContainer.style.display = "";
+        estoqueAtual.required = true;
+    }
+}
+
+cards.forEach(card => {
+    card.querySelector(".tamanho-check")
+        .addEventListener("change", atualizarFormulario);
+});
+
+document.getElementById("produto-form").addEventListener("submit", () => {
+    const selecionados = [...document.querySelectorAll(".tamanho-check:checked")];
+
+    if (selecionados.length > 0) {
+        let total = 0;
+
+        document.querySelectorAll(".tamanho-card").forEach(card => {
+            const check = card.querySelector(".tamanho-check");
+            const estoque = card.querySelector(".tamanho-estoque");
+
+            if (check.checked) {
+                total += Number(estoque.value || 0);
+            }
+        });
+
+        estoqueAtual.value = total;
+    }
+});
+
+atualizarFormulario();
+</script>
 {% endblock %}

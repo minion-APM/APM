@@ -1,77 +1,218 @@
 {% extends "base.html" %}
-{% block titulo %}Produtos — AAPM SENAI{% endblock %}
+
+{% block titulo %}
+Produtos — AAPM SENAI
+{% endblock %}
+
 {% block conteudo %}
+
 <div class="page-header">
   <div>
     <h1 class="page-title">Produtos</h1>
     <p class="page-subtitle">Consulte e gerencie o estoque</p>
   </div>
+
   {% if usuario['role'] == 'admin' %}
-    <a href="/produtos/novo" class="btn-primary">+ Novo produto</a>
+  <a href="/produtos/novo" class="btn-primary">+ Novo produto</a>
   {% endif %}
 </div>
+
+
 {% if request.query_params.get('criado') == 'ok' %}
-  <div class="alert alert--success"><span class="alert-icon">✓</span> Produto criado com sucesso!</div>
+<div class="alert alert--success">
+  <span class="alert-icon">✓</span>
+  Produto criado com sucesso!
+</div>
 {% endif %}
+
 {% if request.query_params.get('desativado') == 'ok' %}
-  <div class="alert alert--success"><span class="alert-icon">✓</span> Produto desativado.</div>
+<div class="alert alert--success">
+  <span class="alert-icon">✓</span>
+  Produto desativado.
+</div>
 {% endif %}
+
 {% if request.query_params.get('ativado') == 'ok' %}
-  <div class="alert alert--success"><span class="alert-icon">✓</span> Produto ativado.</div>
+<div class="alert alert--success">
+  <span class="alert-icon">✓</span>
+  Produto ativado.
+</div>
 {% endif %}
+
+
 <div class="card">
+
   <form method="get" action="/produtos" style="display:flex;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap">
-    <input type="text" name="busca" class="form-input" placeholder="Buscar por nome..." value="{{ busca }}" style="flex:1;min-width:200px">
+
+    <input type="text" name="busca" class="form-input" placeholder="Buscar por nome..." value="{{ busca }}"
+      style="flex:1;min-width:200px">
+
     <select name="categoria_id" class="form-input form-select" style="width:200px">
+
       <option value="0">Todas as categorias</option>
+
       {% for c in categorias %}
-        <option value="{{ c.id }}" {{ 'selected' if categoria_id == c.id else '' }}>{{ c.nome }}</option>
+      <option value="{{ c.id }}" {{ 'selected' if categoria_id==c.id else '' }}>
+        {{ c.nome }}
+      </option>
       {% endfor %}
+
     </select>
-    <button type="submit" class="btn-primary">Filtrar</button>
+
+    <button type="submit" class="btn-primary">
+      Filtrar
+    </button>
+
     {% if busca or categoria_id %}
-      <a href="/produtos" class="btn-outline">Limpar</a>
+    <a href="/produtos" class="btn-outline">
+      Limpar
+    </a>
     {% endif %}
+
   </form>
+
+
   <div class="table-wrapper">
+
     <table class="table">
+
       <thead>
         <tr>
           <th>Imagem</th>
           <th>Nome</th>
           <th>Categoria</th>
           <th>Preço</th>
-          <th>Estoque</th>
+          <th>Estoque e Tamanho</th>
+
           {% if usuario['role'] == 'admin' %}
-            <th>Ações</th>
+          <th>Ações</th>
           {% endif %}
         </tr>
       </thead>
+
+
       <tbody>
+
         {% for p in produtos %}
+
         <tr>
-          <td><img src="{{ url_for('static', path=p.imagem_path if p.imagem_path else 'img/sem-foto.png') }}" alt="{{ p.nome }}" width="48" height="48" style="object-fit:cover;border-radius:8px"></td>
-          <td class="produto-nome">{{ p.nome }}</td>
-          <td>{{ p.categoria.nome if p.categoria else "—" }}</td>
-          <td>R$ {{ "%.2f"|format(p.preco) }}</td>
-          <td>{{ p.estoque_atual }}</td>
+
+          <!-- IMAGEM -->
+          <td>
+            <img src="{{ url_for('static', path=p.imagem_path if p.imagem_path else 'img/sem-foto.png') }}"
+              alt="{{ p.nome }}" width="48" height="48">
+          </td>
+
+
+          <!-- NOME -->
+          <td class="produto-nome">
+            {{ p.nome }}
+          </td>
+
+
+          <!-- CATEGORIA -->
+          <td>
+            {{ p.categoria.nome if p.categoria else "—" }}
+          </td>
+
+
+          <!-- PREÇO -->
+          <td>
+            R$ {{ "%.2f"|format(p.preco) }}
+          </td>
+
+
+          <!-- ESTOQUE -->
+          <td class="estoque-produto">
+
+            {% if p.tamanhos %}
+
+            <button type="button" class="btn-table" onclick="abrirTamanhos({{ p.id }})">
+              Ver tamanhos
+            </button>
+
+
+            <div id="tamanhos-{{ p.id }}" class="produto-tamanhos" style="display:none">
+
+              {% for t in p.tamanhos %}
+
+              <div class="tamanho-info">
+
+                <strong>
+                  {{ t.tamanho }}
+                </strong>
+
+                <span class="tamanho-estoque">
+                  {{ t.estoque }} un.
+                </span>
+
+              </div>
+
+              {% endfor %}
+
+            </div>
+
+
+            {% else %}
+
+            {{ p.estoque_atual }}
+
+            {% endif %}
+
+          </td>
+
+
+          <!-- AÇÕES -->
           {% if usuario['role'] == 'admin' %}
-            <td class="td-actions">
-              <a href="/produtos/{{ p.id }}/editar" class="btn-table">Editar</a>
-              <form action="/produtos/{{ p.id }}/desativar" method="post" style="display:inline">
-                <button type="submit" class="btn-table btn-table--warn">
-                  {% if p.ativo %}Desativar{% else %}Ativar{% endif %}
-                </button>
-              </form>
-            </td>
+
+          <td class="td-actions">
+
+            <a href="/produtos/{{ p.id }}/editar" class="btn-table">
+              Editar
+            </a>
+
+            <form action="/produtos/{{ p.id }}/desativar" method="post" style="display:inline">
+
+              <button type="submit" class="btn-table btn-table--warn">
+
+                {% if p.ativo %}
+                Desativar
+                {% else %}
+                Ativar
+                {% endif %}
+
+              </button>
+
+            </form>
+
+          </td>
+
           {% endif %}
+
         </tr>
+
         {% endfor %}
+
+
         {% if not produtos %}
-        <tr><td colspan="6" style="text-align:center;color:#718096">Nenhum produto encontrado.</td></tr>
+
+        <tr>
+          <td colspan="6" style="text-align:center;color:#718096">
+            Nenhum produto encontrado.
+          </td>
+        </tr>
+
         {% endif %}
+
       </tbody>
+
     </table>
+
   </div>
+
 </div>
+
+
+<script src="{{ url_for('static', path='js/produtos.js') }}"></script>
+
 {% endblock %}

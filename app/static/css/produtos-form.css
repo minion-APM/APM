@@ -1,4 +1,7 @@
-/* Container da página */
+/* ==========================================
+   CONTAINER DA PÁGINA
+========================================== */
+
 .form-container {
     max-width: 700px;
     margin: 40px auto;
@@ -8,7 +11,11 @@
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
-/* Título */
+
+/* ==========================================
+   TÍTULO
+========================================== */
+
 .form-title {
     margin-bottom: 24px;
     font-family: "Barlow Condensed", sans-serif;
@@ -16,7 +23,11 @@
     color: #1f2937;
 }
 
-/* Mensagem de erro */
+
+/* ==========================================
+   ERRO
+========================================== */
+
 .erro {
     background: #fee2e2;
     color: #b91c1c;
@@ -25,14 +36,22 @@
     margin-bottom: 20px;
 }
 
-/* Formulário */
+
+/* ==========================================
+   FORMULÁRIO
+========================================== */
+
 .produto-form {
     display: flex;
     flex-direction: column;
     gap: 18px;
 }
 
-/* Labels */
+
+/* ==========================================
+   LABELS
+========================================== */
+
 .produto-form label {
     display: flex;
     flex-direction: column;
@@ -41,14 +60,20 @@
     color: #374151;
 }
 
-/* Inputs */
+
+/* ==========================================
+   INPUTS
+========================================== */
+
 .produto-form input,
 .produto-form select {
+    width: 100%;
     padding: 12px;
     border: 1px solid #d1d5db;
     border-radius: 8px;
     font-size: 15px;
     font-family: inherit;
+    box-sizing: border-box;
 }
 
 .produto-form input:focus,
@@ -58,7 +83,133 @@
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
-/* Imagem */
+
+/* ==========================================
+   ESTOQUE GERAL
+========================================== */
+
+#estoque-geral-container {
+    width: 100%;
+}
+
+
+/* ==========================================
+   TAMANHOS E ESTOQUE
+========================================== */
+
+.variacoes-container {
+    margin-top: 5px;
+}
+
+.variacoes-header {
+    margin-bottom: 15px;
+}
+
+.variacoes-header h3 {
+    margin: 0 0 5px;
+    font-size: 18px;
+    color: #06224a;
+}
+
+.variacoes-header p {
+    margin: 0;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.tamanhos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+
+/* ==========================================
+   CARD DOS TAMANHOS
+========================================== */
+
+.tamanho-card {
+    padding: 18px;
+    background: #f8fafc;
+    border: 1px solid #d9e1ea;
+    border-radius: 12px;
+    transition: 0.2s;
+}
+
+.tamanho-card:hover {
+    border-color: #f5b400;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.tamanho-topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+
+/* ==========================================
+   BADGE DOS TAMANHOS
+========================================== */
+
+.tamanho-badge {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #06224a;
+    color: #f5b400;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 17px;
+}
+
+
+/* ==========================================
+   CHECKBOX
+========================================== */
+
+.checkbox-tamanho {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    gap: 7px !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: #4b5563 !important;
+    cursor: pointer;
+}
+
+.checkbox-tamanho input {
+    width: 17px;
+    height: 17px;
+    margin: 0;
+    padding: 0 !important;
+    cursor: pointer;
+    accent-color: #f5b400;
+}
+
+
+/* ==========================================
+   ESTOQUE DOS TAMANHOS
+========================================== */
+
+.estoque-tamanho-label {
+    gap: 6px;
+    font-size: 13px;
+}
+
+.tamanho-card input[type="number"] {
+    width: 100%;
+}
+
+
+/* ==========================================
+   IMAGEM
+========================================== */
+
 .preview-img {
     margin-top: 10px;
     border-radius: 8px;
@@ -66,14 +217,23 @@
     object-fit: cover;
 }
 
-/* Área dos botões */
+.imagem-atual-container p {
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #374151;
+}
+
+
+/* ==========================================
+   BOTÕES
+========================================== */
+
 .form-actions {
     display: flex;
     gap: 12px;
     margin-top: 12px;
 }
 
-/* Botão principal */
 .btn-salvar {
     background: #2563eb;
     color: white;
@@ -82,13 +242,14 @@
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
+    transition: 0.2s;
 }
 
 .btn-salvar:hover {
     background: #1d4ed8;
+    transform: translateY(-1px);
 }
 
-/* Botão cancelar */
 .btn-cancelar {
     background: #e5e7eb;
     color: #111827;
@@ -96,8 +257,37 @@
     padding: 12px 18px;
     border-radius: 8px;
     font-weight: 600;
+    transition: 0.2s;
 }
 
 .btn-cancelar:hover {
     background: #d1d5db;
+}
+
+
+/* ==========================================
+   RESPONSIVO
+========================================== */
+
+@media (max-width: 600px) {
+
+    .form-container {
+        margin: 20px;
+        padding: 22px;
+    }
+
+    .tamanhos-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .btn-salvar,
+    .btn-cancelar {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
 }
