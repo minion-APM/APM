@@ -1,6 +1,3 @@
-/* pdv-comprovante.css */
-
-/* Container que envolve o cupom e os botões para centralizar na página */
 .comprovante-wrapper {
     max-width: 450px;
     margin: 40px auto;
@@ -8,114 +5,166 @@
     font-family: 'Courier New', monospace;
 }
 
-.cupom { 
-    background: #ffffff; 
-    border-radius: 14px; 
-    padding: 30px; 
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+
+/* CUPOM */
+
+.cupom {
+    padding: 30px;
+
+    background: #fff;
+
     border-top: 6px solid #06224a;
+    border-radius: 14px;
+
     color: #111827;
+
+    box-shadow: 0 4px 16px rgba(0,0,0,.08);
 }
 
-.titulo { 
-    text-align: center; 
-    font-weight: 700;
-    font-size: 22px; 
+
+/* TÍTULO */
+
+.titulo {
+    margin-bottom: 4px;
+
+    text-align: center;
+
     color: #06224a;
-    margin-bottom: 4px; 
+
+    font-size: 22px;
+    font-weight: 700;
+
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
-.subtitulo-cupom { 
-    text-align: center; 
+.subtitulo-cupom {
+    margin-bottom: 20px;
+
+    text-align: center;
+
     color: #6b7280;
-    font-size: 13px; 
-    margin-bottom: 20px; 
+
+    font-size: 13px;
 }
 
-.linha-sep { 
-    border: none; 
+
+/* SEPARADOR */
+
+.linha-sep {
+    margin: 16px 0;
+
+    border: none;
     border-top: 2px dashed #e5e7eb;
-    margin: 16px 0; 
 }
 
-.item-linha { 
-    display: flex; 
+
+/* ITENS */
+
+.item-linha {
+    display: flex;
     justify-content: space-between;
-    font-size: 14px; 
+    gap: 15px;
+
+    margin-bottom: 4px;
+
+    font-size: 14px;
     font-weight: 600;
-    margin-bottom: 4px; 
 }
 
-.item-desc { 
-    color: #6b7280; 
-    font-size: 12px; 
-    margin-bottom: 10px; 
+.item-desc {
+    margin-bottom: 10px;
+
+    color: #6b7280;
+
+    font-size: 12px;
 }
 
-.total-linha { 
-    display: flex; 
+
+/* TOTAIS */
+
+.total-linha {
+    display: flex;
     justify-content: space-between;
-    font-size: 14px; 
-    margin-bottom: 6px; 
-    color: #4b5563; 
+
+    margin-bottom: 6px;
+
+    color: #4b5563;
+
+    font-size: 14px;
 }
 
-.total-final { 
-    display: flex; 
+.total-final {
+    display: flex;
     justify-content: space-between;
-    font-size: 20px; 
-    font-weight: 800; 
-    margin-top: 12px; 
+
+    margin-top: 12px;
+
     color: #06224a;
+
+    font-size: 20px;
+    font-weight: 800;
 }
 
-.desc-linha { 
+.desc-linha {
     color: #166534;
     font-weight: 600;
 }
 
+
+/* OBSERVAÇÃO */
+
 .obs-container {
-    font-size: 12px; 
-    color: #6b7280;
-    background: #f9fafb;
-    padding: 10px;
-    border-radius: 6px;
     margin-top: 10px;
+    padding: 10px;
+
+    background: #f9fafb;
+
+    border-radius: 6px;
+
+    color: #6b7280;
+
+    font-size: 12px;
 }
 
-/* Área dos botões externos ao cupom */
+
+/* BOTÕES */
+
 .comprovante-botoes {
     margin-top: 10px;
 }
 
-.btn { 
-    display: block; 
-    text-align: center; 
+.btn {
+    display: block;
+
     margin-top: 12px;
-    padding: 14px; 
-    border-radius: 8px; 
+    padding: 14px;
+
+    border-radius: 8px;
+
+    text-align: center;
+    text-decoration: none;
+
+    font-size: 15px;
     font-weight: 700;
-    font-size: 15px; 
-    text-decoration: none; 
-    transition: 0.2s;
+
+    transition: .2s;
 }
 
-.btn-nova { 
-    background: #f5b400; 
-    color: #06224a; 
+.btn-nova {
+    background: #f5b400;
+    color: #06224a;
 }
 
-.btn-nova:hover { 
-    background: #ffce46; 
+.btn-nova:hover {
+    background: #ffce46;
 }
 
-.btn-hist { 
-    background: #06224a; 
-    color: #ffffff; 
+.btn-hist {
+    background: #06224a;
+    color: #fff;
 }
 
-.btn-hist:hover { 
-    background: #0a336e; 
+.btn-hist:hover {
+    background: #0a336e;
 }

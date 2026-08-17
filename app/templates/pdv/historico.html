@@ -16,6 +16,7 @@ Histórico de Vendas - AAPM SENAI
 
         <div>
             <h1>Histórico de Vendas</h1>
+
             <p class="subtitulo">
                 Consulte todas as vendas realizadas no sistema.
             </p>
@@ -26,6 +27,7 @@ Histórico de Vendas - AAPM SENAI
         </a>
 
     </div>
+
 
     <div class="card-tabela">
 
@@ -43,13 +45,18 @@ Histórico de Vendas - AAPM SENAI
                 </tr>
             </thead>
 
+
             <tbody>
 
                 {% for v in vendas %}
+
                 <tr>
 
                     <td>
-                        <a href="/pdv/venda/{{ v.id }}" class="link-venda">
+                        <a
+                            href="/pdv/venda/{{ v.id }}"
+                            class="link-venda"
+                        >
                             #{{ v.id }}
                         </a>
                     </td>
@@ -67,14 +74,20 @@ Histórico de Vendas - AAPM SENAI
                     </td>
 
                     <td>
+
                         {% if v.desconto_percentual > 0 %}
+
                             <span class="badge-desconto">
                                 {{ v.desconto_percentual|int }}%
                                 (- R$ {{ "%.2f"|format(v.desconto_valor) }})
                             </span>
+
                         {% else %}
+
                             —
+
                         {% endif %}
+
                     </td>
 
                     <td class="valor-total">
@@ -86,14 +99,18 @@ Histórico de Vendas - AAPM SENAI
                     </td>
 
                 </tr>
+
                 {% endfor %}
 
+
                 {% if not vendas %}
+
                 <tr>
                     <td colspan="7" class="sem-registros">
                         Nenhuma venda encontrada.
                     </td>
                 </tr>
+
                 {% endif %}
 
             </tbody>

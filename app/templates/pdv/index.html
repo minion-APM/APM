@@ -33,95 +33,218 @@
 
         <div class="produtos-grid" id="grade-produtos">
             {% for p in produtos %}
+
             <div class="produto-card {% if p.estoque_atual|int <= 0 %}sem-estoque{% endif %}"
                  data-id="{{ p.id }}"
                  data-nome="{{ p.nome }}"
                  data-preco="{{ p.preco }}"
                  data-estoque="{{ p.estoque_atual }}"
+                 data-tem-tamanho="{{ 'true' if p.tamanhos else 'false' }}"
                  data-nome-lower="{{ p.nome.lower() }}"
                  onclick="adicionarAoCarrinho(this)">
 
                 <img src="{{ url_for('static', path=p.imagem_path if p.imagem_path else 'img/sem-foto.png') }}"
                      onerror="this.src='/static/img/sem-foto.png'; this.onerror=null;">
+
                 <div class="produto-card-nome">{{ p.nome }}</div>
-                <div class="produto-card-preco">R$ {{ "%.2f"|format(p.preco)|replace('.', ',') }}</div>
-                <div class="produto-card-estoque">Estoque: {{ p.estoque_atual }}</div>
+
+                <div class="produto-card-preco">
+                    R$ {{ "%.2f"|format(p.preco)|replace('.', ',') }}
+                </div>
+
+                <div class="produto-card-estoque">
+                    Estoque: {{ p.estoque_atual }}
+                </div>
+
+                {% if p.tamanhos %}
+                <div hidden>
+                    {% for t in p.tamanhos %}
+                    <span
+                        class="dado-tamanho"
+                        data-id="{{ t.id }}"
+                        data-tamanho="{{ t.tamanho }}"
+                        data-estoque="{{ t.estoque }}">
+                    </span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
             </div>
+
             {% endfor %}
         </div>
     </section>
 
+
     <!-- COLUNA DIREITA: Carrinho de Compras -->
     <aside class="carrinho-col">
-        <div class="carrinho-header">🛒 Carrinho</div>
+
+        <div class="carrinho-header">
+            🛒 Carrinho
+        </div>
+
 
         <!-- Seção de Identificação do Cliente -->
         <div class="cliente-section">
-            <label for="select-cliente">Cliente</label>
-            <div class="cliente-input-group" style="display: flex; flex-direction: column; gap: 8px;">
-                <select class="cliente-select" id="select-cliente" onchange="atualizarCliente(this)">
-                    <option value="0" data-associado="false">Sem identificação (sem desconto)</option>
-                    {% for c in clientes %}
-                    <option value="{{ c.id }}" data-associado="{{ 'true' if c.is_associado else 'false' }}">
-                        {{ c.nome }} {% if c.matricula %}({{ c.matricula }}){% endif %} {% if c.is_associado %}— ASSOCIADO{% endif %}
+
+            <label for="select-cliente">
+                Cliente
+            </label>
+
+            <div class="cliente-input-group"
+                 style="display: flex; flex-direction: column; gap: 8px;">
+
+                <select class="cliente-select"
+                        id="select-cliente"
+                        onchange="atualizarCliente(this)">
+
+                    <option value="0" data-associado="false">
+                        Sem identificação (sem desconto)
                     </option>
+
+                    {% for c in clientes %}
+
+                    <option value="{{ c.id }}"
+                            data-associado="{{ 'true' if c.is_associado else 'false' }}">
+
+                        {{ c.nome }}
+
+                        {% if c.matricula %}
+                            ({{ c.matricula }})
+                        {% endif %}
+
+                        {% if c.is_associado %}
+                            — ASSOCIADO
+                        {% endif %}
+
+                    </option>
+
                     {% endfor %}
                 </select>
-                
-                <!-- O botão renderiza abaixo do select exclusivamente para o Administrador -->
+
+
                 {% if usuario and usuario.role == 'admin' %}
+
                 <button type="button"
-                    class="btn-novo-cliente"
-                    onclick="window.location.href='/clientes/novo'"
-                    title="Cadastrar Novo Associado">
+                        class="btn-novo-cliente"
+                        onclick="window.location.href='/clientes/novo'"
+                        title="Cadastrar Novo Associado">
+
                     Criar Associado
+
                 </button>
+
                 {% endif %}
+
             </div>
-            
-            <div class="desconto-badge" id="badge-desconto" style="display:none">
+
+
+            <div class="desconto-badge"
+                 id="badge-desconto"
+                 style="display:none">
+
                 ✓ Desconto de Associado Aplicado
+
             </div>
+
         </div>
 
-        <!-- Lista Dinâmica de Itens (Encolhe de forma flexível para não empurrar o rodapé) -->
-        <div class="carrinho-itens" id="lista-carrinho" style="flex: 1; overflow-y: auto;">
+
+        <!-- Lista Dinâmica de Itens -->
+        <div class="carrinho-itens"
+             id="lista-carrinho"
+             style="flex: 1; overflow-y: auto;">
+
             <div class="carrinho-vazio" id="msg-vazio">
-                <span class="carrinho-vazio-icon">🛒</span>
+
+                <span class="carrinho-vazio-icon">
+                    🛒
+                </span>
+
                 Clique nos produtos para adicionar
+
             </div>
+
         </div>
 
-        <!-- Rodapé Financeiro Fixo e sempre visível na tela -->
-        <div class="carrinho-footer" style="flex-shrink: 0;">
-            <div class="totais" id="totais" style="display:none">
+
+        <!-- Rodapé Financeiro -->
+        <div class="carrinho-footer"
+             style="flex-shrink: 0;">
+
+            <div class="totais"
+                 id="totais"
+                 style="display:none">
+
                 <div class="total-linha">
                     <span>Subtotal</span>
                     <span id="val-subtotal">R$ 0,00</span>
                 </div>
-                <div class="total-linha desconto" id="linha-desconto" style="display:none">
-                    <span id="label-desconto">Desconto</span>
-                    <span id="val-desconto">— R$ 0,00</span>
+
+                <div class="total-linha desconto"
+                     id="linha-desconto"
+                     style="display:none">
+
+                    <span id="label-desconto">
+                        Desconto
+                    </span>
+
+                    <span id="val-desconto">
+                        — R$ 0,00
+                    </span>
+
                 </div>
+
                 <div class="total-linha final">
                     <span>Total</span>
                     <span id="val-total">R$ 0,00</span>
                 </div>
+
             </div>
 
-            <textarea class="obs-input" id="obs-input" rows="2" placeholder="Observação (opcional)..."></textarea>
 
-            <form id="form-venda" action="/pdv/finalizar" method="post">
-                <input type="hidden" name="carrinho_json" id="input-carrinho">
-                <input type="hidden" name="cliente_id"   id="input-cliente-id" value="0">
-                <input type="hidden" name="observacao"   id="input-obs">
-                <button class="btn-finalizar" id="btn-finalizar" type="button" disabled onclick="finalizarVenda()">
+            <textarea class="obs-input"
+                      id="obs-input"
+                      rows="2"
+                      placeholder="Observação (opcional)..."></textarea>
+
+
+            <form id="form-venda"
+                  action="/pdv/finalizar"
+                  method="post">
+
+                <input type="hidden"
+                       name="carrinho_json"
+                       id="input-carrinho">
+
+                <input type="hidden"
+                       name="cliente_id"
+                       id="input-cliente-id"
+                       value="0">
+
+                <input type="hidden"
+                       name="observacao"
+                       id="input-obs">
+
+
+                <button class="btn-finalizar"
+                        id="btn-finalizar"
+                        type="button"
+                        disabled
+                        onclick="finalizarVenda()">
+
                     Finalizar venda [F8]
+
                 </button>
+
             </form>
+
         </div>
+
     </aside>
+
 </div>
 
 <script src="/static/js/pdv.js"></script>
+
 {% endblock %}

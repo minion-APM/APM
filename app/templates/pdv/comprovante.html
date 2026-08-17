@@ -1,75 +1,143 @@
-<!-- templates/pdv/comprovante.html -->
 {% extends "base.html" %}
 
-{% block titulo %}Comprovante #{{ venda.id }} — AAPM SENAI{% endblock %}
+{% block titulo %}
+Comprovante #{{ venda.id }} — AAPM SENAI
+{% endblock %}
 
 {% block extra_css %}
-<!-- Vincula o arquivo CSS externo que criamos no passo anterior -->
 <link rel="stylesheet" href="/static/css/pdv-comprovante.css">
 {% endblock %}
 
 {% block conteudo %}
+
 <div class="comprovante-wrapper">
+
     <div class="cupom">
-        <div class="titulo">AAPM SENAI</div>
-        <div class="subtitulo-cupom">
-            Venda #{{ venda.id }} — {{ venda.criado_em.strftime('%d/%m/%Y %H:%M') }}
+
+        <div class="titulo">
+            AAPM SENAI
         </div>
+
+        <div class="subtitulo-cupom">
+            Venda #{{ venda.id }} —
+            {{ venda.criado_em.strftime('%d/%m/%Y %H:%M') }}
+        </div>
+
         <hr class="linha-sep">
 
+
         {% if venda.cliente %}
+
         <div class="item-linha">
             <span>Cliente</span>
             <span>{{ venda.cliente.nome }}</span>
         </div>
+
         {% if venda.cliente.is_associado %}
+
         <div class="item-linha desc-linha">
             <span>Associado</span>
-            <span>✓ {{ venda.desconto_percentual|int }}% desc.</span>
+            <span>
+                ✓ {{ venda.desconto_percentual|int }}% desc.
+            </span>
         </div>
+
         {% endif %}
+
         <hr class="linha-sep">
+
         {% endif %}
+
 
         {% for item in venda.itens %}
+
         <div class="item-linha">
-            <span>{{ item.produto_nome }}</span>
-            <span>R$ {{ "%.2f"|format(item.subtotal) }}</span>
+
+            <span>
+                {{ item.produto_nome }}
+            </span>
+
+            <span>
+                R$ {{ "%.2f"|format(item.subtotal) }}
+            </span>
+
         </div>
+
         <div class="item-desc">
-            {{ item.quantidade }} × R$ {{ "%.2f"|format(item.preco_unitario) }}
+            {{ item.quantidade }} ×
+            R$ {{ "%.2f"|format(item.preco_unitario) }}
         </div>
+
         {% endfor %}
 
+
         <hr class="linha-sep">
+
 
         <div class="total-linha">
+
             <span>Subtotal</span>
-            <span>R$ {{ "%.2f"|format(venda.total_bruto) }}</span>
+
+            <span>
+                R$ {{ "%.2f"|format(venda.total_bruto) }}
+            </span>
+
         </div>
+
 
         {% if venda.desconto_valor > 0 %}
+
         <div class="total-linha desc-linha">
-            <span>Desconto ({{ venda.desconto_percentual|int }}%)</span>
-            <span>− R$ {{ "%.2f"|format(venda.desconto_valor) }}</span>
+
+            <span>
+                Desconto ({{ venda.desconto_percentual|int }}%)
+            </span>
+
+            <span>
+                − R$ {{ "%.2f"|format(venda.desconto_valor) }}
+            </span>
+
         </div>
+
         {% endif %}
+
 
         <div class="total-final">
+
             <span>TOTAL</span>
-            <span>R$ {{ "%.2f"|format(venda.total_liquido) }}</span>
+
+            <span>
+                R$ {{ "%.2f"|format(venda.total_liquido) }}
+            </span>
+
         </div>
 
+
         {% if venda.observacao %}
+
         <hr class="linha-sep">
-        <div class="obs-container">{{ venda.observacao }}</div>
+
+        <div class="obs-container">
+            {{ venda.observacao }}
+        </div>
+
         {% endif %}
+
     </div>
 
-    <!-- Div com os botões de ação centralizados abaixo do cupom -->
+
     <div class="comprovante-botoes">
-        <a href="/pdv" class="btn btn-nova">+ Nova venda</a>
-        <a href="/pdv/historico" class="btn btn-hist">Ver histórico</a>
+
+        <a href="/pdv" class="btn btn-nova">
+            + Nova venda
+        </a>
+
+        <a href="/pdv/historico" class="btn btn-hist">
+            Ver histórico
+        </a>
+
     </div>
+
 </div>
-{% endblock %}  
+
+{% endblock %}

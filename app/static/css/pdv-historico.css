@@ -4,31 +4,44 @@
     padding: 30px;
 }
 
+
+/* HEADER */
+
 .historico-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     margin-bottom: 25px;
 }
 
 .historico-header h1 {
     margin: 0;
+
     color: #111827;
 }
 
 .subtitulo {
-    color: #6b7280;
     margin-top: 5px;
+
+    color: #6b7280;
 }
 
+
+/* BOTÃO VOLTAR */
+
 .btn-voltar {
-    text-decoration: none;
+    padding: 12px 18px;
+
     background: #f5b400;
     color: #06224a;
-    padding: 12px 18px;
+
     border-radius: 8px;
+
+    text-decoration: none;
     font-weight: 600;
-    transition: 0.2s;
+
+    transition: .2s;
 }
 
 .btn-voltar:hover {
@@ -36,72 +49,119 @@
 }
 
 
+/* CARD */
+
 .card-tabela {
-    background: white;
+    background: #fff;
+
     border-radius: 14px;
+
     overflow: hidden;
-    box-shadow: 0 4px 16px rgba(0,0,0,.08);
+
+    box-shadow:
+        0 4px 16px
+        rgba(0,0,0,.08);
 }
+
+
+/* TABELA */
 
 .historico-table {
     width: 100%;
+
     border-collapse: collapse;
 }
 
 .historico-table thead {
-    background: #06224a;;
+    background: #06224a;
+}
+
+.historico-table th,
+.historico-table td {
+    text-align: center;
+    vertical-align: middle;
 }
 
 .historico-table th {
-    text-align: left;
     padding: 16px;
-    font-weight: 700;
+
     color: #f5b400;
+
+    font-weight: 700;
 }
 
 .historico-table td {
     padding: 16px;
-    border-top: 1px solid #e5e7eb;
+
+    border-top:
+        1px solid #e5e7eb;
 }
 
 .historico-table tbody tr:hover {
     background: #f9fafb;
 }
 
+
+/* VENDA */
+
 .link-venda {
-    text-decoration: none;
-    font-weight: 700;
     color: #2563eb;
+
+    text-decoration: none;
+
+    font-weight: 700;
 }
 
 .link-venda:hover {
     text-decoration: underline;
 }
 
+
+/* DESCONTO */
+
 .badge-desconto {
+    display: inline-block;
+
+    padding: 6px 10px;
+
     background: #dcfce7;
     color: #166534;
-    padding: 6px 10px;
+
     border-radius: 20px;
+
     font-size: 13px;
     font-weight: 600;
 }
 
+
+/* TOTAL */
+
 .valor-total {
-    font-weight: 700;
     color: #111827;
+
+    font-weight: 700;
 }
+
+
+/* SEM REGISTROS */
 
 .sem-registros {
-    text-align: center;
+    padding: 30px !important;
+
+    text-align: center !important;
+
     color: #6b7280;
-    padding: 30px;
 }
 
+
+/* RESPONSIVO */
+
 @media (max-width: 900px) {
+
     .historico-header {
         flex-direction: column;
         align-items: flex-start;
+
         gap: 15px;
     }
 
