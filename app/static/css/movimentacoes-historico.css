@@ -1,4 +1,4 @@
-/* ==========================================
+﻿/* ==========================================
    PAGE HEADER
 ========================================== */
 
@@ -14,13 +14,13 @@
 .page-title {
     font-size: 22px;
     font-weight: 700;
-    color: #06224a;
+    color: var(--azul);
     margin: 0;
 }
 
 .page-subtitle {
     font-size: 13px;
-    color: #718096;
+    color: var(--texto-secundario);
     margin-top: 2px;
 }
 
@@ -34,8 +34,8 @@
     justify-content: center;
     height: 38px;
     padding: 0 18px;
-    background: #f5b400;
-    color: #06224a !important;
+    background: var(--laranja);
+    color: var(--azul) !important;
     text-decoration: none;
     border-radius: 8px;
     font-size: 13px;
@@ -44,7 +44,7 @@
 }
 
 .btn-primary:hover {
-    background: #ffce46;
+    background: var(--laranja);
     text-decoration: none;
 }
 
@@ -57,11 +57,11 @@
 ========================================== */
 
 .card {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
+    background: var(--branco);
+    border: 1px solid var(--borda);
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 4px rgba(16, 42, 67, 0.08);
 }
 
 /* ==========================================
@@ -79,7 +79,7 @@
 }
 
 .table thead {
-    background: #f8f9fa;
+    background: var(--fundo);
 }
 
 .table th {
@@ -89,14 +89,14 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: #718096;
-    border-bottom: 1px solid #e2e8f0;
+    color: var(--texto-secundario);
+    border-bottom: 1px solid var(--borda);
     white-space: nowrap;
 }
 
 .table td {
     padding: 13px 16px;
-    border-bottom: 1px solid #f0f2f5;
+    border-bottom: 1px solid var(--fundo);
     color: #2d3748;
     vertical-align: middle;
 }
@@ -123,12 +123,12 @@
 
 .status-badge--entrada {
     background: rgba(34, 139, 34, 0.12);
-    color: #2e7d32;
+    color: var(--verde);
     border: 1px solid rgba(34, 139, 34, 0.25);
 }
 
 .status-badge--saida {
     background: rgba(220, 53, 69, 0.08);
-    color: #c0392b;
+    color: var(--vermelho);
     border: 1px solid rgba(220, 53, 69, 0.25);
 }

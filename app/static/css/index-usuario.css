@@ -1,4 +1,4 @@
-/* ==========================================
+﻿/* ==========================================
    AÇÕES (CORREÇÃO DE LAYOUT)
 ========================================== */
 
@@ -35,8 +35,8 @@
     border: 1px solid transparent;
     border-radius: 6px;
 
-    background: #06224a;
-    color: #f5b400 !important;
+    background: var(--azul);
+    color: var(--laranja) !important;
 
     text-decoration: none;
     font-size: 13px;
@@ -53,14 +53,14 @@
 
 /* BOTÃO DESATIVAR / ATIVAR */
 .btn-table--warn {
-    background: #f5b400 !important;
-    color: #06224a !important;
+    background: var(--laranja) !important;
+    color: var(--azul) !important;
     border: 1px solid rgba(245, 180, 0, 0.4) !important;
 }
 
 .btn-table--warn:hover {
-    background: #ffce46 !important;
-    color: #06224a !important;
+    background: var(--laranja) !important;
+    color: var(--azul) !important;
 }
 
 .btn-table:active {
@@ -81,13 +81,13 @@
 
 .status-badge--ativo {
     background: rgba(34, 139, 34, 0.12);
-    color: #2e7d32;
+    color: var(--verde);
     border: 1px solid rgba(34, 139, 34, 0.25);
 }
 
 .status-badge--inativo {
     background: rgba(0, 0, 0, 0.06);
-    color: #718096;
+    color: var(--texto-secundario);
     border: 1px solid rgba(0, 0, 0, 0.12);
 }
 
@@ -114,13 +114,13 @@
 .alert--success {
     background: rgba(34, 139, 34, 0.08);
     border: 1px solid rgba(34, 139, 34, 0.25);
-    color: #2e7d32;
+    color: var(--verde);
 }
 
 .alert--danger {
     background: rgba(220, 53, 69, 0.08);
     border: 1px solid rgba(220, 53, 69, 0.25);
-    color: #c0392b;
+    color: var(--vermelho);
 }
 
 /* ==========================================
@@ -138,7 +138,7 @@
 }
 
 .table thead {
-    background: #f8f9fa;
+    background: var(--fundo);
 }
 
 .table th {
@@ -148,14 +148,14 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: #718096;
-    border-bottom: 1px solid #e2e8f0;
+    color: var(--texto-secundario);
+    border-bottom: 1px solid var(--borda);
     white-space: nowrap;
 }
 
 .table td {
     padding: 13px 16px;
-    border-bottom: 1px solid #f0f2f5;
+    border-bottom: 1px solid var(--fundo);
     color: #2d3748;
     vertical-align: middle;
 }
@@ -173,11 +173,11 @@
 ========================================== */
 
 .card {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
+    background: var(--branco);
+    border: 1px solid var(--borda);
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 4px rgba(16, 42, 67, 0.08);
 }
 
 /* ==========================================
@@ -196,13 +196,13 @@
 .page-title {
     font-size: 22px;
     font-weight: 700;
-    color: #06224a;
+    color: var(--azul);
     margin: 0;
 }
 
 .page-subtitle {
     font-size: 13px;
-    color: #718096;
+    color: var(--texto-secundario);
     margin-top: 2px;
 }
 
@@ -216,8 +216,8 @@
     justify-content: center;
     height: 38px;
     padding: 0 18px;
-    background: #06224a;
-    color: #f5b400 !important;
+    background: var(--azul);
+    color: var(--laranja) !important;
     text-decoration: none;
     border-radius: 8px;
     font-size: 13px;
@@ -232,4 +232,20 @@
 
 .btn-primary:active {
     transform: scale(0.98);
+}
+
+/* Centralização equivalente à listagem de produtos */
+.table th,
+.table td {
+    text-align: center;
+}
+
+.td-actions {
+    display: table-cell;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.td-actions form {
+    margin-left: 8px !important;
 }

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% block extra_css %}<link rel="stylesheet" href="/static/css/index-categorias.css">{% endblock %}
 {% block titulo %}Categorias — AAPM SENAI{% endblock %}
 
 {% block conteudo %}
@@ -42,12 +43,14 @@
             </span>
           </td>
           <td class="td-actions">
-            <a href="/categorias/{{ c.id }}/editar" class="btn-table">Editar</a>
-            <form action="/categorias/{{ c.id }}/toggle-ativo" method="post" style="display:inline;">
-              <button type="submit" class="btn-table btn-table--warn">
-                {{ "Desativar" if c.ativo else "Ativar" }}
-              </button>
-            </form>
+            <div class="actions-group">
+              <a href="/categorias/{{ c.id }}/editar" class="btn-table">Editar</a>
+              <form action="/categorias/{{ c.id }}/toggle-ativo" method="post">
+                <button type="submit" class="btn-table btn-table--warn">
+                  {{ "Desativar" if c.ativo else "Ativar" }}
+                </button>
+              </form>
+            </div>
           </td>
         </tr>
         {% endfor %}

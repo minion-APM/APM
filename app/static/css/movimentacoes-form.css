@@ -1,14 +1,14 @@
-/* CONTAINER */
+﻿/* CONTAINER */
 
 .form-container {
     max-width: 700px;
     margin: 40px auto;
     padding: 32px;
 
-    background: #fff;
+    background: var(--branco);
     border-radius: 12px;
 
-    box-shadow: 0 4px 16px rgba(0,0,0,.08);
+    box-shadow: 0 4px 16px rgba(16, 42, 67, 0.08);
 }
 
 
@@ -20,7 +20,7 @@
     font-family: "Barlow Condensed", sans-serif;
     font-size: 2rem;
 
-    color: #1f2937;
+    color: var(--texto);
 }
 
 
@@ -31,7 +31,7 @@
     margin-bottom: 20px;
 
     background: #fee2e2;
-    color: #b91c1c;
+    color: var(--vermelho);
 
     border-radius: 8px;
 }
@@ -63,7 +63,7 @@
 
     padding: 12px;
 
-    border: 1px solid #d1d5db;
+    border: 1px solid var(--borda);
     border-radius: 8px;
 
     font-size: 15px;
@@ -91,9 +91,9 @@
 
     padding: 18px;
 
-    background: #f8fafc;
+    background: var(--fundo);
 
-    border: 1px solid #d9e1ea;
+    border: 1px solid var(--borda);
     border-radius: 12px;
 }
 
@@ -105,21 +105,21 @@
 
     padding: 12px 14px;
 
-    background: #f8fafc;
+    background: var(--fundo);
 
-    border: 1px solid #d9e1ea;
+    border: 1px solid var(--borda);
     border-radius: 8px;
 
     color: #374151;
 }
 
 .info-box strong {
-    color: #06224a;
+    color: var(--azul);
 }
 
 .info-box--destaque {
     background: #fff8dc;
-    border-color: #f5b400;
+    border-color: var(--laranja);
 }
 
 
@@ -128,7 +128,7 @@
 .label-opcional {
     font-size: 12px;
     font-weight: 400;
-    color: #6b7280;
+    color: var(--texto-secundario);
 }
 
 
@@ -164,8 +164,8 @@
 .btn-cancelar {
     padding: 12px 18px;
 
-    background: #e5e7eb;
-    color: #111827;
+    background: var(--borda);
+    color: var(--texto);
 
     border-radius: 8px;
 
@@ -176,7 +176,7 @@
 }
 
 .btn-cancelar:hover {
-    background: #d1d5db;
+    background: var(--borda);
 }
 
 

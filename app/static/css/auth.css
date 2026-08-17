@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    TELA DE LOGIN (ESTILO DA IMAGEM)
    ========================================================================== */
 
@@ -16,11 +16,11 @@
 .login-brand {
     text-align: center;
     margin-bottom: 1.5rem;
-    color: #0b2240; /* Azul escuro original */
+    color: var(--azul); /* Azul escuro original */
 }
 
 .login-logo-icon {
-    color: #ffcc00; /* Amarelo engrenagem */
+    color: var(--laranja); /* Amarelo engrenagem */
     font-size: 2rem;
     margin-bottom: 0.5rem;
 }
@@ -39,25 +39,25 @@
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: #718096;
+    color: var(--texto-secundario);
 }
 
 /* Card Branco com Borda Amarela */
 .login-card {
-    background-color: #ffffff;
-    border: 1px solid #cbd5e0;
-    border-top: 4px solid #ffcc00; /* Detalhe amarelo superior */
+    background-color: var(--branco);
+    border: 1px solid var(--borda);
+    border-top: 4px solid var(--laranja); /* Detalhe amarelo superior */
     border-radius: 8px;
     padding: 2rem 1.5rem;
     width: 100%;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px -1px rgba(16, 42, 67, 0.08);
     margin-bottom: 1rem;
 }
 
 .login-card__heading {
     font-size: 1.15rem;
     font-weight: 700;
-    color: #0b2240;
+    color: var(--azul);
     margin-bottom: 1.5rem;
 }
 
@@ -84,7 +84,7 @@
 
 /* Inputs Escuros idênticos aos da foto */
 .form-input {
-    background-color: #ffffff; /* Fundo escuro do input */
+    background-color: var(--branco); /* Fundo escuro do input */
     color: #000000; /* Texto branco digitado */
     border: 1px solid #4a5568;
     border-radius: 6px;
@@ -97,11 +97,11 @@
 }
 
 .form-input::placeholder {
-    color: #718096; /* Cor do placeholder seu@email.com */
+    color: var(--texto-secundario); /* Cor do placeholder seu@email.com */
 }
 
 .form-input:focus {
-    border-color: #ffcc00; /* Borda amarela ao focar */
+    border-color: var(--laranja); /* Borda amarela ao focar */
 }
 
 /* Botão Entrar */
@@ -112,9 +112,9 @@
 /* Na imagem o botão está cinza claro com texto apagado (comportamento de desabilitado) 
    Mas abaixo configurei para herdar o azul padrão, aplicando o visual apagado caso queira */
 .login-form .btn-primary {
-    background-color: #0b2240;
-    color: #ffcc00;
-    border: 1px solid #edf2f7;
+    background-color: var(--azul);
+    color: var(--laranja);
+    border: 1px solid var(--fundo);
     padding: 0.75rem;
     font-size: 0.9rem;
     font-weight: 600;
@@ -126,9 +126,9 @@
 /* Estado quando o formulário estiver pronto para envio ou hovered (Ativo) */
 .login-form .btn-primary:hover,
 .login-form .btn-primary:focus {
-    background-color: #0b2240;
-    color: #ffcc00;
-    border-color: #0b2240;
+    background-color: var(--azul);
+    color: var(--laranja);
+    border-color: var(--azul);
 }
 
 /* Notas de rodapé específicas da tela de login */

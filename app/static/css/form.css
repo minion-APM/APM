@@ -1,4 +1,4 @@
-/* =========================
+﻿/* =========================
    ALERTAS
 ========================= */
 
@@ -12,7 +12,7 @@
 .alert-danger{
     background:#fee2e2;
     color:#991b1b;
-    border-left:5px solid #ef4444;
+    border-left:5px solid var(--vermelho);
 }
 
 /* =========================
@@ -24,17 +24,17 @@
     border-radius:16px;
     padding:25px;
     margin-bottom:25px;
-    border-left:5px solid #f5b400;
-    box-shadow:0 4px 12px rgba(0,0,0,.05);
+    border-left:5px solid var(--laranja);
+    box-shadow:0 4px 12px rgba(16, 42, 67, 0.08);
 }
 
 .usuario-card h2{
-    color:#06224a;
+    color:var(--azul);
     margin-bottom:8px;
 }
 
 .usuario-card p{
-    color:#6b7280;
+    color:var(--texto-secundario);
 }
 
 /* =========================
@@ -45,8 +45,8 @@ form{
     background:white;
     padding:30px;
     border-radius:16px;
-    border:1px solid #d9e1ea;
-    box-shadow:0 4px 12px rgba(0,0,0,.05);
+    border:1px solid var(--borda);
+    box-shadow:0 4px 12px rgba(16, 42, 67, 0.08);
 }
 
 .form-grid{
@@ -63,7 +63,7 @@ form{
 
 .form-group label{
     font-weight:600;
-    color:#06224a;
+    color:var(--azul);
     margin-bottom:8px;
 }
 
@@ -72,7 +72,7 @@ form{
     width:100%;
     padding:14px;
 
-    border:1px solid #d1d5db;
+    border:1px solid var(--borda);
     border-radius:10px;
 
     font-size:15px;
@@ -83,7 +83,7 @@ form{
 .form-group input:focus,
 .form-group select:focus{
     outline:none;
-    border-color:#f5b400;
+    border-color:var(--laranja);
     box-shadow:0 0 0 4px rgba(245,180,0,.15);
 }
 
@@ -110,11 +110,11 @@ form{
 
     background:linear-gradient(
         135deg,
-        #f5b400,
-        #ffce46
+        var(--laranja),
+        var(--laranja)
     );
 
-    color:#06224a;
+    color:var(--azul);
 
     transition:.3s;
 }
@@ -135,8 +135,8 @@ form{
 
     border-radius:10px;
 
-    background:#e5e7eb;
-    color:#111827;
+    background:var(--borda);
+    color:var(--texto);
 
     font-weight:700;
 
@@ -144,7 +144,7 @@ form{
 }
 
 .btn-voltar:hover{
-    background:#d1d5db;
+    background:var(--borda);
 }
 
 /* =========================

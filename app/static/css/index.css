@@ -1,12 +1,12 @@
-.dashboard-table{
+﻿.dashboard-table{
     margin-top:30px;
 }
 
 .page-header h1{
-    color:#06224a;
+    color:var(--azul);
     font-size:2rem;
 }
 
 .page-header p{
-    color:#6b7280;
+    color:var(--texto-secundario);
 }

@@ -1,4 +1,4 @@
-/* ==========================================
+﻿/* ==========================================
    CONTAINER DA PÁGINA
 ========================================== */
 
@@ -6,9 +6,9 @@
     max-width: 700px;
     margin: 40px auto;
     padding: 32px;
-    background: #fff;
+    background: var(--branco);
     border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 16px rgba(16, 42, 67, 0.08);
 }
 
 
@@ -20,7 +20,7 @@
     margin-bottom: 24px;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 2rem;
-    color: #1f2937;
+    color: var(--texto);
 }
 
 
@@ -30,7 +30,7 @@
 
 .erro {
     background: #fee2e2;
-    color: #b91c1c;
+    color: var(--vermelho);
     padding: 12px;
     border-radius: 8px;
     margin-bottom: 20px;
@@ -69,7 +69,7 @@
 .produto-form select {
     width: 100%;
     padding: 12px;
-    border: 1px solid #d1d5db;
+    border: 1px solid var(--borda);
     border-radius: 8px;
     font-size: 15px;
     font-family: inherit;
@@ -108,13 +108,13 @@
 .variacoes-header h3 {
     margin: 0 0 5px;
     font-size: 18px;
-    color: #06224a;
+    color: var(--azul);
 }
 
 .variacoes-header p {
     margin: 0;
     font-size: 13px;
-    color: #6b7280;
+    color: var(--texto-secundario);
 }
 
 .tamanhos-grid {
@@ -130,15 +130,15 @@
 
 .tamanho-card {
     padding: 18px;
-    background: #f8fafc;
-    border: 1px solid #d9e1ea;
+    background: var(--fundo);
+    border: 1px solid var(--borda);
     border-radius: 12px;
     transition: 0.2s;
 }
 
 .tamanho-card:hover {
-    border-color: #f5b400;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border-color: var(--laranja);
+    box-shadow: 0 4px 12px rgba(16, 42, 67, 0.08);
 }
 
 .tamanho-topo {
@@ -159,8 +159,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #06224a;
-    color: #f5b400;
+    background: var(--azul);
+    color: var(--laranja);
     border-radius: 10px;
     font-weight: 700;
     font-size: 17px;
@@ -178,7 +178,7 @@
     gap: 7px !important;
     font-size: 13px !important;
     font-weight: 500 !important;
-    color: #4b5563 !important;
+    color: var(--texto-secundario) !important;
     cursor: pointer;
 }
 
@@ -188,7 +188,7 @@
     margin: 0;
     padding: 0 !important;
     cursor: pointer;
-    accent-color: #f5b400;
+    accent-color: var(--laranja);
 }
 
 
@@ -213,7 +213,7 @@
 .preview-img {
     margin-top: 10px;
     border-radius: 8px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--borda);
     object-fit: cover;
 }
 
@@ -251,8 +251,8 @@
 }
 
 .btn-cancelar {
-    background: #e5e7eb;
-    color: #111827;
+    background: var(--borda);
+    color: var(--texto);
     text-decoration: none;
     padding: 12px 18px;
     border-radius: 8px;
@@ -261,7 +261,7 @@
 }
 
 .btn-cancelar:hover {
-    background: #d1d5db;
+    background: var(--borda);
 }
 
 

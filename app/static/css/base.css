@@ -1,348 +1,736 @@
-/* =========================
+/* =========================================================
+   AAPM SENAI
+   BASE.CSS
+   Sistema de Gestão
+   ========================================================= */
+
+
+/* =========================================================
    RESET
-========================= */
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body{
-    font-family:'Barlow', sans-serif;
-    background:#e9edf2;
-    color:#1f2937;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
+html {
+    scroll-behavior: smooth;
 }
 
-/* =========================
+body {
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    font-family: "Barlow", sans-serif;
+
+    background: var(--fundo);
+    color: var(--texto);
+
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+
+/* =========================================================
+   PALETA DE CORES
+   ========================================================= */
+
+:root {
+
+    /* =========================
+       AZUIS
+       ========================= */
+
+    --azul: #102A43;
+    --azul-2: #243B53;
+    --azul-3: #486581;
+
+
+    /* =========================
+       LARANJAS
+       ========================= */
+
+    --laranja: #F5B400;
+    --laranja-2: #D99F00;
+    --laranja-claro: #FFF3C4;
+
+
+    /* =========================
+       NEUTROS
+       ========================= */
+
+    --branco: #FFFFFF;
+
+    --fundo: #F5F7FA;
+
+    --fundo-card: #FFFFFF;
+
+    --texto: #17202A;
+
+    --texto-secundario: #627D98;
+
+    --borda: #D9E2EC;
+
+
+    /* =========================
+       STATUS
+       ========================= */
+
+    --verde: #2F855A;
+
+    --vermelho: #C53030;
+
+
+    /* =========================
+       SOMBRAS
+       ========================= */
+
+    --sombra:
+        0 5px 20px rgba(16, 42, 67, 0.08);
+
+    --sombra-hover:
+        0 10px 28px rgba(16, 42, 67, 0.14);
+
+
+    /* =========================
+       OUTROS
+       ========================= */
+
+    --radius: 12px;
+}
+
+
+/* =========================================================
    HEADER
-========================= */
-.header{
-    background:#06224a;
-    border-bottom:4px solid #f5b400;
-    box-shadow:0 2px 10px rgba(0,0,0,.15);
+   ========================================================= */
+
+.header {
+    width: 100%;
+
+    background: var(--branco);
+
+    border-bottom: 3px solid var(--laranja);
+
+    position: sticky;
+    top: 0;
+
+    z-index: 1000;
+
+    box-shadow:
+        0 2px 12px rgba(16, 42, 67, 0.07);
 }
 
-.header-inner{
-    max-width:1200px;
-    margin:auto;
-    padding:15px 25px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
+
+.header-inner {
+    width: min(1450px, 94%);
+
+    min-height: 76px;
+
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+
+    gap: 30px;
 }
 
-/* =========================
+
+/* =========================================================
    LOGO
-========================= */
-.logo-area{
-    display:flex;
-    align-items:center;
-    gap:12px;
+   ========================================================= */
+
+.logo-area {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 145px;
 }
 
-.logo-icon{
-    color:#f5b400;
-    font-size:22px;
+
+/* Ícone */
+
+.logo-icon {
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--azul);
+
+    color: var(--laranja);
+
+    border-radius: 10px;
+
+    font-size: 21px;
+
+    box-shadow:
+        0 4px 12px rgba(16, 42, 67, 0.18);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-.logo-text{
-    display:flex;
-    flex-direction:column;
+
+.logo-icon:hover {
+    transform: rotate(-5deg);
+
+    box-shadow:
+        0 6px 16px rgba(16, 42, 67, 0.22);
 }
 
-.logo-aapm{
-    color:#f5b400;
-    font-weight:700;
-    font-size:1.3rem;
-    letter-spacing:1px;
-    justify-content:space-between;
-    width:100px;
+
+/* =========================================================
+   TEXTO DO LOGO
+   ========================================================= */
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+
+    line-height: 1;
 }
 
-.logo-senai{
-    color:#fff;
-    font-size:.8rem;
-    letter-spacing:2px;
+
+.logo-aapm {
+    font-family: "Barlow Condensed", sans-serif;
+
+    font-size: 27px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    color: var(--azul);
 }
 
-/* =========================
-   MENU
-========================= */
-.nav{
-    display:flex;
-    gap:12px;
-    justify-content:space-between;
-    width:800px;
+
+.logo-senai {
+    margin-top: 5px;
+
+    font-family: "Barlow Condensed", sans-serif;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 3px;
+
+    color: var(--laranja);
 }
 
-.nav-link{
-    text-decoration:none;
-    color:white;
-    font-weight:600;
-    padding:8px 14px;
-    border-radius:8px;
-    transition:.3s;
+
+/* =========================================================
+   MENU DE NAVEGAÇÃO
+   ========================================================= */
+
+.nav {
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+
+    gap: 4px;
 }
 
-.nav-link:hover{
-    background:#f5b400;
-    color:#06224a;
+
+.nav-link {
+    position: relative;
+
+    padding: 10px 13px;
+
+    color: var(--texto-secundario);
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    border-radius: 8px;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
 }
 
-/* =========================
-   USUÁRIO
-========================= */
-.header-user{
-    display:flex;
-    align-items:center;
-    gap:10px;
+
+.nav-link:hover {
+    color: var(--azul);
+
+    background: #EEF2F6;
+
+    transform: translateY(-1px);
 }
 
-.header-user__name{
-    color:white;
-    font-weight:600;
+
+/* Linha laranja */
+
+.nav-link::after {
+    content: "";
+
+    position: absolute;
+
+    left: 13px;
+    right: 13px;
+
+    bottom: 5px;
+
+    height: 2px;
+
+    background: var(--laranja);
+
+    border-radius: 10px;
+
+    transform: scaleX(0);
+
+    transform-origin: center;
+
+    transition:
+        transform 0.2s ease;
 }
 
-.role-badge{
-    padding:4px 10px;
-    border-radius:20px;
-    font-size:.75rem;
-    font-weight:700;
+
+.nav-link:hover::after {
+    transform: scaleX(1);
 }
 
-.role-badge--admin{
-    background:#f5b400;
-    color:#06224a;
+
+/* =========================================================
+   ÁREA DO USUÁRIO
+   ========================================================= */
+
+.header-user {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding-left: 18px;
+
+    border-left: 1px solid var(--borda);
 }
 
-.role-badge--funcionario{
-    background:#dbeafe;
-    color:#1e40af;
+
+/* Nome */
+
+.header-user__name {
+    max-width: 145px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    color: var(--texto);
+
+    font-size: 14px;
+
+    font-weight: 600;
 }
 
-/* =========================
+
+/* =========================================================
+   BADGE DE PERFIL
+   ========================================================= */
+
+.role-badge {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 27px;
+
+    padding: 4px 10px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.6px;
+}
+
+
+/* ADMIN */
+
+.role-badge--admin {
+    background: var(--laranja-claro);
+
+    color: var(--azul);
+
+    border: 1px solid var(--laranja);
+}
+
+
+/* FUNCIONÁRIO */
+
+.role-badge--funcionario {
+    background: #E8EEF5;
+
+    color: var(--azul-2);
+
+    border: 1px solid #C9D6E4;
+}
+
+
+/* =========================================================
    BOTÃO SAIR
-========================= */
-.btn-logout{
-    text-decoration:none;
-    background:#f5b400;
-    color:#06224a;
-    padding:8px 14px;
-    border-radius:8px;
-    font-weight:700;
-    transition:.3s;
+   ========================================================= */
+
+.btn-logout {
+    height: 36px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 0 15px;
+
+    border-radius: 8px;
+
+    background: var(--azul);
+
+    color: var(--branco);
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-.btn-logout:hover{
-    transform:translateY(-2px);
+
+.btn-logout:hover {
+    background: var(--laranja);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 14px rgba(201, 106, 43, 0.25);
 }
 
-/* =========================
-   MAIN
-========================= */
-.main-content{
-    width:100%;
-    max-width:1200px;
-    margin:30px auto;
-    padding:0 20px;
-    flex:1;
+
+/* =========================================================
+   CONTEÚDO PRINCIPAL
+   ========================================================= */
+
+.main-content {
+    width: min(1450px, 94%);
+
+    flex: 1;
+
+    margin: 0 auto;
+
+    padding: 35px 0 55px;
 }
 
-/* =========================
-   CARDS
-========================= */
-.card{
-    background:white;
-    border-radius:12px;
-    padding:20px;
-    border:1px solid #d9e1ea;
-    box-shadow:0 2px 6px rgba(0,0,0,.05);
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+    width: 100%;
+
+    background: var(--branco);
+
+    border-top: 1px solid var(--borda);
+
+    margin-top: auto;
 }
 
-.card-title{
-    color:#06224a;
-    font-weight:700;
-    margin-bottom:10px;
+
+.footer-inner {
+    width: min(1450px, 94%);
+
+    min-height: 62px;
+
+    margin: 0 auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    font-size: 13px;
 }
 
-/* =========================
-   GRID DASHBOARD
-========================= */
-.dashboard-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
+
+.footer-brand {
+    color: var(--azul);
+
+    font-weight: 700;
 }
 
-.info-card{
-    background:white;
-    border-radius:12px;
-    border-left:5px solid #f5b400;
-    padding:20px;
-    box-shadow:0 2px 6px rgba(0,0,0,.05);
+
+.footer-sep {
+    color: #C5CDD6;
 }
 
-.info-card h3{
-    font-size:.9rem;
-    color:#6b7280;
+
+.footer-info {
+    color: var(--texto-secundario);
+
+    font-weight: 500;
 }
 
-.info-card span{
-    font-size:2rem;
-    font-weight:700;
-    color:#06224a;
-}
 
-/* =========================
-   TABELAS
-========================= */
-table{
-    width:100%;
-    border-collapse:collapse;
-    background:white;
-    border-radius:12px;
-    overflow:hidden;
-}
+/* =========================================================
+   ELEMENTOS GERAIS
+   ========================================================= */
 
-thead{
-    background:#06224a;
-    color:#f5b400;
-}
-
-th{
-    padding:14px;
-    text-align:left;
-}
-
-td{
-    padding:14px;
-    border-bottom:1px solid #e5e7eb;
-}
-
-tbody tr:hover{
-    background:rgb(236, 236, 236);
-}
-
-/* =========================
-   BOTÕES
-========================= */
-.btn{
-    border:none;
-    padding:8px 14px;
-    border-radius:8px;
-    cursor:pointer;
-    font-weight:600;
-}
-
-.btn-primary{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-
-    padding:12px 22px;
-
-    background:linear-gradient(135deg,#f5b400,#ffce46);
-    color:#06224a;
-
-    border:none;
-    border-radius:10px;
-
-    font-size:14px;
-    font-weight:700;
-
-    text-decoration:none;
-
-    box-shadow:0 4px 12px rgba(245,180,0,.30);
-
-    transition:all .25s ease;
-}
-
-.btn-primary:hover{
-    background:linear-gradient(135deg,#ffce46,#ffd867);
-    color:#06224a;
-
-    transform:translateY(-2px);
-
-    box-shadow:0 8px 18px rgba(245,180,0,.40);
-}
-
-.btn-primary:active{
-    transform:translateY(0);
-}
-
-.btn-primary:visited{
-    color:#06224a;
-}
-
-.btn-success{
-    background:#22c55e;
-    color:white;
-}
-
-.btn-danger{
-    background:#ef4444;
-    color:white;
-}
-
-/* =========================
-   FORMULÁRIOS
-========================= */
-form{
-    background:white;
-    padding:25px;
-    border-radius:12px;
-    box-shadow:0 2px 8px rgba(0,0,0,.05);
-}
-
+button,
 input,
 select,
-textarea{
-    width:100%;
-    padding:12px;
-    border:1px solid #d1d5db;
-    border-radius:8px;
-    margin-top:5px;
-    margin-bottom:15px;
-    font-family:'Barlow', sans-serif;
-}
-
-input:focus,
-select:focus,
-textarea:focus{
-    outline:none;
-    border-color:#f5b400;
+textarea {
+    font-family: inherit;
 }
 
 
-/* =========================
-   FOOTER
-========================= */
-.footer{
-    background:#06224a;
-    border-top:4px solid #f5b400;
+button {
+    cursor: pointer;
 }
 
-.footer-inner{
-    max-width:1200px;
-    margin:auto;
-    padding:15px;
-    text-align:center;
-    color:white;
+
+a {
+    color: inherit;
 }
 
-.footer-brand{
-    color:#f5b400;
-    font-weight:700;
+
+img {
+    max-width: 100%;
+
+    display: block;
 }
 
-.page-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
 
-    margin-top:20px;
-    margin-bottom:30px;
+/* =========================================================
+   SELEÇÃO DE TEXTO
+   ========================================================= */
+
+::selection {
+    background: var(--laranja);
+
+    color: var(--branco);
+}
+
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+::-webkit-scrollbar {
+    width: 8px;
+
+    height: 8px;
+}
+
+
+::-webkit-scrollbar-track {
+    background: #EDF1F5;
+}
+
+
+::-webkit-scrollbar-thumb {
+    background: #AEBBC9;
+
+    border-radius: 20px;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--azul-2);
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
+
+@media (max-width: 1250px) {
+
+    .header-inner {
+        gap: 20px;
+    }
+
+    .nav-link {
+        padding: 9px 9px;
+
+        font-size: 13px;
+    }
+
+    .header-user {
+        padding-left: 10px;
+    }
+
+    .header-user__name {
+        max-width: 100px;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1050px) {
+
+    .header {
+        position: relative;
+    }
+
+    .header-inner {
+        min-height: auto;
+
+        padding: 14px 0;
+
+        flex-wrap: wrap;
+
+        gap: 14px;
+    }
+
+    .logo-area {
+        margin-right: auto;
+    }
+
+    .header-user {
+        border-left: none;
+
+        padding-left: 0;
+    }
+
+    .nav {
+        width: 100%;
+
+        order: 3;
+
+        overflow-x: auto;
+
+        padding-bottom: 3px;
+
+        scrollbar-width: none;
+    }
+
+    .nav::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+
+/* =========================================================
+   CELULAR
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+    .header-inner {
+        width: 92%;
+    }
+
+    .logo-icon {
+        width: 38px;
+        height: 38px;
+
+        font-size: 19px;
+    }
+
+    .logo-aapm {
+        font-size: 24px;
+    }
+
+    .logo-senai {
+        font-size: 9px;
+    }
+
+    .header-user__name {
+        display: none;
+    }
+
+    .role-badge {
+        font-size: 9px;
+
+        padding: 4px 8px;
+    }
+
+    .btn-logout {
+        height: 34px;
+
+        padding: 0 11px;
+
+        font-size: 12px;
+    }
+
+    .nav {
+        gap: 2px;
+    }
+
+    .nav-link {
+        flex-shrink: 0;
+
+        padding: 8px 10px;
+
+        font-size: 12px;
+    }
+
+    .main-content {
+        width: 92%;
+
+        padding: 25px 0 40px;
+    }
+
+    .footer-inner {
+        width: 92%;
+
+        min-height: 70px;
+
+        flex-wrap: wrap;
+
+        gap: 6px;
+
+        text-align: center;
+    }
+}
+
+
+/* =========================================================
+   CELULAR PEQUENO
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+    .logo-text {
+        display: none;
+    }
+
+    .logo-area {
+        min-width: auto;
+    }
+
+    .nav-link {
+        font-size: 11px;
+    }
 }

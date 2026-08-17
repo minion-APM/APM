@@ -1,4 +1,4 @@
-.historico-container {
+﻿.historico-container {
     max-width: 1400px;
     margin: 0 auto;
     padding: 30px;
@@ -18,13 +18,13 @@
 .historico-header h1 {
     margin: 0;
 
-    color: #111827;
+    color: var(--texto);
 }
 
 .subtitulo {
     margin-top: 5px;
 
-    color: #6b7280;
+    color: var(--texto-secundario);
 }
 
 
@@ -33,8 +33,8 @@
 .btn-voltar {
     padding: 12px 18px;
 
-    background: #f5b400;
-    color: #06224a;
+    background: var(--laranja);
+    color: var(--azul);
 
     border-radius: 8px;
 
@@ -45,14 +45,14 @@
 }
 
 .btn-voltar:hover {
-    background: #ffce46;
+    background: var(--laranja);
 }
 
 
 /* CARD */
 
 .card-tabela {
-    background: #fff;
+    background: var(--branco);
 
     border-radius: 14px;
 
@@ -60,7 +60,7 @@
 
     box-shadow:
         0 4px 16px
-        rgba(0,0,0,.08);
+        rgba(16, 42, 67, 0.08);
 }
 
 
@@ -73,7 +73,7 @@
 }
 
 .historico-table thead {
-    background: #06224a;
+    background: var(--azul);
 }
 
 .historico-table th,
@@ -85,7 +85,7 @@
 .historico-table th {
     padding: 16px;
 
-    color: #f5b400;
+    color: var(--laranja);
 
     font-weight: 700;
 }
@@ -94,11 +94,11 @@
     padding: 16px;
 
     border-top:
-        1px solid #e5e7eb;
+        1px solid var(--borda);
 }
 
 .historico-table tbody tr:hover {
-    background: #f9fafb;
+    background: var(--fundo);
 }
 
 
@@ -137,7 +137,7 @@
 /* TOTAL */
 
 .valor-total {
-    color: #111827;
+    color: var(--texto);
 
     font-weight: 700;
 }
@@ -150,7 +150,7 @@
 
     text-align: center !important;
 
-    color: #6b7280;
+    color: var(--texto-secundario);
 }
 
 

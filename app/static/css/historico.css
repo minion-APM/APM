@@ -1,4 +1,4 @@
-/* =========================
+﻿/* =========================
    RESET E ESTRUTURA GLOBAL
 ========================= */
 * {
@@ -10,7 +10,7 @@
 body {
     font-family: 'Barlow', sans-serif;
     background: #e9edf2;
-    color: #1f2937;
+    color: var(--texto);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -20,8 +20,8 @@ body {
    HEADER
 ========================= */
 .header {
-    background: #06224a;
-    border-bottom: 4px solid #f5b400;
+    background: var(--azul);
+    border-bottom: 4px solid var(--laranja);
     box-shadow: 0 2px 10px rgba(0,0,0,.15);
 }
 
@@ -45,7 +45,7 @@ body {
 }
 
 .logo-icon {
-    color: #f5b400;
+    color: var(--laranja);
     font-size: 22px;
 }
 
@@ -55,14 +55,14 @@ body {
 }
 
 .logo-aapm {
-    color: #f5b400;
+    color: var(--laranja);
     font-weight: 700;
     font-size: 1.3rem;
     letter-spacing: 1px;
 }
 
 .logo-senai {
-    color: #fff;
+    color: var(--branco);
     font-size: .8rem;
     letter-spacing: 2px;
 }
@@ -88,8 +88,8 @@ body {
 }
 
 .nav-link:hover {
-    background: #f5b400;
-    color: #06224a;
+    background: var(--laranja);
+    color: var(--azul);
 }
 
 /* =========================
@@ -124,8 +124,8 @@ body {
 ========================= */
 .btn-logout {
     text-decoration: none;
-    background: #f5b400;
-    color: #06224a;
+    background: var(--laranja);
+    color: var(--azul);
     padding: 8px 14px;
     border-radius: 8px;
     font-weight: 700;
@@ -171,8 +171,8 @@ body {
     align-items: center;
     justify-content: center;
     padding: 12px 22px;
-    background: linear-gradient(135deg,#f5b400,#ffce46);
-    color: #06224a;
+    background: linear-gradient(135deg,var(--laranja),var(--laranja));
+    color: var(--azul);
     border-radius: 10px;
     font-size: 14px;
     font-weight: 700;
@@ -183,16 +183,16 @@ body {
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    background: linear-gradient(135deg,#ffce46,#ffd867);
+    background: linear-gradient(135deg,var(--laranja),var(--laranja));
 }
 
 .btn-success {
-    background: #22c55e;
+    background: var(--verde);
     color: white;
 }
 
 .btn-danger {
-    background: #ef4444;
+    background: var(--vermelho);
     color: white;
 }
 
@@ -205,12 +205,12 @@ table {
     background: white;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,.05);
+    box-shadow: 0 5px 15px rgba(16, 42, 67, 0.08);
 }
 
 thead {
-    background: #06224a;
-    color: #f5b400;
+    background: var(--azul);
+    color: var(--laranja);
 }
 
 th, td {
@@ -230,8 +230,8 @@ tbody tr:hover {
    FOOTER
 ========================= */
 .footer {
-    background: #06224a;
-    border-top: 4px solid #f5b400;
+    background: var(--azul);
+    border-top: 4px solid var(--laranja);
     margin-top: auto;
 }
 
@@ -244,7 +244,7 @@ tbody tr:hover {
 }
 
 .footer-brand {
-    color: #f5b400;
+    color: var(--laranja);
     font-weight: 700;
 }
 

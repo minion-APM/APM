@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% block extra_css %}<link rel="stylesheet" href="/static/css/pro-index.css">{% endblock %}
 
 {% block titulo %}
 Produtos — AAPM SENAI
@@ -166,24 +167,21 @@ Produtos — AAPM SENAI
           {% if usuario['role'] == 'admin' %}
 
           <td class="td-actions">
+            <div class="actions-group">
+              <a href="/produtos/{{ p.id }}/editar" class="btn-table">
+                Editar
+              </a>
 
-            <a href="/produtos/{{ p.id }}/editar" class="btn-table">
-              Editar
-            </a>
-
-            <form action="/produtos/{{ p.id }}/desativar" method="post" style="display:inline">
-
-              <button type="submit" class="btn-table btn-table--warn">
-
-                {% if p.ativo %}
-                Desativar
-                {% else %}
-                Ativar
-                {% endif %}
-
-              </button>
-
-            </form>
+              <form action="/produtos/{{ p.id }}/desativar" method="post">
+                <button type="submit" class="btn-table btn-table--warn">
+                  {% if p.ativo %}
+                  Desativar
+                  {% else %}
+                  Ativar
+                  {% endif %}
+                </button>
+              </form>
+            </div>
 
           </td>
 

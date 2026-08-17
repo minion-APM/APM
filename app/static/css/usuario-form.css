@@ -1,4 +1,4 @@
-/* ==========================================
+﻿/* ==========================================
    CONTAINER DA PÁGINA
 ========================================== */
 
@@ -6,9 +6,9 @@
     max-width: 700px;
     margin: 40px auto;
     padding: 32px;
-    background: #fff;
+    background: var(--branco);
     border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 16px rgba(16, 42, 67, 0.08);
 }
 
 /* ==========================================
@@ -19,7 +19,7 @@
     margin-bottom: 24px;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 2rem;
-    color: #1f2937;
+    color: var(--texto);
 }
 
 /* ==========================================
@@ -28,7 +28,7 @@
 
 .erro {
     background: #fee2e2;
-    color: #b91c1c;
+    color: var(--vermelho);
     padding: 12px;
     border-radius: 8px;
     margin-bottom: 20px;
@@ -63,19 +63,19 @@
 .usuario-form input,
 .usuario-form select {
     padding: 12px;
-    border: 1px solid #d1d5db;
+    border: 1px solid var(--borda);
     border-radius: 8px;
     font-size: 15px;
     font-family: inherit;
-    color: #111827;
-    background: #fff;
+    color: var(--texto);
+    background: var(--branco);
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .usuario-form input:focus,
 .usuario-form select:focus {
     outline: none;
-    border-color: #06224a;
+    border-color: var(--azul);
     box-shadow: 0 0 0 3px rgba(6, 34, 74, 0.12);
 }
 
@@ -100,8 +100,8 @@
 ========================================== */
 
 .btn-salvar {
-    background: #06224a;
-    color: #f5b400;
+    background: var(--azul);
+    color: var(--laranja);
     border: none;
     padding: 12px 20px;
     border-radius: 8px;
@@ -125,8 +125,8 @@
 ========================================== */
 
 .btn-cancelar {
-    background: #e5e7eb;
-    color: #111827;
+    background: var(--borda);
+    color: var(--texto);
     text-decoration: none;
     padding: 12px 20px;
     border-radius: 8px;
@@ -136,6 +136,6 @@
 }
 
 .btn-cancelar:hover {
-    background: #d1d5db;
+    background: var(--borda);
     text-decoration: none;
 }

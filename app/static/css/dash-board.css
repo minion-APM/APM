@@ -1,7 +1,7 @@
-/* CONTAINER PRINCIPAL */
+﻿/* CONTAINER PRINCIPAL */
 .dash-container {
     padding: 25px;
-    background-color: #f4f6fb !important;
+    background-color: var(--fundo) !important;
     min-height: 100vh;
     box-sizing: border-box;
     font-family: sans-serif;
@@ -18,19 +18,19 @@
 .dash-header h1 {
     margin: 0;
     font-size: 26px;
-    color: #111827;
+    color: var(--texto);
 }
 
 .dash-header p {
     margin: 5px 0 0;
-    color: #6b7280;
+    color: var(--texto-secundario);
     font-size: 14px;
 }
 
 /* BOTÃO PDV */
 .btn-pdv {
-    background-color: #ff7a00;
-    color: #ffffff !important;
+    background-color: var(--laranja);
+    color: var(--branco) !important;
     padding: 12px 20px;
     border-radius: 8px;
     text-decoration: none;
@@ -40,7 +40,7 @@
 }
 
 .btn-pdv:hover {
-    background-color: #e06b00;
+    background-color: var(--laranja);
 }
 
 /* ESTRUTURA DOS CARDS */
@@ -52,31 +52,31 @@
 }
 
 .card {
-    background-color: #ffffff !important;
+    background-color: var(--branco) !important;
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px rgba(16, 42, 67, 0.08);
 }
 
 .card h3 {
     margin: 0;
     font-size: 14px;
-    color: #4b5563;
+    color: var(--texto-secundario);
 }
 
 /* ESTILO DO NÚMERO */
 .card-number {
     font-size: 32px !important;
     font-weight: 700 !important;
-    color: #111827 !important; 
+    color: var(--texto) !important; 
     margin: 10px 0 0 0 !important;
     display: block !important;
 }
 
 /* BORDAS DOS CARDS */
 .card-blue { border-left: 5px solid #2563eb; }
-.card-orange { border-left: 5px solid #ff7a00; }
-.card-dark { border-left: 5px solid #111827; }
+.card-orange { border-left: 5px solid var(--laranja); }
+.card-dark { border-left: 5px solid var(--texto); }
 .card-gray { border-left: 5px solid #9ca3af; }
 
 /* ESTRUTURA DO GRID EM COLUNAS */
@@ -95,17 +95,17 @@
 
 /* BOX BASE */
 .box {
-    background-color: #ffffff !important;
+    background-color: var(--branco) !important;
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px rgba(16, 42, 67, 0.08);
     box-sizing: border-box;
 }
 
 .box h3 {
     margin: 0 0 15px 0;
     font-size: 16px;
-    color: #111827;
+    color: var(--texto);
 }
 
 .large { min-height: 280px; }
@@ -114,10 +114,10 @@
 
 /* NOVO BLOCO DE PRODUTOS */
 .small-products {
-    background-color: #ffffff !important;
+    background-color: var(--branco) !important;
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px rgba(16, 42, 67, 0.08);
     box-sizing: border-box;
     min-height: 240px;
 }
@@ -132,8 +132,8 @@
 }
 
 .resumo-item:last-child { border-bottom: none; }
-.resumo-item span { color: #4b5563; }
-.resumo-item strong { color: #111827; font-size: 16px; }
+.resumo-item span { color: var(--texto-secundario); }
+.resumo-item strong { color: var(--texto); font-size: 16px; }
 
 /* PLACEHOLDER DO GRÁFICO */
 .chart-placeholder {
@@ -142,9 +142,9 @@
     align-items: center;
     justify-content: center;
     color: #9ca3af;
-    border: 2px dashed #e5e7eb;
+    border: 2px dashed var(--borda);
     border-radius: 10px;
-    background-color: #f9fafb;
+    background-color: var(--fundo);
     font-size: 14px;
 }
 
@@ -158,14 +158,14 @@
 .dash-table th {
     text-align: left;
     padding: 10px;
-    color: #ffffff;
+    color: var(--branco);
     font-weight: 600;
-    border-bottom: 2px solid #ffffff;
+    border-bottom: 2px solid var(--branco);
 }
 
 .dash-table td {
     padding: 12px 10px;
-    color: #111827;
+    color: var(--texto);
     border-bottom: 1px solid #f3f4f6;
 }
 
@@ -196,7 +196,7 @@
 }
 .produto-item:last-child { border-bottom: none; }
 
-.p-nome { margin: 0; font-size: 14px; font-weight: 600; color: #111827; }
+.p-nome { margin: 0; font-size: 14px; font-weight: 600; color: var(--texto); }
 .p-detalhe { margin: 2px 0 0 0; font-size: 12px; color: #9ca3af; }
-.p-preco { font-size: 14px; font-weight: bold; color: #ff7a00; }
+.p-preco { font-size: 14px; font-weight: bold; color: var(--laranja); }
 .lista-empty { text-align: center; color: #9ca3af; font-size: 14px; padding-top: 20px; }

@@ -1,4 +1,4 @@
-/* ==========================================
+﻿/* ==========================================
    CONTAINER
 ========================================== */
 
@@ -7,11 +7,11 @@
     margin: 40px auto;
     padding: 32px;
 
-    background: #fff;
+    background: var(--branco);
 
     border-radius: 12px;
 
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 16px rgba(16, 42, 67, 0.08);
 }
 
 /* ==========================================
@@ -25,7 +25,7 @@
 
     font-size: 2rem;
 
-    color: #06224a;
+    color: var(--azul);
 }
 
 /* ==========================================
@@ -35,7 +35,7 @@
 .cliente-erro {
     background: #fee2e2;
 
-    color: #b91c1c;
+    color: var(--vermelho);
 
     padding: 12px;
 
@@ -79,7 +79,7 @@
 .cliente-form input[type="text"] {
     padding: 12px;
 
-    border: 1px solid #d1d5db;
+    border: 1px solid var(--borda);
 
     border-radius: 8px;
 
@@ -91,7 +91,7 @@
 .cliente-form input[type="text"]:focus {
     outline: none;
 
-    border-color: #06224a;
+    border-color: var(--azul);
 
     box-shadow: 0 0 0 3px rgba(6, 34, 74, 0.15);
 }
@@ -128,9 +128,9 @@
 }
 
 .btn-cliente-form {
-    background: #06224a;
+    background: var(--azul);
 
-    color: #f5b400;
+    color: var(--laranja);
 
     border: none;
 
@@ -150,9 +150,9 @@
 }
 
 .btn-cliente-cancelar {
-    background: #f5b400;
+    background: var(--laranja);
 
-    color: #06224a;
+    color: var(--azul);
 
     text-decoration: none;
 
@@ -166,5 +166,5 @@
 }
 
 .btn-cliente-cancelar:hover {
-    background: #ffce46;
+    background: var(--laranja);
 }
