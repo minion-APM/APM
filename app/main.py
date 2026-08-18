@@ -1,7 +1,11 @@
+import logging
+
 from fastapi import FastAPI, Request, Depends
+from fastapi.exceptions import RequestValidationError
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse, RedirectResponse
+from starlette.exceptions import HTTPException as StarletteHTTPException
 from app.database import get_db
 from sqlalchemy.orm import Session
 
@@ -27,6 +31,52 @@ app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 #Configura para renderizar os templates HTML
 templates = Jinja2Templates(directory="app/templates")
+logger = logging.getLogger(__name__)
+
+
+MENSAGENS_ERRO = {
+    400: ("Requisição inválida", "Não foi possível processar esta solicitação."),
+    401: ("Acesso não autorizado", "Entre no sistema para acessar esta página."),
+    403: ("Acesso negado", "Você não possui permissão para acessar esta página."),
+    404: ("Página não encontrada", "O endereço informado não existe ou foi alterado."),
+    405: ("Ação não permitida", "Esta operação não está disponível neste endereço."),
+    422: ("Dados inválidos", "Revise os dados informados e tente novamente."),
+    500: ("Erro interno", "Ocorreu um problema inesperado. Tente novamente em instantes."),
+}
+
+
+def resposta_erro(request: Request, codigo: int):
+    titulo, mensagem = MENSAGENS_ERRO.get(
+        codigo,
+        ("Algo deu errado", "Não foi possível concluir sua solicitação."),
+    )
+    return templates.TemplateResponse(
+        request,
+        "error.html",
+        {
+            "request": request,
+            "codigo": codigo,
+            "titulo_erro": titulo,
+            "mensagem_erro": mensagem,
+        },
+        status_code=codigo,
+    )
+
+
+@app.exception_handler(StarletteHTTPException)
+async def tratar_erro_http(request: Request, exc: StarletteHTTPException):
+    return resposta_erro(request, exc.status_code)
+
+
+@app.exception_handler(RequestValidationError)
+async def tratar_erro_validacao(request: Request, exc: RequestValidationError):
+    return resposta_erro(request, 422)
+
+
+@app.exception_handler(Exception)
+async def tratar_erro_inesperado(request: Request, exc: Exception):
+    logger.exception("Erro inesperado ao processar %s", request.url.path, exc_info=exc)
+    return resposta_erro(request, 500)
 
 # Inclui os routeres do controller
 app.include_router(auth_controller.router)

@@ -1,0 +1,100 @@
+.error-page {
+    min-height: calc(100vh - 230px);
+    display: grid;
+    place-items: center;
+    padding: 30px 0;
+}
+
+.error-card {
+    width: min(560px, 100%);
+    padding: 44px 36px;
+    border: 1px solid var(--borda);
+    border-top: 5px solid var(--laranja);
+    border-radius: 16px;
+    background: var(--branco);
+    text-align: center;
+    box-shadow: var(--sombra-hover);
+}
+
+.error-code {
+    color: var(--azul);
+    font-family: "Barlow Condensed", sans-serif;
+    font-size: clamp(72px, 14vw, 112px);
+    font-weight: 700;
+    line-height: .85;
+    opacity: .1;
+}
+
+.error-brand {
+    display: inline-block;
+    margin-top: -8px;
+    color: var(--laranja-2);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+
+.error-card h1 {
+    margin-top: 10px;
+    color: var(--azul);
+    font-size: 30px;
+}
+
+.error-card p {
+    max-width: 430px;
+    margin: 10px auto 0;
+    color: var(--texto-secundario);
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.error-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.error-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 19px;
+    border-radius: 9px;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.error-btn--primary {
+    border: 1px solid var(--laranja);
+    background: var(--laranja);
+    color: var(--azul);
+}
+
+.error-btn--secondary {
+    border: 1px solid var(--borda);
+    background: var(--branco);
+    color: var(--azul);
+}
+
+.error-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--sombra);
+}
+
+@media (max-width: 520px) {
+    .error-card {
+        padding: 34px 20px;
+    }
+
+    .error-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+}

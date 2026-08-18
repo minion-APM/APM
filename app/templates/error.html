@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block titulo %}Erro {{ codigo }} — AAPM SENAI{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="/static/css/error.css?v=1">{% endblock %}
+
+{% block conteudo %}
+<section class="error-page" aria-labelledby="error-title">
+  <div class="error-card">
+    <div class="error-code" aria-hidden="true">{{ codigo }}</div>
+    <span class="error-brand">AAPM · SENAI</span>
+    <h1 id="error-title">{{ titulo_erro }}</h1>
+    <p>{{ mensagem_erro }}</p>
+
+    <div class="error-actions">
+      <a href="/" class="error-btn error-btn--primary">Voltar ao início</a>
+      <button type="button" class="error-btn error-btn--secondary" onclick="history.back()">
+        Página anterior
+      </button>
+    </div>
+  </div>
+</section>
+{% endblock %}
