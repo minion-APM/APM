@@ -1,0 +1,231 @@
+.main-content {
+    width: min(760px, 92%);
+}
+
+/* Compatibilidade visual com o formulário de Produtos */
+.main-content {
+    width: min(1450px, 94%);
+}
+
+.form-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 32px;
+    background: var(--branco);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(16, 42, 67, 0.08);
+}
+
+.form-title {
+    margin-bottom: 24px;
+    font-family: "Barlow Condensed", sans-serif;
+    font-size: 2rem;
+    color: var(--texto);
+}
+
+.categoria-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.categoria-form .form-label {
+    margin-bottom: 6px;
+    color: #374151;
+    font-weight: 600;
+}
+
+.categoria-form .form-label::after {
+    content: none;
+}
+
+.categoria-form .form-input {
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.categoria-form .form-input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.categoria-form .btn-primary {
+    padding: 12px 18px;
+    border-radius: 8px;
+    background: #2563eb;
+    color: white;
+    font-weight: 600;
+    box-shadow: none;
+}
+
+.categoria-form .btn-primary:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+    box-shadow: none;
+}
+
+.categoria-form .btn-outline {
+    padding: 12px 18px;
+    border: 0;
+    border-radius: 8px;
+    background: var(--borda);
+    color: var(--texto);
+    font-weight: 600;
+}
+
+.categoria-form .btn-outline:hover {
+    background: var(--borda);
+    color: var(--texto);
+}
+
+@media (max-width: 600px) {
+    .form-container {
+        margin: 20px;
+        padding: 22px;
+    }
+}
+
+.page-header {
+    margin: 20px 0 30px;
+}
+
+.page-title {
+    color: var(--azul);
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.page-header::after {
+    content: "Organize os produtos com um nome claro e fácil de identificar.";
+    display: block;
+    margin-top: 6px;
+    color: var(--texto-secundario);
+    font-size: 14px;
+}
+
+.card {
+    padding: 30px;
+    border: 1px solid var(--borda);
+    border-top: 4px solid var(--laranja);
+    border-radius: 14px;
+    background: var(--branco);
+    box-shadow: var(--sombra);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label {
+    margin-bottom: 8px;
+    color: var(--azul);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.form-label::after {
+    content: " da categoria";
+}
+
+.form-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid var(--borda);
+    border-radius: 10px;
+    color: var(--texto);
+    background: var(--branco);
+    font-size: 15px;
+    outline: none;
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.form-input:focus {
+    border-color: var(--laranja);
+    box-shadow: 0 0 0 4px rgba(245,180,0,.15);
+}
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 26px;
+}
+
+.btn-primary {
+    padding: 13px 22px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--laranja);
+    color: var(--azul);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(245,180,0,.25);
+    transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+}
+
+.btn-primary:hover {
+    background: var(--laranja-2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(245,180,0,.35);
+}
+
+.btn-outline {
+    padding: 12px 18px;
+    border: 2px solid var(--azul);
+    border-radius: 10px;
+    color: var(--azul);
+    font-weight: 700;
+    text-decoration: none;
+    transition: background .2s ease, color .2s ease;
+}
+
+.btn-outline:hover {
+    background: var(--azul);
+    color: var(--branco);
+}
+
+.alert--danger {
+    display: flex;
+    gap: 8px;
+    padding: 13px 15px;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--vermelho);
+    border-radius: 8px;
+    background: #fff5f5;
+    color: #742a2a;
+    font-weight: 600;
+}
+
+.card__title {
+    margin-bottom: 12px;
+    color: var(--azul);
+}
+
+.card li {
+    padding: 6px 0;
+}
+
+@media (max-width: 650px) {
+    .card {
+        padding: 22px 18px;
+    }
+
+    .form-actions {
+        align-items: stretch;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .btn-primary,
+    .btn-outline {
+        width: 100%;
+    }
+}

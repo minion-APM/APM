@@ -41,6 +41,38 @@
     box-shadow: var(--shadow-lg);
 }
 
+.btn-entrar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0 24px;
+    border: 0;
+    border-radius: 10px;
+    background-color: #F5B400;
+    color: #102A43;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(245, 180, 0, .28);
+    cursor: pointer;
+    transition: transform .2s ease, background-color .2s ease, box-shadow .2s ease;
+}
+
+.btn-entrar:hover,
+.btn-entrar:focus-visible {
+    background-color: #D99F00;
+    color: #102A43;
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(245, 180, 0, .38);
+}
+
+.btn-entrar:focus-visible {
+    outline: 3px solid rgba(16, 42, 67, .28);
+    outline-offset: 3px;
+}
+
 .categorias,
 .beneficios {
     margin-top: 4rem;

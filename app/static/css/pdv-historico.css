@@ -4,6 +4,100 @@
     padding: 30px;
 }
 
+/* Mesmo padrão visual da listagem de Produtos */
+.historico-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.historico-header {
+    margin: 20px 0 30px;
+}
+
+.historico-header h1 {
+    color: var(--azul);
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.btn-voltar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, var(--laranja), var(--laranja));
+    color: var(--azul);
+    border-radius: 10px;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(245,180,0,.25);
+}
+
+.btn-voltar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(245,180,0,.35);
+}
+
+.card-tabela {
+    padding: 25px;
+    overflow: hidden;
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(16,42,67,.08);
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.historico-table thead {
+    background: var(--fundo);
+}
+
+.historico-table th {
+    padding: 14px;
+    color: var(--texto-secundario);
+    border-bottom: 1px solid var(--borda);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    white-space: nowrap;
+}
+
+.historico-table td {
+    padding: 14px;
+    border-top: 0;
+    border-bottom: 1px solid var(--borda);
+}
+
+.historico-table tbody tr {
+    transition: background .2s ease;
+}
+
+.historico-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.link-venda {
+    color: var(--azul);
+}
+
+.link-venda:hover {
+    color: var(--laranja);
+    text-decoration: none;
+}
+
+@media (max-width: 900px) {
+    .card-tabela {
+        overflow: hidden;
+    }
+
+    .btn-voltar {
+        width: 100%;
+    }
+}
+
 
 /* HEADER */
 
@@ -172,4 +266,39 @@
     .historico-table {
         min-width: 900px;
     }
+}
+
+/* Prioridade final: identidade visual igual a Produtos */
+.historico-container { padding: 0; }
+.historico-header { margin: 20px 0 30px; }
+.historico-header h1 { color: var(--azul); }
+.btn-voltar {
+    padding: 12px 20px;
+    background: var(--laranja);
+    border-radius: 10px;
+    font-weight: 700;
+}
+.btn-voltar:hover { background: var(--laranja); }
+.card-tabela {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(16,42,67,.08);
+}
+.historico-table thead { background: var(--fundo); }
+.historico-table th {
+    padding: 14px;
+    color: var(--texto-secundario);
+}
+.historico-table td {
+    padding: 14px;
+    border-top: 0;
+    border-bottom: 1px solid var(--borda);
+}
+.link-venda { color: var(--azul); }
+.link-venda:hover {
+    color: var(--laranja);
+    text-decoration: none;
+}
+@media (max-width: 900px) {
+    .card-tabela { overflow: hidden; }
 }

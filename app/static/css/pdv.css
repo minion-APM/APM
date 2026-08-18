@@ -10,9 +10,10 @@ body {
 /* O Box/Quadrado Fechado que envelopa todo o PDV */
 .pdv-layout {
     display: flex;
-    height: calc(100vh - 96px);
+    height: calc(100vh - 170px);
+    min-height: 560px;
     max-width: 1440px;
-    margin: 20px auto;
+    margin: 0 auto 20px;
     background-color: var(--branco);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     overflow: hidden;
@@ -20,6 +21,13 @@ body {
     border: 1px solid var(--borda);
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+}
+
+@media (max-height: 720px) {
+    .pdv-layout {
+        height: calc(100vh - 130px);
+        min-height: 500px;
+    }
 }
 
 
