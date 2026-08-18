@@ -155,6 +155,16 @@ body {
     text-decoration: none;
 }
 
+.logo-area,
+.logo-area:visited,
+.logo-area:hover,
+.logo-area:focus,
+.logo-area .logo-aapm,
+.logo-area .logo-senai {
+    border-bottom: none;
+    text-decoration: none !important;
+}
+
 
 /* Ícone */
 
