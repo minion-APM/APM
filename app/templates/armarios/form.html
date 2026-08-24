@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block titulo %}{{ 'Editar' if editando else 'Novo' }} armário — AAPM SENAI{% endblock %}
+
+{% block conteudo %}
+<header class="page-header">
+  <h1 class="page-title">{{ 'Editar armário' if editando else 'Novo armário' }}</h1>
+  <a href="/armarios">Voltar</a>
+</header>
+{% if erro %}<p class="alert alert--danger">{{ erro }}</p>{% endif %}
+<form method="post">
+  <label for="numero">Número ou nome</label>
+  <input id="numero" name="numero" maxlength="30" required value="{{ valores.numero if valores is defined else (editando.numero if editando else '') }}">
+  <label for="descricao">Descrição/localização</label>
+  <textarea id="descricao" name="descricao" maxlength="255" rows="4" placeholder="Ex.: 1º andar">{{ valores.descricao if valores is defined else (editando.descricao if editando and editando.descricao else '') }}</textarea>
+  {% if not editando %}
+  <label for="status_armario">Status inicial</label>
+  <select id="status_armario" name="status_armario">
+    <option value="disponivel">Disponível</option>
+    <option value="bloqueado">Bloqueado</option>
+    <option value="manutencao">Em manutenção</option>
+  </select>
+  {% endif %}
+  <button type="submit" class="btn-primary">Salvar</button>
+</form>
+{% endblock %}

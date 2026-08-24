@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block titulo %}Histórico de armários — AAPM SENAI{% endblock %}
+
+{% block conteudo %}
+<header class="page-header">
+  <h1 class="page-title">Histórico de aluguéis</h1>
+  <a href="/armarios">Voltar aos armários</a>
+</header>
+
+<table class="table">
+  <thead>
+    <tr><th>Armário</th><th>Cliente</th><th>Dia e hora</th><th>Devolução</th><th>Operador</th></tr>
+  </thead>
+  <tbody>
+  {% for aluguel in alugueis %}
+  <tr>
+    <td>{{ aluguel.armario.numero }}</td>
+    <td>{{ aluguel.cliente.nome }}</td>
+    <td>{{ aluguel.inicio_em.strftime('%d/%m/%Y %H:%M') }}</td>
+    <td>{{ aluguel.devolvido_em.strftime('%d/%m/%Y %H:%M') if aluguel.devolvido_em else 'Em uso' }}</td>
+    <td>{{ aluguel.usuario.nome if aluguel.usuario else '—' }}</td>
+  </tr>
+  {% else %}
+  <tr><td colspan="5">Nenhum aluguel registrado.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% include "paginacao/index.html" %}
+{% endblock %}

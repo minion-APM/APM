@@ -27,6 +27,8 @@ class Cliente(Base):
 
     # Relacionamento reverso para consultar vendas do cliente
     vendas = relationship("Venda", back_populates="cliente")
+    armarios = relationship("Armario", back_populates="cliente")
+    alugueis_armarios = relationship("AluguelArmario", back_populates="cliente")
 
     def __repr__(self):
         return f"<Cliente id={self.id} nome={self.nome} associado={self.is_associado}>"

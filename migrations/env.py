@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 import os
 load_dotenv()
 from app.database import Base
-from app.models import usuario
+from app.models import armario, categoria, cliente, movimentacao, produto, produto_tamanho, usuario, venda
 
 
 # this is the Alembic Config object, which provides

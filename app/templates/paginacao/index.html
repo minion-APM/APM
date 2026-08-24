@@ -1,0 +1,9 @@
+{% if pagination %}
+<nav class="pagination" aria-label="Paginação">
+  <a class="pagination__link{{ ' pagination__link--disabled' if not pagination.has_previous }}" href="{{ request.url.include_query_params(page=pagination.page - 1) if pagination.has_previous else '#' }}" {% if not pagination.has_previous %}aria-disabled="true" tabindex="-1"{% endif %}>Anterior</a>
+  {% for numero in pagination.pages %}
+  <a class="pagination__link{{ ' pagination__link--active' if numero == pagination.page }}" href="{{ request.url.include_query_params(page=numero) }}" {% if numero == pagination.page %}aria-current="page"{% endif %}>{{ numero }}</a>
+  {% endfor %}
+  <a class="pagination__link{{ ' pagination__link--disabled' if not pagination.has_next }}" href="{{ request.url.include_query_params(page=pagination.page + 1) if pagination.has_next else '#' }}" {% if not pagination.has_next %}aria-disabled="true" tabindex="-1"{% endif %}>Próxima</a>
+</nav>
+{% endif %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block titulo %}Armários — AAPM SENAI{% endblock %}
+
+{% block conteudo %}
+<header class="page-header">
+  <h1 class="page-title">Armários</h1>
+  <a href="/armarios/historico">Histórico de aluguéis</a>
+  {% if usuario.role == 'admin' %}<a href="/armarios/novo" class="btn-primary">+ Novo armário</a>{% endif %}
+</header>
+
+{% if request.query_params.get('erro') %}<p class="alert alert--danger">Não foi possível concluir a operação.</p>{% endif %}
+
+<section class="card">
+<table class="table">
+  <thead><tr><th>Armário</th><th>Descrição</th><th>Status</th><th>Cliente</th><th>Ações</th></tr></thead>
+  <tbody>
+  {% for armario in armarios %}
+  <tr {% if armario.status == 'manutencao' %}style="background:var(--laranja-claro)"{% endif %}>
+    <td>{{ armario.numero }}</td>
+    <td>{{ armario.descricao or '—' }}</td>
+    <td>{% if armario.status == 'manutencao' %}<strong style="color:var(--laranja-2)">Em manutenção</strong>{% else %}{{ armario.status|capitalize }}{% endif %}</td>
+    <td>{{ armario.cliente.nome if armario.cliente else '—' }}</td>
+    <td>
+      {% if usuario.role == 'admin' %}<p><a href="/armarios/{{ armario.id }}/editar">Editar</a></p>{% endif %}
+      {% if armario.status == 'disponivel' %}
+      <a href="/armarios/{{ armario.id }}/alugar">Alugar</a>
+      {% elif armario.status == 'alugado' %}
+      <form action="/armarios/{{ armario.id }}/devolver" method="post"><button type="submit">Devolver</button></form>
+      {% endif %}
+    </td>
+  </tr>
+  {% else %}<tr><td colspan="5">Nenhum armário cadastrado.</td></tr>{% endfor %}
+  </tbody>
+</table>
+</section>
+{% include "paginacao/index.html" %}
+{% endblock %}
