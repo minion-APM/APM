@@ -13,6 +13,7 @@ from app.models.produto import Produto
 from app.models.categoria import Categoria
 from app.models.produto_tamanho import ProdutoTamanho
 from app.auth import get_usuario_logado, get_admin
+from app.pagination import paginate
 
 router = APIRouter(prefix="/produtos", tags=["Produtos"])
 
@@ -31,6 +32,7 @@ def listar_produtos(
     request: Request,
     busca: str = "",
     categoria_id: int = 0,
+    page: int = 1,
     db: Session = Depends(get_db),
     usuario = Depends(get_usuario_logado)
 ):
@@ -45,7 +47,7 @@ def listar_produtos(
     if categoria_id:
         query = query.filter(Produto.categoria_id == categoria_id)
 
-    produtos   = query.order_by(Produto.nome).all()
+    produtos, pagination = paginate(query.order_by(Produto.nome), page)
     categorias = db.query(Categoria).filter(Categoria.ativo == True).all()
 
     return templates.TemplateResponse(
@@ -56,6 +58,7 @@ def listar_produtos(
             "usuario":      usuario,
             "produtos":     produtos,
             "categorias":   categorias,
+            "pagination":   pagination,
             "busca":        busca,
             "categoria_id": categoria_id,
         }

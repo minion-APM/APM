@@ -12,6 +12,7 @@ from app.models.movimentacao import Movimentacao, Tipo_de_movimentacao
 from app.models.produto import Produto
 from app.models.produto_tamanho import ProdutoTamanho
 from app.auth import get_usuario_logado, get_admin
+from app.pagination import paginate
 
 
 router = APIRouter(
@@ -31,6 +32,7 @@ def listar_movimentacoes(
     request: Request,
     produto_id: int = 0,
     tipo: str = "",
+    page: int = 1,
     db: Session = Depends(get_db),
     admin = Depends(get_admin)
 ):
@@ -48,7 +50,7 @@ def listar_movimentacoes(
             Movimentacao.tipo == tipo
         )
 
-    movimentacoes = query.limit(200).all()
+    movimentacoes, pagination = paginate(query, page)
 
     produtos = db.query(Produto).filter(
         Produto.ativo == True
@@ -64,6 +66,7 @@ def listar_movimentacoes(
             "produtos": produtos,
             "produto_id": produto_id,
             "tipo": tipo,
+            "pagination": pagination,
         }
     )
 

@@ -1,0 +1,33 @@
+{% if pagination %}
+<nav class="pagination" aria-label="Paginação">
+  <a class="pagination__link{{ ' pagination__link--disabled' if not pagination.has_previous }}"
+     href="{{ request.url.include_query_params(page=pagination.page - 1) if pagination.has_previous else '#' }}"
+     {% if not pagination.has_previous %}aria-disabled="true" tabindex="-1"{% endif %}>
+    Anterior
+  </a>
+
+  {% if pagination.pages.start > 1 %}
+    <a class="pagination__link" href="{{ request.url.include_query_params(page=1) }}">1</a>
+    {% if pagination.pages.start > 2 %}<span class="pagination__ellipsis">…</span>{% endif %}
+  {% endif %}
+
+  {% for page_number in pagination.pages %}
+    <a class="pagination__link{{ ' pagination__link--active' if page_number == pagination.page }}"
+       href="{{ request.url.include_query_params(page=page_number) }}"
+       {% if page_number == pagination.page %}aria-current="page"{% endif %}>
+      {{ page_number }}
+    </a>
+  {% endfor %}
+
+  {% if pagination.pages.stop - 1 < pagination.total_pages %}
+    {% if pagination.pages.stop - 1 < pagination.total_pages - 1 %}<span class="pagination__ellipsis">…</span>{% endif %}
+    <a class="pagination__link" href="{{ request.url.include_query_params(page=pagination.total_pages) }}">{{ pagination.total_pages }}</a>
+  {% endif %}
+
+  <a class="pagination__link{{ ' pagination__link--disabled' if not pagination.has_next }}"
+     href="{{ request.url.include_query_params(page=pagination.page + 1) if pagination.has_next else '#' }}"
+     {% if not pagination.has_next %}aria-disabled="true" tabindex="-1"{% endif %}>
+    Próxima
+  </a>
+</nav>
+{% endif %}

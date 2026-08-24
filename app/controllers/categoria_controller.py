@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models.categoria import Categoria
 from app.auth import get_admin
+from app.pagination import paginate
 
 router = APIRouter(prefix="/categorias", tags=["Categorias"])
 
@@ -24,6 +25,7 @@ templates = Jinja2Templates(directory="app/templates")
 @router.get("/")
 def listar_categorias(
     request: Request,
+    page: int = 1,
     db: Session = Depends(get_db),
     admin = Depends(get_admin)
 ):
@@ -32,7 +34,9 @@ def listar_categorias(
     Inclui a contagem de produtos de cada categoria
     para dar contexto ao admin antes de desativar.
     """
-    categorias = db.query(Categoria).order_by(Categoria.nome).all()
+    categorias, pagination = paginate(
+        db.query(Categoria).order_by(Categoria.nome), page
+    )
 
     return templates.TemplateResponse(
         request,
@@ -41,6 +45,7 @@ def listar_categorias(
             "request":    request,
             "usuario":    admin,
             "categorias": categorias,
+            "pagination": pagination,
         }
     )
 

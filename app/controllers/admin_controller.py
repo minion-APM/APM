@@ -9,6 +9,7 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models.usuario import Usuario
 from app.auth import get_admin, hash_senha
+from app.pagination import paginate
 
 router = APIRouter(prefix="/usuarios", tags=["Usuários"])
 
@@ -19,12 +20,15 @@ templates = Jinja2Templates(directory="app/templates")
 @router.get("/")
 def listar_usuarios(
     request: Request,
+    page: int = 1,
     db: Session = Depends(get_db),
     admin = Depends(get_admin) # Bloqueia quem não é admin
 ):
    
     # Buscar usuarios do banco
-    usuarios = db.query(Usuario).order_by(Usuario.nome).all()
+    usuarios, pagination = paginate(
+        db.query(Usuario).order_by(Usuario.nome), page
+    )
 
     return templates.TemplateResponse(
         request,
@@ -32,7 +36,8 @@ def listar_usuarios(
         {
             "request": request,
             "usuario": admin,
-            "usuarios": usuarios
+            "usuarios": usuarios,
+            "pagination": pagination,
 
         }
     )

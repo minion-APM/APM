@@ -11,6 +11,7 @@ from app.models.produto import Produto
 from app.models.produto_tamanho import ProdutoTamanho
 from app.models.cliente import Cliente
 from app.auth import get_usuario_logado
+from app.pagination import paginate
 
 
 router = APIRouter(prefix="/pdv", tags=["PDV"])
@@ -213,14 +214,12 @@ def detalhe_venda(
 @router.get("/historico")
 def historico_vendas(
     request: Request,
+    page: int = 1,
     db: Session = Depends(get_db),
     usuario=Depends(get_usuario_logado)
 ):
-    vendas = (
-        db.query(Venda)
-        .order_by(Venda.criado_em.desc())
-        .limit(100)
-        .all()
+    vendas, pagination = paginate(
+        db.query(Venda).order_by(Venda.criado_em.desc()), page
     )
 
     return templates.TemplateResponse(
@@ -230,5 +229,6 @@ def historico_vendas(
             "request": request,
             "usuario": usuario,
             "vendas": vendas,
+            "pagination": pagination,
         }
     )
