@@ -5,6 +5,7 @@ from fastapi import APIRouter, Depends, Request, Form, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 
 from app.database import get_db
 from app.models.usuario import Usuario
@@ -20,14 +21,23 @@ templates = Jinja2Templates(directory="app/templates")
 @router.get("/")
 def listar_usuarios(
     request: Request,
+    busca: str = "",
     page: int = 1,
     db: Session = Depends(get_db),
     admin = Depends(get_admin) # Bloqueia quem não é admin
 ):
    
-    # Buscar usuarios do banco
+    busca = busca.strip()
+
+    # A busca considera qualquer trecho do nome. Assim que a primeira letra
+    # for digitada, todos os usuários que a contêm são retornados.
+    query = db.query(Usuario)
+    if busca:
+        query = query.filter(Usuario.nome.ilike(f"%{busca}%"))
+
+    # A listagem é sempre apresentada em ordem alfabética (A-Z).
     usuarios, pagination = paginate(
-        db.query(Usuario).order_by(Usuario.nome), page
+        query.order_by(func.lower(Usuario.nome)), page
     )
 
     return templates.TemplateResponse(
@@ -38,6 +48,7 @@ def listar_usuarios(
             "usuario": admin,
             "usuarios": usuarios,
             "pagination": pagination,
+            "busca": busca,
 
         }
     )
