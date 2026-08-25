@@ -7,7 +7,6 @@ from fastapi import APIRouter, Depends, Request, Form
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
-from sqlalchemy import func
 
 from app.database import get_db
 from app.models.categoria import Categoria
@@ -36,12 +35,13 @@ def listar_categorias(
     Inclui a contagem de produtos de cada categoria
     para dar contexto ao admin antes de desativar.
     """
-    busca = busca.strip()
     query = db.query(Categoria)
     if busca:
         query = query.filter(Categoria.nome.ilike(f"%{busca}%"))
 
-    categorias, pagination = paginate(query.order_by(func.lower(Categoria.nome)), page)
+    categorias, pagination = paginate(
+        query.order_by(Categoria.nome), page
+    )
 
     return templates.TemplateResponse(
         request,
