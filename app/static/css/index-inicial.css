@@ -36,9 +36,9 @@
 }
 
 .hero-image img {
-    width: 100%;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
+    width: min(80%, 400px);
+    height: auto;
+    margin: 0 auto;
 }
 
 .btn-entrar {
@@ -137,5 +137,9 @@
 
     .hero-text{
         margin:0 auto 2rem;
+    }
+
+    .hero-image img {
+        width: min(80%, 320px);
     }
 }

@@ -155,6 +155,12 @@ body {
     text-decoration: none;
 }
 
+.logo-image {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+}
+
 .logo-area,
 .logo-area:visited,
 .logo-area:hover,
@@ -696,6 +702,11 @@ img {
         height: 38px;
 
         font-size: 19px;
+    }
+
+    .logo-image {
+        width: 44px;
+        height: 44px;
     }
 
     .logo-aapm {

@@ -22,6 +22,34 @@
 {% endif %}
 
 <div class="card">
+  <form method="get" action="/categorias" class="category-search-form">
+    <label for="busca-categoria">Pesquisar por nome</label>
+    <div class="category-search-controls">
+      <input
+        id="busca-categoria"
+        type="search"
+        name="busca"
+        value="{{ busca }}"
+        placeholder="Digite um nome..."
+        autocomplete="off"
+        oninput="clearTimeout(window.categorySearchTimer); window.categorySearchTimer = setTimeout(() => this.form.requestSubmit(), 300)"
+      >
+      {% if busca %}
+      <a href="/categorias" class="btn-clear-search">Limpar</a>
+      {% endif %}
+    </div>
+  </form>
+
+  {% if busca %}
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const campoBusca = document.getElementById("busca-categoria");
+      campoBusca.focus();
+      campoBusca.setSelectionRange(campoBusca.value.length, campoBusca.value.length);
+    });
+  </script>
+  {% endif %}
+
   <div class="table-wrapper">
     <table class="table">
       <thead>

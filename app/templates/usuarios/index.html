@@ -32,7 +32,6 @@
         value="{{ busca }}"
         placeholder="Digite um nome..."
         autocomplete="off"
-        {% if busca %}autofocus{% endif %}
         oninput="clearTimeout(window.userSearchTimer); window.userSearchTimer = setTimeout(() => this.form.requestSubmit(), 300)"
       >
       {% if busca %}
@@ -40,6 +39,16 @@
       {% endif %}
     </div>
   </form>
+
+  {% if busca %}
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const campoBusca = document.getElementById("busca-usuario");
+      campoBusca.focus();
+      campoBusca.setSelectionRange(campoBusca.value.length, campoBusca.value.length);
+    });
+  </script>
+  {% endif %}
 
   <div class="table-wrapper">
     <table class="table">
