@@ -1,5 +1,8 @@
 {% extends "base.html" %}
-{% block extra_css %}<link rel="stylesheet" href="/static/css/pro-index.css">{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/pro-index.css">
+<link rel="stylesheet" href="/static/css/list-filter.css?v=1">
+{% endblock %}
 
 {% block titulo %}
 Produtos — AAPM SENAI
@@ -43,16 +46,15 @@ Produtos — AAPM SENAI
 
 <div class="card">
 
-  <form method="get" action="/produtos" style="display:flex;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap">
+  <form method="get" action="/produtos" class="list-filter">
 
-    <input type="text" name="busca" class="form-input" placeholder="Buscar por nome..." value="{{ busca }}"
-      style="flex:1;min-width:200px">
+    <input type="text" name="busca" class="form-input list-filter__search" placeholder="Buscar por nome..." value="{{ busca }}">
 
-    <select name="categoria_id" class="form-input form-select" style="width:200px">
+    <select name="categoria_id" class="form-input form-select list-filter__select">
 
       <option value="0">Todas as categorias</option>
 
-      {% for c in categorias %}
+      {% for c in categorias | sort(attribute='nome', case_sensitive=false) %}
       <option value="{{ c.id }}" {{ 'selected' if categoria_id==c.id else '' }}>
         {{ c.nome }}
       </option>
@@ -94,7 +96,7 @@ Produtos — AAPM SENAI
 
       <tbody>
 
-        {% for p in produtos %}
+        {% for p in produtos | sort(attribute='nome', case_sensitive=false) %}
 
         <tr>
 

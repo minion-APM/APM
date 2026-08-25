@@ -180,60 +180,6 @@
     box-shadow: 0 1px 4px rgba(16, 42, 67, 0.08);
 }
 
-/* ==========================================
-   PESQUISA DE USUÁRIOS
-========================================== */
-
-.user-search-form {
-    padding: 16px;
-    border-bottom: 1px solid var(--borda);
-}
-
-.user-search-form label {
-    display: block;
-    margin-bottom: 6px;
-    color: var(--texto-secundario);
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.user-search-controls {
-    display: flex;
-    gap: 8px;
-}
-
-.user-search-controls input {
-    width: 100%;
-    min-height: 38px;
-    padding: 0 12px;
-    border: 1px solid var(--borda);
-    border-radius: 8px;
-    color: #2d3748;
-    font: inherit;
-}
-
-.user-search-controls input:focus {
-    outline: none;
-    border-color: var(--azul);
-    box-shadow: 0 0 0 3px rgba(0, 64, 133, 0.12);
-}
-
-.btn-clear-search {
-    display: inline-flex;
-    align-items: center;
-    padding: 0 14px;
-    border: 1px solid var(--borda);
-    border-radius: 8px;
-    color: var(--azul);
-    font-size: 13px;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.btn-clear-search:hover {
-    background: var(--fundo);
-}
-
 .empty-state {
     text-align: center;
     color: #718096 !important;

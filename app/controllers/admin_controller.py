@@ -5,7 +5,6 @@ from fastapi import APIRouter, Depends, Request, Form, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
-from sqlalchemy import func
 
 from app.database import get_db
 from app.models.usuario import Usuario
@@ -29,15 +28,12 @@ def listar_usuarios(
    
     busca = busca.strip()
 
-    # A busca considera qualquer trecho do nome. Assim que a primeira letra
-    # for digitada, todos os usuários que a contêm são retornados.
     query = db.query(Usuario)
     if busca:
         query = query.filter(Usuario.nome.ilike(f"%{busca}%"))
 
-    # A listagem é sempre apresentada em ordem alfabética (A-Z).
     usuarios, pagination = paginate(
-        query.order_by(func.lower(Usuario.nome)), page
+        query.order_by(Usuario.nome), page
     )
 
     return templates.TemplateResponse(

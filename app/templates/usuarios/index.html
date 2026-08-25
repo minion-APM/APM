@@ -1,5 +1,8 @@
 {% extends "base.html" %}
-{% block extra_css %}<link rel="stylesheet" href="/static/css/index-usuario.css">{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/index-usuario.css?v=2">
+<link rel="stylesheet" href="/static/css/list-filter.css?v=1">
+{% endblock %}
 {% block titulo %}Usuários — AAPM SENAI{% endblock %}
 
 {% block conteudo %}
@@ -22,33 +25,15 @@
 {% endif %}
 
 <div class="card">
-  <form method="get" action="/usuarios" class="user-search-form">
-    <label for="busca-usuario">Pesquisar por nome</label>
-    <div class="user-search-controls">
-      <input
-        id="busca-usuario"
-        type="search"
-        name="busca"
-        value="{{ busca }}"
-        placeholder="Digite um nome..."
-        autocomplete="off"
-        oninput="clearTimeout(window.userSearchTimer); window.userSearchTimer = setTimeout(() => this.form.requestSubmit(), 300)"
-      >
-      {% if busca %}
-      <a href="/usuarios" class="btn-clear-search">Limpar</a>
-      {% endif %}
-    </div>
-  </form>
+  <form method="get" action="/usuarios" class="list-filter list-filter--inset">
+    <input type="text" name="busca" class="form-input list-filter__search" placeholder="Buscar por nome..." value="{{ busca }}">
 
-  {% if busca %}
-  <script>
-    window.addEventListener("DOMContentLoaded", () => {
-      const campoBusca = document.getElementById("busca-usuario");
-      campoBusca.focus();
-      campoBusca.setSelectionRange(campoBusca.value.length, campoBusca.value.length);
-    });
-  </script>
-  {% endif %}
+    <button type="submit" class="btn-primary">Filtrar</button>
+
+    {% if busca %}
+    <a href="/usuarios" class="btn-outline">Limpar</a>
+    {% endif %}
+  </form>
 
   <div class="table-wrapper">
     <table class="table">
@@ -62,7 +47,7 @@
         </tr>
       </thead>
       <tbody>
-        {% for u in usuarios %}
+        {% for u in usuarios | sort(attribute='nome', case_sensitive=false) %}
         <tr>
           <td>{{ u.nome }}</td>
           <td>{{ u.email }}</td>
