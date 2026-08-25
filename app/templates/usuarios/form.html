@@ -26,6 +26,7 @@
         class="usuario-form"
         action="{{ '/usuarios/' + editando.id|string + '/editar' if editando else '/usuarios/novo' }}"
         method="post"
+        {% if not editando %}data-confirm-form data-confirm-title="Tem certeza?" data-confirm-message="Tem certeza que deseja criar este usuário?" data-confirm-label="Confirmar" data-confirm-loading="Criando usuário..."{% endif %}
     >
 
         <label>

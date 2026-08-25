@@ -145,6 +145,10 @@
                         <form
                             action="/clientes/{{ c.id }}/toggle-ativo"
                             method="post"
+                            data-confirm-form
+                            data-confirm-title="Tem certeza?"
+                            data-confirm-message="Tem certeza que deseja {{ 'desativar' if c.ativo else 'ativar' }} este cliente?"
+                            data-confirm-label="{{ 'Desativar' if c.ativo else 'Ativar' }}"
                         >
                             <button
                                 type="submit"

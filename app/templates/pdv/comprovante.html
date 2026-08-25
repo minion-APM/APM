@@ -10,6 +10,10 @@ Comprovante #{{ venda.id }} — AAPM SENAI
 
 {% block conteudo %}
 
+{% if request.query_params.get('sucesso') == 'ok' %}
+<div class="alert alert--success"><span class="alert-icon">✓</span> Venda realizada com sucesso!</div>
+{% endif %}
+
 <div class="comprovante-wrapper">
 
     <div class="cupom">

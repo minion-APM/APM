@@ -22,6 +22,7 @@
         method="post"
         enctype="multipart/form-data"
         id="produto-form"
+        {% if not editando %}data-confirm-form data-confirm-title="Tem certeza?" data-confirm-message="Tem certeza que deseja criar este produto?" data-confirm-label="Confirmar" data-confirm-loading="Criando produto..."{% endif %}
     >
         <label>
             Nome

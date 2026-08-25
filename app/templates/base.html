@@ -66,6 +66,21 @@
       <span class="footer-info">SENAI &copy; 2026</span>
     </div>
   </footer>
- 
+
+  <div class="confirmation-modal" id="confirmation-modal" hidden aria-hidden="true">
+    <div class="confirmation-modal__backdrop"></div>
+    <section class="confirmation-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="confirmation-modal-title" aria-describedby="confirmation-modal-message">
+      <h2 class="confirmation-modal__title" id="confirmation-modal-title">Tem certeza?</h2>
+      <p class="confirmation-modal__message" id="confirmation-modal-message"></p>
+      <div class="confirmation-modal__actions">
+        <button type="button" class="confirmation-modal__button confirmation-modal__button--secondary" id="confirmation-modal-cancel">Cancelar</button>
+        <button type="button" class="confirmation-modal__button confirmation-modal__button--primary" id="confirmation-modal-confirm">Confirmar</button>
+      </div>
+    </section>
+  </div>
+
+  <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+  <script src="/static/js/confirmation-modal.js"></script>
+
 </body>
 </html>

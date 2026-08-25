@@ -38,8 +38,9 @@ function adicionarAoCarrinho(card) {
 
             } else {
 
-                alert(
-                    `Limite de estoque atingido (${existente.estoque_max} un.).`
+                window.showToast?.(
+                    `Limite de estoque atingido (${existente.estoque_max} un.).`,
+                    'error'
                 );
 
                 return;
@@ -61,6 +62,7 @@ function adicionarAoCarrinho(card) {
         }
 
         renderizarCarrinho();
+        window.showToast?.('Produto adicionado ao carrinho com sucesso!', 'success');
 
         return;
     }
@@ -95,6 +97,7 @@ function adicionarAoCarrinho(card) {
 
 
     renderizarCarrinho();
+    window.showToast?.('Produto adicionado ao carrinho com sucesso!', 'success');
 }
 
 
@@ -148,8 +151,9 @@ function escolherTamanho(indice, select) {
 
         } else {
 
-            alert(
-                `Limite de estoque atingido (${existente.estoque_max} un.).`
+            window.showToast?.(
+                `Limite de estoque atingido (${existente.estoque_max} un.).`,
+                'error'
             );
         }
 
@@ -188,7 +192,7 @@ function alterarQtd(indice, delta) {
     // Se tiver tamanho, obriga escolher antes
     if (item.tem_tamanho && !item.tamanho_id) {
 
-        alert("Selecione o tamanho primeiro.");
+        window.showToast?.('Selecione o tamanho primeiro.', 'error');
 
         return;
     }
@@ -199,7 +203,8 @@ function alterarQtd(indice, delta) {
 
     if (item.quantidade <= 0) {
 
-        removerItem(indice);
+        carrinho.splice(indice, 1);
+        renderizarCarrinho();
 
         return;
     }
@@ -207,8 +212,9 @@ function alterarQtd(indice, delta) {
 
     if (item.quantidade > item.estoque_max) {
 
-        alert(
-            `Apenas ${item.estoque_max} unidades disponíveis no estoque.`
+        window.showToast?.(
+            `Apenas ${item.estoque_max} unidades disponíveis no estoque.`,
+            'error'
         );
 
         item.quantidade = item.estoque_max;
@@ -225,9 +231,54 @@ function alterarQtd(indice, delta) {
 
 function removerItem(indice) {
 
-    carrinho.splice(indice, 1);
+    if (!carrinho[indice]) return;
 
-    renderizarCarrinho();
+    window.openConfirmation({
+        title: 'Tem certeza?',
+        message: 'Tem certeza que deseja remover este produto do carrinho?',
+        confirmText: 'Remover produto',
+        onConfirm: () => {
+            carrinho.splice(indice, 1);
+            renderizarCarrinho();
+            window.showToast?.('Produto removido do carrinho.', 'success');
+        }
+    });
+}
+
+function limparCarrinho() {
+    if (carrinho.length === 0) return;
+
+    window.openConfirmation({
+        title: 'Tem certeza?',
+        message: 'Tem certeza que deseja limpar o carrinho? Todos os produtos adicionados serão removidos.',
+        confirmText: 'Limpar carrinho',
+        onConfirm: () => {
+            carrinho = [];
+            renderizarCarrinho();
+            window.showToast?.('Carrinho limpo com sucesso!', 'success');
+        }
+    });
+}
+
+function cancelarVenda() {
+    if (carrinho.length === 0) return;
+
+    window.openConfirmation({
+        title: 'Tem certeza?',
+        message: 'Tem certeza que deseja cancelar a venda atual? Os produtos do carrinho serão removidos.',
+        cancelText: 'Continuar venda',
+        cancelStyle: 'primary',
+        confirmText: 'Cancelar venda',
+        danger: true,
+        onConfirm: () => {
+            carrinho = [];
+            document.getElementById('obs-input').value = '';
+            document.getElementById('select-cliente').value = '0';
+            atualizarCliente(document.getElementById('select-cliente'));
+            renderizarCarrinho();
+            window.showToast?.('Venda cancelada com sucesso!', 'success');
+        }
+    });
 }
 
 
@@ -590,14 +641,13 @@ function finalizarVenda() {
 
     if (tamanhoPendente) {
 
-        alert(
-            "Selecione o tamanho de todos os produtos."
-        );
+        window.showToast?.('Selecione o tamanho de todos os produtos.', 'error');
 
         return;
     }
 
 
+    const confirmarFinalizacao = () => {
     document.getElementById(
         'input-carrinho'
     ).value = JSON.stringify(
@@ -645,6 +695,15 @@ function finalizarVenda() {
     document.getElementById(
         'form-venda'
     ).submit();
+    };
+
+    window.openConfirmation({
+        title: 'Finalizar venda?',
+        message: 'Tem certeza que deseja finalizar esta venda?',
+        cancelText: 'Voltar',
+        confirmText: 'Finalizar venda',
+        onConfirm: confirmarFinalizacao
+    });
 }
 
 

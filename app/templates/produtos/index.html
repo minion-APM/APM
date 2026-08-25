@@ -172,7 +172,7 @@ Produtos — AAPM SENAI
                 Editar
               </a>
 
-              <form action="/produtos/{{ p.id }}/desativar" method="post">
+              <form action="/produtos/{{ p.id }}/desativar" method="post" data-confirm-form data-confirm-title="Tem certeza?" data-confirm-message="Tem certeza que deseja {{ 'desativar' if p.ativo else 'ativar' }} este produto?" data-confirm-label="{{ 'Desativar' if p.ativo else 'Ativar' }}">
                 <button type="submit" class="btn-table btn-table--warn">
                   {% if p.ativo %}
                   Desativar

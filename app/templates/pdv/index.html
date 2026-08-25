@@ -19,6 +19,9 @@
 {% endblock %}
 
 {% block conteudo %}
+{% if request.query_params.get('erro') %}
+  <div class="pdv-page-feedback pdv-page-feedback--error"><span>✕</span> Não foi possível finalizar a venda. Verifique os dados e tente novamente.</div>
+{% endif %}
 <div class="pdv-layout" id="pdv-container" data-desconto="{{ desconto_associado }}">
 
     <!-- COLUNA ESQUERDA: Catálogo de Produtos -->
@@ -207,6 +210,11 @@
                       id="obs-input"
                       rows="2"
                       placeholder="Observação (opcional)..."></textarea>
+
+            <div class="pdv-cart-actions">
+                <button class="btn-carrinho-acao" type="button" onclick="limparCarrinho()">Limpar carrinho</button>
+                <button class="btn-carrinho-acao btn-carrinho-acao--danger" type="button" onclick="cancelarVenda()">Cancelar venda</button>
+            </div>
 
 
             <form id="form-venda"

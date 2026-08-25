@@ -65,7 +65,7 @@
           </td>
           <td class="td-actions">
             <a href="/usuarios/{{ u.id }}/editar" class="btn-table">Editar</a>
-            <form action="/usuarios/{{ u.id }}/toggle-ativo" method="post" style="display:inline;">
+            <form action="/usuarios/{{ u.id }}/toggle-ativo" method="post" style="display:inline;" data-confirm-form data-confirm-title="Tem certeza?" data-confirm-message="Tem certeza que deseja {{ 'desativar' if u.ativo else 'ativar' }} este usuário?" data-confirm-label="{{ 'Desativar' if u.ativo else 'Ativar' }}">
               <button type="submit" class="btn-table btn-table--warn">
                 {{ "Desativar" if u.ativo else "Ativar" }}
               </button>
