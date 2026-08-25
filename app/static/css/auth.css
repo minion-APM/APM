@@ -20,9 +20,10 @@
 }
 
 .login-logo-icon {
-    color: var(--laranja); /* Amarelo engrenagem */
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    margin: 0 auto 0.5rem;
 }
 
 .login-title {
