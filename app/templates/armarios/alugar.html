@@ -7,7 +7,7 @@
   <a href="/armarios">Voltar</a>
 </header>
 
-{% if request.query_params.get('erro') %}<p class="alert alert--danger">Não foi possível concluir a operação.</p>{% endif %}
+{% if request.query_params.get('erro') == 'cliente' %}<p class="alert alert--danger">Cliente ativo não encontrado. Digite o nome completo ou a matrícula.</p>{% elif request.query_params.get('erro') %}<p class="alert alert--danger">Não foi possível concluir a operação.</p>{% endif %}
 
 {% if modo == 'editar' %}
 <form action="/armarios/{{ armario.id }}/editar" method="post">
@@ -23,23 +23,9 @@
   {% if armario.status == 'alugado' %}<p>Faça a devolução antes de alterar o status.</p>{% else %}<button type="submit">Salvar</button>{% endif %}
 </form>
 {% else %}
-<form method="get">
-  <label for="busca">Pesquisar cliente</label>
-  <input id="busca" name="busca" list="lista-clientes" value="{{ busca }}" placeholder="Nome ou matrícula" autocomplete="off">
-  <datalist id="lista-clientes">
-    {% for cliente in clientes_sugestoes %}
-    <option value="{{ cliente.nome }}">{{ cliente.matricula or 'Sem matrícula' }}</option>
-    {% endfor %}
-  </datalist>
-  <button type="submit">Pesquisar</button>
-</form>
-
 <form action="/armarios/{{ armario.id }}/alugar" method="post">
-  <label for="cliente_id">Cliente</label>
-  <select id="cliente_id" name="cliente_id" required>
-    <option value="">Selecione</option>
-    {% for cliente in clientes %}<option value="{{ cliente.id }}">{{ cliente.nome }}{% if cliente.matricula %} — {{ cliente.matricula }}{% endif %}</option>{% endfor %}
-  </select>
+  <label for="cliente">Nome ou matrícula</label>
+  <input id="cliente" name="cliente" type="text" placeholder="Digite o nome completo ou a matrícula" autocomplete="off" required autofocus>
 
   <label for="dia">Dia</label>
   <input id="dia" name="dia" type="date" value="{{ data_padrao }}" required>

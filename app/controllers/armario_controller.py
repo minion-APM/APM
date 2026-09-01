@@ -3,6 +3,7 @@ from datetime import date, datetime, time
 from fastapi import APIRouter, Depends, Form, Request
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
+from sqlalchemy import func, or_
 from sqlalchemy.orm import Session
 
 from app.auth import get_admin, get_usuario_logado
@@ -76,7 +77,6 @@ def historico_alugueis(
 def escolher_cliente(
     armario_id: int,
     request: Request,
-    busca: str = "",
     db: Session = Depends(get_db),
     usuario=Depends(get_usuario_logado),
 ):
@@ -84,21 +84,6 @@ def escolher_cliente(
     if not armario or armario.status != "disponivel":
         return RedirectResponse("/armarios?erro=aluguel", status_code=302)
 
-    query = db.query(Cliente).filter(Cliente.ativo == True)
-    busca = busca.strip()
-    if busca:
-        query = query.filter(
-            Cliente.nome.ilike(f"%{busca}%")
-            | Cliente.matricula.ilike(f"%{busca}%")
-        )
-
-    clientes = query.order_by(Cliente.nome).limit(20).all()
-    clientes_sugestoes = (
-        db.query(Cliente)
-        .filter(Cliente.ativo == True)
-        .order_by(Cliente.nome)
-        .all()
-    )
     return templates.TemplateResponse(
         request,
         "armarios/alugar.html",
@@ -106,9 +91,6 @@ def escolher_cliente(
             "request": request,
             "usuario": usuario,
             "armario": armario,
-            "clientes": clientes,
-            "clientes_sugestoes": clientes_sugestoes,
-            "busca": busca,
             "modo": "alugar",
             "data_padrao": date.today().isoformat(),
             "hora_padrao": datetime.now().strftime("%H:%M"),
@@ -204,26 +186,31 @@ def alterar_status(
 @router.post("/{armario_id}/alugar")
 def alugar_armario(
     armario_id: int,
-    cliente_id: int = Form(...),
+    cliente: str = Form(...),
     dia: date = Form(...),
     hora: time = Form(...),
     db: Session = Depends(get_db),
     usuario=Depends(get_usuario_logado),
 ):
     armario = db.query(Armario).filter(Armario.id == armario_id).with_for_update().first()
-    cliente = db.query(Cliente).filter(
-        Cliente.id == cliente_id, Cliente.ativo == True
+    identificacao = cliente.strip()
+    cliente_encontrado = db.query(Cliente).filter(
+        Cliente.ativo == True,
+        or_(
+            func.lower(Cliente.nome) == identificacao.lower(),
+            func.lower(Cliente.matricula) == identificacao.lower(),
+        ),
     ).first()
-    if not armario or armario.status != "disponivel" or not cliente:
-        return RedirectResponse(f"/armarios/{armario_id}/alugar?erro=aluguel", status_code=302)
+    if not armario or armario.status != "disponivel" or not cliente_encontrado:
+        return RedirectResponse(f"/armarios/{armario_id}/alugar?erro=cliente", status_code=302)
 
     armario.status = "alugado"
-    armario.cliente_id = cliente.id
+    armario.cliente_id = cliente_encontrado.id
     inicio_em = datetime.combine(dia, hora)
     armario.alugado_em = inicio_em
     db.add(AluguelArmario(
         armario_id=armario.id,
-        cliente_id=cliente.id,
+        cliente_id=cliente_encontrado.id,
         usuario_id=usuario.get("id"),
         inicio_em=inicio_em,
     ))
