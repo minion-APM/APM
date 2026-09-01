@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block titulo %}Histórico de armários — AAPM SENAI{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="/static/css/armarios-historico.css?v=1">{% endblock %}
 
 {% block conteudo %}
-<header class="page-header">
-  <h1 class="page-title">Histórico de aluguéis</h1>
-  <a href="/armarios">Voltar aos armários</a>
+<header class="historico-armarios-header">
+  <div><h1>Histórico de reservas</h1><p>Pesquise reservas por semestre e aluno.</p></div>
+  <a href="/armarios" class="btn-outline">Voltar aos armários</a>
 </header>
-
-<table class="table">
+<section class="historico-armarios-card"><form method="get" action="/armarios/historico" class="historico-filter"><input name="aluno" value="{{ aluno }}" placeholder="Aluno ou matrícula"><input name="semestre" value="{{ semestre }}" pattern="[12]/[0-9]{4}" placeholder="Semestre (ex.: 1/2026)"><button class="btn-primary" type="submit">Pesquisar</button>{% if aluno or semestre %}<a href="/armarios/historico" class="btn-outline">Limpar</a>{% endif %}</form><div class="historico-table-wrapper"><table class="historico-armarios-table">
   <thead>
     <tr><th>Armário</th><th>Cliente</th><th>Dia e hora</th><th>Devolução</th><th>Operador</th></tr>
   </thead>
@@ -24,7 +24,7 @@
   <tr><td colspan="5">Nenhum aluguel registrado.</td></tr>
   {% endfor %}
   </tbody>
-</table>
+</table></div></section>
 
 {% include "paginacao/index.html" %}
 {% endblock %}

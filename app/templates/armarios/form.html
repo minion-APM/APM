@@ -1,25 +1,33 @@
 {% extends "base.html" %}
 {% block titulo %}{{ 'Editar' if editando else 'Novo' }} armário — AAPM SENAI{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/armarios-form.css?v=1">{% endblock %}
 
 {% block conteudo %}
-<header class="page-header">
-  <h1 class="page-title">{{ 'Editar armário' if editando else 'Novo armário' }}</h1>
-  <a href="/armarios">Voltar</a>
+<header class="armario-form-header">
+  <div>
+    <h1>{{ 'Editar armário' if editando else 'Cadastrar armário' }}</h1>
+    <p>Informe a identificação e a situação inicial do armário.</p>
+  </div>
+  <a href="/armarios" class="btn-outline">Voltar</a>
 </header>
 {% if erro %}<p class="alert alert--danger">{{ erro }}</p>{% endif %}
-<form method="post">
-  <label for="numero">Número ou nome</label>
-  <input id="numero" name="numero" maxlength="30" required value="{{ valores.numero if valores is defined else (editando.numero if editando else '') }}">
-  <label for="descricao">Descrição/localização</label>
-  <textarea id="descricao" name="descricao" maxlength="255" rows="4" placeholder="Ex.: 1º andar">{{ valores.descricao if valores is defined else (editando.descricao if editando and editando.descricao else '') }}</textarea>
+<form method="post" class="armario-form">
+  <div class="form-group"><label for="numero">Número ou nome</label><input id="numero" name="numero" maxlength="30"
+      required value="{{ valores.numero if valores is defined else (editando.numero if editando else '') }}"></div>
+  <div class="form-group form-group--full"><label for="descricao">Descrição / localização</label><textarea
+      id="descricao" name="descricao" maxlength="255" rows="4"
+      placeholder="Ex.: 1º andar, corredor A">{{ valores.descricao if valores is defined else (editando.descricao if editando and editando.descricao else '') }}</textarea>
+  </div>
   {% if not editando %}
-  <label for="status_armario">Status inicial</label>
-  <select id="status_armario" name="status_armario">
-    <option value="disponivel">Disponível</option>
-    <option value="bloqueado">Bloqueado</option>
-    <option value="manutencao">Em manutenção</option>
-  </select>
+  <div class="form-group"><label for="status_armario">Status inicial</label><select id="status_armario"
+      name="status_armario">
+      <option value="disponivel">Disponível</option>
+      <option value="bloqueado">Bloqueado</option>
+      <option value="manutencao">Em manutenção</option>
+    </select></div>
   {% endif %}
-  <button type="submit" class="btn-primary">Salvar</button>
+  <div class="form-actions"><button type="submit" class="btn-primary">Salvar armário</button><a href="/armarios"
+      class="btn-outline">Cancelar</a></div>
 </form>
 {% endblock %}
