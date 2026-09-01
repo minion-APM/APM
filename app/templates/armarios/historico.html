@@ -4,7 +4,7 @@
 
 {% block conteudo %}
 <header class="historico-armarios-header">
-  <div><h1>Histórico de reservas</h1><p>Pesquise reservas por semestre e aluno.</p></div>
+  <div><h1>Histórico de aluguéis</h1><p>Pesquise aluguéis por semestre e aluno.</p></div>
   <a href="/armarios" class="btn-outline">Voltar aos armários</a>
 </header>
 <section class="historico-armarios-card"><form method="get" action="/armarios/historico" class="historico-filter"><input name="aluno" value="{{ aluno }}" placeholder="Aluno ou matrícula"><input name="semestre" value="{{ semestre }}" pattern="[12]/[0-9]{4}" placeholder="Semestre (ex.: 1/2026)"><button class="btn-primary" type="submit">Pesquisar</button>{% if aluno or semestre %}<a href="/armarios/historico" class="btn-outline">Limpar</a>{% endif %}</form><div class="historico-table-wrapper"><table class="historico-armarios-table">

@@ -21,13 +21,27 @@ STATUS_VALIDOS = {"disponivel", "bloqueado", "manutencao"}
 @router.get("/")
 def listar_armarios(
     request: Request,
+    busca: str = "",
+    status: str = "",
     page: int = 1,
     db: Session = Depends(get_db),
     usuario=Depends(get_usuario_logado),
 ):
-    armarios, pagination = paginate(
-        db.query(Armario).order_by(Armario.numero), page
-    )
+    query = db.query(Armario)
+    busca = busca.strip()
+    if busca:
+        termo = f"%{busca}%"
+        query = query.outerjoin(Cliente).filter(
+            (Armario.numero.ilike(termo))
+            | (Armario.descricao.ilike(termo))
+            | (Cliente.nome.ilike(termo))
+            | (Cliente.matricula.ilike(termo))
+        )
+    if status in STATUS_VALIDOS | {"alugado"}:
+        query = query.filter(Armario.status == status)
+    else:
+        status = ""
+    armarios, pagination = paginate(query.order_by(Armario.numero), page)
     return templates.TemplateResponse(
         request,
         "armarios/index.html",
@@ -36,6 +50,8 @@ def listar_armarios(
             "usuario": usuario,
             "armarios": armarios,
             "pagination": pagination,
+            "busca": busca,
+            "status": status,
         },
     )
 
@@ -44,8 +60,8 @@ def listar_armarios(
 def form_novo_armario(request: Request, admin=Depends(get_admin)):
     return templates.TemplateResponse(
         request,
-        "armarios/form.html",
-        {"request": request, "usuario": admin, "editando": None},
+        "armarios/form_unificado.html",
+        {"request": request, "usuario": admin, "editando": None, "modo": "novo"},
     )
 
 
@@ -92,7 +108,7 @@ def escolher_cliente(
 
     return templates.TemplateResponse(
         request,
-        "armarios/alugar.html",
+        "armarios/form_unificado.html",
         {
             "request": request,
             "usuario": usuario,
@@ -141,11 +157,12 @@ def form_editar_armario(
         return RedirectResponse("/armarios", status_code=302)
     return templates.TemplateResponse(
         request,
-        "armarios/alugar.html",
+        "armarios/form_unificado.html",
         {
             "request": request,
             "usuario": admin,
             "armario": armario,
+            "editando": armario,
             "modo": "editar",
         },
     )
@@ -155,6 +172,7 @@ def form_editar_armario(
 def editar_armario(
     armario_id: int,
     request: Request,
+    numero: str = Form(...),
     descricao: str = Form(""),
     status_armario: str = Form(...),
     db: Session = Depends(get_db),
@@ -164,8 +182,19 @@ def editar_armario(
     if not armario:
         return RedirectResponse("/armarios", status_code=302)
 
+    numero = numero.strip()
+    numero_em_uso = db.query(Armario).filter(
+        Armario.numero.ilike(numero), Armario.id != armario_id
+    ).first()
+    if not numero or numero_em_uso:
+        return _render_form(
+            request, admin, armario, numero, descricao,
+            "Já existe um armário com este número ou nome." if numero_em_uso else "Informe o número ou nome.",
+            modo="editar",
+        )
     if status_armario not in STATUS_VALIDOS or armario.status == "alugado":
         return RedirectResponse(f"/armarios/{armario_id}/editar?erro=status", 302)
+    armario.numero = numero
     armario.descricao = descricao.strip() or None
     armario.status = status_armario
     db.commit()
@@ -244,14 +273,16 @@ def devolver_armario(
     return RedirectResponse("/armarios?devolvido=ok", status_code=302)
 
 
-def _render_form(request, usuario, editando, numero, descricao, erro):
+def _render_form(request, usuario, editando, numero, descricao, erro, modo="novo"):
     return templates.TemplateResponse(
         request,
-        "armarios/form.html",
+        "armarios/form_unificado.html",
         {
             "request": request,
             "usuario": usuario,
             "editando": editando,
+            "armario": editando,
+            "modo": modo,
             "valores": {"numero": numero, "descricao": descricao},
             "erro": erro,
         },

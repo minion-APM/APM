@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% set alugando = modo == 'alugar' %}
+{% block titulo %}{{ 'Alugar' if alugando else ('Editar' if editando else 'Novo') }} armário - AAPM SENAI{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="/static/css/armarios-form-unificado.css?v=1">{% endblock %}
+{% block conteudo %}
+<div class="form-container">
+  <h1 class="form-title">{{ 'Alugar armário ' + armario.numero if alugando else ('Editar armário' if editando else 'Novo armário') }}</h1>
+  {% if erro %}<div class="erro">{{ erro }}</div>{% endif %}
+  {% if request.query_params.get('erro') == 'cliente' %}<div class="erro">Selecione um cliente ativo.</div>{% elif request.query_params.get('erro') %}<div class="erro">Não foi possível concluir a operação.</div>{% endif %}
+  <form class="armario-form" method="post" action="{{ '/armarios/' + armario.id|string + '/alugar' if alugando else ('/armarios/' + editando.id|string + '/editar' if editando else '/armarios/novo') }}">
+    {% if alugando %}
+    <label>Cliente<select name="cliente_id" required autofocus><option value="" selected disabled>Selecione um cliente</option>{% for cliente in clientes %}<option value="{{ cliente.id }}">{{ cliente.nome }}{% if cliente.matricula %} ({{ cliente.matricula }}){% endif %}</option>{% endfor %}</select></label>
+    {% if usuario and usuario.role == 'admin' %}<a class="novo-cliente" href="/clientes/novo">+ Novo cliente</a>{% endif %}
+    <label>Dia<input name="dia" type="date" value="{{ data_padrao }}" required></label>
+    <label>Hora<input name="hora" type="time" value="{{ hora_padrao }}" required></label>
+    {% else %}
+    <label>Número ou nome<input name="numero" maxlength="30" required value="{{ valores.numero if valores is defined else (editando.numero if editando else '') }}"></label>
+    <label>Descrição / localização<textarea name="descricao" maxlength="255" rows="4" placeholder="Ex.: 1º andar, corredor A">{{ valores.descricao if valores is defined else (editando.descricao if editando and editando.descricao else '') }}</textarea></label>
+    <label>Status<select name="status_armario" {% if editando and editando.status == 'alugado' %}disabled{% endif %}><option value="disponivel" {{ 'selected' if editando and editando.status == 'disponivel' }}>Disponível</option><option value="bloqueado" {{ 'selected' if editando and editando.status == 'bloqueado' }}>Bloqueado</option><option value="manutencao" {{ 'selected' if editando and editando.status == 'manutencao' }}>Em manutenção</option></select></label>
+    {% if editando and editando.status == 'alugado' %}<p class="form-note">Faça a devolução antes de editar este armário.</p>{% endif %}
+    {% endif %}
+    <div class="form-actions">{% if alugando or not (editando and editando.status == 'alugado') %}<button type="submit" class="btn-salvar">{{ 'Confirmar aluguel' if alugando else ('Salvar alterações' if editando else 'Criar armário') }}</button>{% endif %}<a href="/armarios" class="btn-cancelar">Cancelar</a></div>
+  </form>
+</div>
+{% endblock %}

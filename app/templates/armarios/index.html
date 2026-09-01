@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 {% block titulo %}Armários — AAPM SENAI{% endblock %}
 {% block extra_css %}
-<link rel="stylesheet" href="/static/css/armarios-index.css?v=1">{% endblock %}
+<link rel="stylesheet" href="/static/css/armarios-index.css?v=2">
+<link rel="stylesheet" href="/static/css/list-filter.css?v=1">
+<link rel="stylesheet" href="/static/css/armarios-status.css?v=1">
+{% endblock %}
 {% block conteudo %}
 <header class="armarios-header">
     <div>
         <h1 class="armarios-title">Armários</h1>
-        <p>Consulte a disponibilidade e gerencie as reservas.</p>
+        <p>Consulte a disponibilidade e gerencie os aluguéis.</p>
     </div>
     <div class="armarios-header__actions"><a href="/armarios/historico" class="btn-outline">Histórico</a>{% if
         usuario.role == 'admin' %}<a href="/armarios/novo" class="btn-primary">+ Novo armário</a>{% endif %}</div>
@@ -15,19 +18,19 @@
 endif %}
 {% if request.query_params.get('criado') == 'ok' %}<p class="alert alert--success">Armário cadastrado com sucesso.</p>{%
 endif %}
-{% if request.query_params.get('alugado') == 'ok' %}<p class="alert alert--success">Reserva registrada com sucesso.</p>
+{% if request.query_params.get('alugado') == 'ok' %}<p class="alert alert--success">Aluguel registrado com sucesso.</p>
 {% endif %}
 {% if request.query_params.get('devolvido') == 'ok' %}<p class="alert alert--success">Armário devolvido e liberado.</p>
 {% endif %}
 <section class="armarios-card">
-    <form method="get" action="/armarios" class="armarios-filter"><input name="busca" value="{{ busca }}"
-            placeholder="Buscar por armário, aluno ou matrícula"><select name="status">
+    <form method="get" action="/armarios" class="list-filter list-filter--inset"><input name="busca" value="{{ busca }}" class="form-input list-filter__search"
+            placeholder="Buscar por armário, aluno ou matrícula..."><select name="status" class="form-input form-select list-filter__select">
             <option value="">Todos os status</option>
             <option value="disponivel" {{ 'selected' if status=='disponivel' }}>Disponíveis</option>
-            <option value="alugado" {{ 'selected' if status=='alugado' }}>Reservados</option>
+            <option value="alugado" {{ 'selected' if status=='alugado' }}>Alugados</option>
             <option value="bloqueado" {{ 'selected' if status=='bloqueado' }}>Bloqueados</option>
             <option value="manutencao" {{ 'selected' if status=='manutencao' }}>Em manutenção</option>
-        </select><button type="submit" class="btn-primary">Consultar</button>{% if busca or status %}<a href="/armarios"
+        </select><button type="submit" class="btn-primary">Filtrar</button>{% if busca or status %}<a href="/armarios"
             class="btn-outline">Limpar</a>{% endif %}</form>
     <div class="armarios-table-wrapper">
         <table class="armarios-table">
@@ -49,7 +52,7 @@ endif %}
                     <td class="armario-actions">{% if usuario.role == 'admin' %}<a
                             href="/armarios/{{ armario.id }}/editar" class="btn-table">Editar</a>{% endif %}{% if
                         armario.status == 'disponivel' %}<a href="/armarios/{{ armario.id }}/alugar"
-                            class="btn-table btn-table--reserve">Reservar</a>{% elif armario.status == 'alugado' %}<form
+                            class="btn-table btn-table--reserve">Alugar</a>{% elif armario.status == 'alugado' %}<form
                             action="/armarios/{{ armario.id }}/devolver" method="post"><button type="submit"
                                 class="btn-table btn-table--return">Devolver</button></form>{% endif %}</td>
                 </tr>{% else %}<tr>
