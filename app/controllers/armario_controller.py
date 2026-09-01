@@ -3,7 +3,6 @@ from datetime import date, datetime, time
 from fastapi import APIRouter, Depends, Form, Request
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
-from sqlalchemy import func, or_
 from sqlalchemy.orm import Session
 
 from app.auth import get_admin, get_usuario_logado
@@ -84,6 +83,13 @@ def escolher_cliente(
     if not armario or armario.status != "disponivel":
         return RedirectResponse("/armarios?erro=aluguel", status_code=302)
 
+    clientes = (
+        db.query(Cliente)
+        .filter(Cliente.ativo == True)
+        .order_by(Cliente.nome)
+        .all()
+    )
+
     return templates.TemplateResponse(
         request,
         "armarios/alugar.html",
@@ -91,6 +97,7 @@ def escolher_cliente(
             "request": request,
             "usuario": usuario,
             "armario": armario,
+            "clientes": clientes,
             "modo": "alugar",
             "data_padrao": date.today().isoformat(),
             "hora_padrao": datetime.now().strftime("%H:%M"),
@@ -186,20 +193,16 @@ def alterar_status(
 @router.post("/{armario_id}/alugar")
 def alugar_armario(
     armario_id: int,
-    cliente: str = Form(...),
+    cliente_id: int = Form(...),
     dia: date = Form(...),
     hora: time = Form(...),
     db: Session = Depends(get_db),
     usuario=Depends(get_usuario_logado),
 ):
     armario = db.query(Armario).filter(Armario.id == armario_id).with_for_update().first()
-    identificacao = cliente.strip()
     cliente_encontrado = db.query(Cliente).filter(
+        Cliente.id == cliente_id,
         Cliente.ativo == True,
-        or_(
-            func.lower(Cliente.nome) == identificacao.lower(),
-            func.lower(Cliente.matricula) == identificacao.lower(),
-        ),
     ).first()
     if not armario or armario.status != "disponivel" or not cliente_encontrado:
         return RedirectResponse(f"/armarios/{armario_id}/alugar?erro=cliente", status_code=302)

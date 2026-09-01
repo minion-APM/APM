@@ -8,7 +8,7 @@
   <a href="/armarios">Voltar</a>
 </header>
 
-{% if request.query_params.get('erro') == 'cliente' %}<p class="alert alert--danger">Cliente ativo não encontrado. Digite o nome completo ou a matrícula.</p>{% elif request.query_params.get('erro') %}<p class="alert alert--danger">Não foi possível concluir a operação.</p>{% endif %}
+{% if request.query_params.get('erro') == 'cliente' %}<p class="alert alert--danger">Selecione um cliente ativo.</p>{% elif request.query_params.get('erro') %}<p class="alert alert--danger">Não foi possível concluir a operação.</p>{% endif %}
 
 {% if modo == 'editar' %}
 <form action="/armarios/{{ armario.id }}/editar" method="post">
@@ -25,8 +25,17 @@
 </form>
 {% else %}
 <form action="/armarios/{{ armario.id }}/alugar" method="post">
-  <label for="cliente">Nome ou matrícula</label>
-  <input id="cliente" name="cliente" type="text" placeholder="Digite o nome completo ou a matrícula" autocomplete="off" required autofocus>
+  <label for="cliente_id">Cliente</label>
+  <select id="cliente_id" name="cliente_id" required autofocus>
+    <option value="" selected disabled>Selecione um cliente</option>
+    {% for cliente in clientes %}
+    <option value="{{ cliente.id }}">{{ cliente.nome }}{% if cliente.matricula %} ({{ cliente.matricula }}){% endif %}</option>
+    {% endfor %}
+  </select>
+
+  {% if usuario and usuario.role == 'admin' %}
+  <button type="button" onclick="window.location.href='/clientes/novo'">Criar cliente</button>
+  {% endif %}
 
   <label for="dia">Dia</label>
   <input id="dia" name="dia" type="date" value="{{ data_padrao }}" required>
