@@ -72,9 +72,30 @@ def historico_alugueis(
     db: Session = Depends(get_db),
     usuario=Depends(get_usuario_logado),
 ):
+    busca = request.query_params.get("busca", "").strip()
+    query = db.query(AluguelArmario)
+    if busca:
+        dia = None
+        for formato in ("%d/%m/%Y", "%Y-%m-%d"):
+            try:
+                dia = datetime.strptime(busca, formato).date()
+                break
+            except ValueError:
+                continue
+
+        if dia:
+            query = query.filter(
+                AluguelArmario.inicio_em >= datetime.combine(dia, time.min),
+                AluguelArmario.inicio_em <= datetime.combine(dia, time.max),
+            )
+        else:
+            termo = busca.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
+            query = query.join(AluguelArmario.armario).join(AluguelArmario.cliente).filter(
+                Armario.numero.ilike(termo, escape="\\")
+                | Cliente.nome.ilike(f"%{termo}%", escape="\\")
+            )
     alugueis, pagination = paginate(
-        db.query(AluguelArmario).order_by(AluguelArmario.inicio_em.desc()),
-        page,
+        query.order_by(AluguelArmario.inicio_em.desc(), AluguelArmario.id.desc()), page
     )
     return templates.TemplateResponse(
         request,
@@ -83,6 +104,7 @@ def historico_alugueis(
             "request": request,
             "usuario": usuario,
             "alugueis": alugueis,
+            "busca": busca,
             "pagination": pagination,
         },
     )

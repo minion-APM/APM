@@ -7,6 +7,8 @@
 # o mesmo padrão usado em qualquer sistema comercial real.
 # ============================================================
 
+from datetime import datetime
+
 from sqlalchemy import Column, Integer, Float, String, DateTime, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
@@ -44,7 +46,7 @@ class Venda(Base):
     # Observação opcional do operador
     observacao = Column(String(255), nullable=True)
 
-    criado_em = Column(DateTime, server_default=func.now())
+    criado_em = Column(DateTime, default=datetime.now, server_default=func.now())
 
     # Relacionamentos
     cliente = relationship("Cliente", back_populates="vendas")

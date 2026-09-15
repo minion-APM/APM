@@ -3,7 +3,7 @@
 {% block titulo %}PDV — AAPM SENAI{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="/static/css/pdv.css">
+<link rel="stylesheet" href="/static/css/pdv.css?v=4">
 <style>
     body { overflow: hidden !important; }
     .footer { display: none !important; }
@@ -75,6 +75,13 @@
             </div>
 
             {% endfor %}
+            <p class="produtos-vazio" id="produtos-vazio" hidden>Nenhum produto encontrado.</p>
+        </div>
+        <div class="produtos-rodape">
+            <p class="produtos-resumo" id="resumo-produtos" role="status"></p>
+            <div class="produtos-navegacao">
+                <nav class="pagination produtos-pagination" id="paginacao-produtos" aria-label="Páginas dos produtos" hidden></nav>
+            </div>
         </div>
     </section>
 
@@ -253,6 +260,6 @@
 
 </div>
 
-<script src="/static/js/pdv.js"></script>
+<script src="/static/js/pdv.js?v=6"></script>
 
 {% endblock %}

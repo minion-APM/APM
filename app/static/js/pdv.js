@@ -708,38 +708,78 @@ function finalizarVenda() {
 
 
 // ==========================================================
-// FILTRO DE BUSCA
+// BUSCA E PAGINACAO DOS PRODUTOS
 // ==========================================================
 
-document
-    .getElementById('busca-produto')
-    ?.addEventListener(
-        'input',
-        function () {
+const PRODUTOS_POR_PAGINA = 10;
+const gradeProdutos = document.getElementById('grade-produtos');
+const buscaProduto = document.getElementById('busca-produto');
+const paginacaoProdutos = document.getElementById('paginacao-produtos');
+const cardsProdutos = Array.from(gradeProdutos?.querySelectorAll('.produto-card') || []);
 
-            const termo =
-                this.value
-                    .toLowerCase()
-                    .trim();
+function renderizarPaginaProdutos(pagina = 1) {
+    if (!gradeProdutos || !paginacaoProdutos) return;
 
-
-            document
-                .querySelectorAll('.produto-card')
-                .forEach(card => {
-
-                    const nome =
-                        card.getAttribute(
-                            'data-nome-lower'
-                        ) || '';
-
-
-                    card.style.display =
-                        nome.includes(termo)
-                            ? ''
-                            : 'none';
-                });
-        }
+    const termo = (buscaProduto?.value || '').toLowerCase().trim();
+    const filtrados = cardsProdutos.filter(card =>
+        (card.dataset.nomeLower || '').includes(termo)
     );
+    const totalPaginas = Math.max(1, Math.ceil(filtrados.length / PRODUTOS_POR_PAGINA));
+    const paginaAtual = Math.min(Math.max(pagina, 1), totalPaginas);
+    const inicio = (paginaAtual - 1) * PRODUTOS_POR_PAGINA;
+    const fim = Math.min(inicio + PRODUTOS_POR_PAGINA, filtrados.length);
+
+    cardsProdutos.forEach(card => { card.style.display = 'none'; });
+    filtrados.slice(inicio, fim).forEach(card => { card.style.display = ''; });
+    gradeProdutos.scrollTop = 0;
+
+    document.getElementById('produtos-vazio').hidden = filtrados.length > 0;
+    document.getElementById('resumo-produtos').textContent = filtrados.length
+        ? `${inicio + 1}–${fim} de ${filtrados.length} produtos`
+        : '0 produtos';
+    paginacaoProdutos.hidden = filtrados.length === 0;
+    paginacaoProdutos.replaceChildren();
+
+    function adicionarBotao(texto, destino, desabilitado = false, atual = false) {
+        const botao = document.createElement('button');
+        botao.type = 'button';
+        botao.className = 'pagination__link' + (atual ? ' pagination__link--active' : '');
+        botao.textContent = texto;
+        botao.dataset.pagina = destino;
+        botao.disabled = desabilitado;
+        botao.setAttribute('aria-controls', 'grade-produtos');
+        if (atual) botao.setAttribute('aria-current', 'page');
+        paginacaoProdutos.appendChild(botao);
+    }
+
+    adicionarBotao('Anterior', paginaAtual - 1, paginaAtual === 1);
+    const paginas = new Set([1, totalPaginas]);
+    for (let numero = Math.max(1, paginaAtual - 1); numero <= Math.min(totalPaginas, paginaAtual + 1); numero++) {
+        paginas.add(numero);
+    }
+    let ultimaPagina = 0;
+    Array.from(paginas).sort((a, b) => a - b).forEach(numero => {
+        if (numero - ultimaPagina > 1) {
+            const reticencias = document.createElement('span');
+            reticencias.className = 'pagination__ellipsis';
+            reticencias.textContent = '…';
+            reticencias.setAttribute('aria-hidden', 'true');
+            paginacaoProdutos.appendChild(reticencias);
+        }
+        adicionarBotao(String(numero), numero, false, numero === paginaAtual);
+        ultimaPagina = numero;
+    });
+    adicionarBotao('Próxima', paginaAtual + 1, paginaAtual === totalPaginas);
+}
+
+buscaProduto?.addEventListener('input', () => renderizarPaginaProdutos(1));
+paginacaoProdutos?.addEventListener('click', event => {
+    const botao = event.target.closest('button[data-pagina]');
+    if (!botao || botao.disabled) return;
+    renderizarPaginaProdutos(Number(botao.dataset.pagina));
+    paginacaoProdutos.querySelector('[aria-current="page"]')?.focus();
+});
+renderizarPaginaProdutos();
 
 
 // ==========================================================
