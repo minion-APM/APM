@@ -3,9 +3,10 @@
 {% block titulo %}PDV — AAPM SENAI{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="/static/css/pdv.css?v=4">
+<link rel="stylesheet" href="/static/css/pdv.css?v=5">
 <style>
     body { overflow: hidden !important; }
+    @media (max-width: 900px) { body { overflow: auto !important; } }
     .footer { display: none !important; }
     .produto-card img {
         width: 100%;

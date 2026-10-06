@@ -2,6 +2,7 @@
 {% block extra_css %}
 <link rel="stylesheet" href="/static/css/pro-index.css">
 <link rel="stylesheet" href="/static/css/list-filter.css?v=1">
+<link rel="stylesheet" href="/static/css/list-pages.css?v=1">
 {% endblock %}
 
 {% block titulo %}
@@ -207,9 +208,8 @@ Produtos — AAPM SENAI
       </tbody>
 
     </table>
-    {% include "paginacao/index.html" %}
-
   </div>
+  {% include "paginacao/index.html" %}
 
 </div>
 

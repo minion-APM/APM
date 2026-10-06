@@ -1,0 +1,210 @@
+/* Shared visual language for searchable and paginated lists. */
+.page-header,
+.historico-header,
+.armarios-header,
+.historico-armarios-header,
+.clientes-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 20px 0 24px;
+}
+
+.page-title,
+.historico-header h1,
+.armarios-header h1,
+.historico-armarios-header h1,
+.clientes-header h1 {
+    margin: 0;
+    color: var(--azul);
+    font-size: clamp(23px, 3vw, 30px);
+    font-weight: 700;
+}
+
+.page-subtitle,
+.historico-header p,
+.armarios-header p,
+.historico-armarios-header p,
+.clientes-header p,
+.subtitulo {
+    margin-top: 4px;
+    color: var(--texto-secundario);
+    font-size: 14px;
+}
+
+.card,
+.card-tabela,
+.armarios-card,
+.historico-armarios-card {
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    background: var(--branco);
+    box-shadow: 0 2px 10px rgba(16, 42, 67, .07);
+}
+
+.card > .list-filter,
+.card-tabela > .list-filter,
+.armarios-card > .list-filter,
+.historico-armarios-card > .list-filter,
+.card > .list-filter--inset,
+.armarios-card > .list-filter--inset,
+.historico-armarios-card > .list-filter--inset {
+    margin: 0;
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--borda);
+}
+
+.table-wrapper,
+.card-tabela > .table-wrapper,
+.armarios-table-wrapper,
+.historico-table-wrapper {
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table,
+.historico-table,
+.armarios-table,
+.historico-armarios-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.table th,
+.historico-table th,
+.armarios-table th,
+.historico-armarios-table th {
+    padding: 13px 16px;
+    background: #f4f7fa;
+    color: var(--texto-secundario);
+    border-bottom: 1px solid var(--borda);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.table td,
+.historico-table td,
+.armarios-table td,
+.historico-armarios-table td {
+    padding: 13px 16px;
+    border-bottom: 1px solid #edf1f5;
+    color: var(--texto);
+    vertical-align: middle;
+}
+
+.table tbody tr:last-child td,
+.historico-table tbody tr:last-child td,
+.armarios-table tbody tr:last-child td,
+.historico-armarios-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.table tbody tr:hover,
+.historico-table tbody tr:hover,
+.armarios-table tbody tr:hover,
+.historico-armarios-table tbody tr:hover {
+    background: #f8faff;
+}
+
+.pagination-controls {
+    justify-content: center;
+    margin: 0;
+    padding: 14px 12px;
+    border-top: 1px solid var(--borda);
+    background: #fbfcfe;
+}
+
+.pagination-controls .pagination {
+    flex-wrap: nowrap;
+    gap: 7px;
+    margin: 0;
+}
+
+.pagination__link {
+    min-width: 38px;
+    min-height: 38px;
+    border-radius: 9px;
+    font-size: 14px;
+}
+
+.pagination__link--active {
+    background: var(--azul);
+    color: var(--laranja);
+}
+
+.btn-voltar,
+.historico-armarios-header > .btn-outline {
+    display: inline-flex;
+    min-height: 40px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 16px;
+    border: 1px solid var(--borda);
+    border-radius: 9px;
+    background: var(--branco);
+    color: var(--azul);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+@media (max-width: 700px) {
+    .page-header,
+    .historico-header,
+    .armarios-header,
+    .historico-armarios-header,
+    .clientes-header {
+        align-items: stretch;
+        flex-direction: column;
+        margin: 8px 0 18px;
+    }
+
+    .page-header > .btn-primary,
+    .historico-header > a,
+    .armarios-header__actions > a,
+    .historico-armarios-header > .btn-outline,
+    .clientes-header > a {
+        width: 100%;
+        min-height: 44px;
+    }
+
+    .card > .list-filter,
+    .card-tabela > .list-filter,
+    .armarios-card > .list-filter,
+    .historico-armarios-card > .list-filter,
+    .card > .list-filter--inset,
+    .armarios-card > .list-filter--inset,
+    .historico-armarios-card > .list-filter--inset {
+        padding: 14px;
+    }
+
+    .table,
+    .historico-table,
+    .armarios-table,
+    .historico-armarios-table {
+        min-width: 650px;
+    }
+
+    .pagination-controls {
+        padding: 12px 6px;
+    }
+
+    .pagination-controls .pagination {
+        gap: 5px;
+    }
+
+    .pagination__link {
+        min-width: 34px;
+        min-height: 36px;
+        padding-inline: 9px;
+        font-size: 13px;
+    }
+}

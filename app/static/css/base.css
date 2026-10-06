@@ -852,3 +852,170 @@ img {
 @media (max-width: 520px) {
   .pagination__link { min-width: 2rem; min-height: 2rem; padding: .35rem .55rem; }
 }
+
+/* Ajustes responsivos compartilhados: navega??o compacta e ?reas toc?veis. */
+:focus-visible {
+    outline: 3px solid rgba(245, 180, 0, .72);
+    outline-offset: 3px;
+}
+
+@media (max-width: 1050px) {
+    .header {
+        position: sticky;
+        top: 0;
+    }
+
+    .header-inner {
+        gap: 10px 16px;
+    }
+
+    .nav {
+        width: calc(100% + 4.35vw);
+        margin-right: -4.35vw;
+        padding: 2px 4.35vw 8px 0;
+        overscroll-behavior-inline: contain;
+        scroll-snap-type: x proximity;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .nav-link {
+        min-height: 42px;
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid transparent;
+        border-radius: 999px;
+        scroll-snap-align: start;
+        white-space: nowrap;
+    }
+
+    .nav-link:hover {
+        transform: none;
+    }
+
+    .nav-link:active {
+        background: var(--laranja-claro);
+        border-color: var(--laranja);
+    }
+}
+
+@media (max-width: 650px) {
+    .header-inner,
+    .main-content,
+    .footer-inner {
+        width: min(100% - 24px, 560px);
+    }
+
+    .header-inner {
+        padding: 10px 0 0;
+        gap: 8px 12px;
+    }
+
+    .logo-image {
+        width: 40px;
+        height: 40px;
+    }
+
+    .logo-area {
+        gap: 8px;
+    }
+
+    .logo-text {
+        display: flex;
+    }
+
+    .logo-aapm {
+        font-size: 21px;
+    }
+
+    .logo-senai {
+        margin-top: 3px;
+        font-size: 8px;
+        letter-spacing: 2px;
+    }
+
+    .header-user {
+        gap: 7px;
+    }
+
+    .role-badge {
+        min-height: 30px;
+    }
+
+    .btn-logout {
+        min-height: 40px;
+        height: auto;
+        padding: 0 12px;
+    }
+
+    .nav {
+        margin-top: 0;
+        padding-bottom: 7px;
+        gap: 5px;
+    }
+
+    .nav-link {
+        min-height: 40px;
+        padding: 0 13px;
+        background: #f5f7fa;
+        font-size: 13px;
+    }
+
+    .main-content {
+        padding: 20px 0 32px;
+    }
+
+    .footer-inner {
+        min-height: 60px;
+        padding: 12px 0;
+        gap: 4px 8px;
+        font-size: 12px;
+    }
+
+    .table-wrapper,
+    .table-wrap,
+    .historico-table-wrapper,
+    .armarios-table-wrapper {
+        max-width: 100%;
+        overscroll-behavior-inline: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    input,
+    select,
+    textarea,
+    button {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 380px) {
+    .header-inner,
+    .main-content,
+    .footer-inner {
+        width: calc(100% - 20px);
+    }
+
+    .logo-senai,
+    .header-user__name {
+        display: none;
+    }
+
+    .role-badge {
+        padding-inline: 7px;
+        font-size: 8px;
+    }
+
+    .nav-link {
+        padding-inline: 11px;
+        font-size: 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+}
