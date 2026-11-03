@@ -1,7 +1,7 @@
 from math import ceil
 
 
-def paginate(query, page: int, per_page: int = 2):
+def paginate(query, page: int, per_page: int = 10):
     """Return the current query slice and metadata used by the templates."""
     total = query.order_by(None).count()
     total_pages = max(1, ceil(total / per_page))
