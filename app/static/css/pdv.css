@@ -458,14 +458,16 @@ body {
 }
 
 #dialog-finalizar-venda {
-    width: min(520px, calc(100vw - 32px));
-    max-height: calc(100vh - 32px);
+    width: min(640px, calc(100vw - 32px));
+    max-height: min(88vh, 820px);
     overflow: auto;
+    margin: auto;
     border: 1px solid var(--borda);
-    border-radius: 10px;
-    padding: 20px;
+    border-radius: 16px;
+    padding: 28px;
     color: var(--texto);
     background: var(--branco);
+    box-shadow: 0 24px 70px rgba(16, 42, 67, .28);
 }
 
 #dialog-finalizar-venda::backdrop {
@@ -473,18 +475,21 @@ body {
 }
 
 #dialog-finalizar-venda h2 {
-    margin: 0 0 6px;
-    font-size: 18px;
+    margin: 0 0 8px;
+    color: var(--azul);
+    font-size: 25px;
 }
+
+#dialog-finalizar-venda > p { color: var(--texto-secundario); line-height: 1.5; }
 
 #dialog-finalizar-venda fieldset {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin: 14px 0;
-    padding: 12px;
+    gap: 12px;
+    margin: 18px 0;
+    padding: 16px;
     border: 1px solid var(--borda);
-    border-radius: 6px;
+    border-radius: 10px;
 }
 
 #dialog-finalizar-venda legend {
@@ -557,9 +562,15 @@ body {
 
 #btn-confirmar-venda {
     color: var(--branco);
-    background: var(--verde);
-    border-color: var(--verde);
+    background: var(--azul);
+    border-color: var(--azul);
+    font-weight: 700;
+    padding-inline: 20px;
 }
+
+#btn-confirmar-venda:hover:not(:disabled) { background: var(--azul-2); }
+#pagamento-total { color: var(--azul); font-size: 20px; font-weight: 800; }
+#pagamento-pago, #pagamento-restante { font-weight: 700; }
 
 #btn-confirmar-venda:disabled {
     background: #94a3b8;
@@ -569,7 +580,10 @@ body {
 
 @media (max-width: 520px) {
     #dialog-finalizar-venda {
-        padding: 14px;
+        width: calc(100vw - 20px);
+        max-height: 92vh;
+        padding: 18px;
+        border-radius: 13px;
     }
 
     .payment-row {
@@ -579,6 +593,8 @@ body {
     .dialog-acoes {
         flex-direction: column-reverse;
     }
+
+    .dialog-acoes button { width: 100%; min-height: 46px; }
 }
 
 .pdv-cart-actions {

@@ -828,7 +828,7 @@ function finalizarVenda() {
 // BUSCA E PAGINACAO DOS PRODUTOS
 // ==========================================================
 
-const PRODUTOS_POR_PAGINA = 10;
+const PRODUTOS_POR_PAGINA = 2;
 const gradeProdutos = document.getElementById('grade-produtos');
 const buscaProduto = document.getElementById('busca-produto');
 const paginacaoProdutos = document.getElementById('paginacao-produtos');

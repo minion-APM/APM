@@ -26,6 +26,11 @@
         class="usuario-form"
         action="{{ '/usuarios/' + editando.id|string + '/editar' if editando else '/usuarios/novo' }}"
         method="post"
+        data-confirm-form
+        data-confirm-title="{{ 'Salvar edição do usuário?' if editando else 'Criar usuário?' }}"
+        data-confirm-message="{{ 'Confirma salvar as alterações deste usuário?' if editando else 'Confirma criar este usuário?' }}"
+        data-confirm-label="Salvar"
+        data-confirm-loading="Salvando usuário..."
         {% if not editando %}data-confirm-form data-confirm-title="Tem certeza?" data-confirm-message="Tem certeza que deseja criar este usuário?" data-confirm-label="Confirmar" data-confirm-loading="Criando usuário..."{% endif %}
     >
 

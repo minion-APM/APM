@@ -11,7 +11,7 @@
 {% if request.query_params.get('erro') == 'cliente' %}<p class="alert alert--danger">Selecione um cliente ativo.</p>{% elif request.query_params.get('erro') %}<p class="alert alert--danger">Não foi possível concluir a operação.</p>{% endif %}
 
 {% if modo == 'editar' %}
-<form action="/armarios/{{ armario.id }}/editar" method="post">
+<form action="/armarios/{{ armario.id }}/editar" method="post" data-confirm-form data-confirm-title="Salvar edição do armário?" data-confirm-message="Confirma salvar as alterações deste armário?" data-confirm-label="Salvar" data-confirm-loading="Salvando armário...">
   <label for="descricao">Observação</label>
   <textarea id="descricao" name="descricao" maxlength="255" rows="4">{{ armario.descricao or '' }}</textarea>
 
@@ -24,7 +24,7 @@
   {% if armario.status == 'alugado' %}<p>Faça a devolução antes de alterar o status.</p>{% else %}<button type="submit">Salvar</button>{% endif %}
 </form>
 {% else %}
-<form action="/armarios/{{ armario.id }}/alugar" method="post">
+<form action="/armarios/{{ armario.id }}/alugar" method="post" data-confirm-form data-confirm-title="Confirmar aluguel?" data-confirm-message="Confirma alugar este armário para o cliente e horário selecionados?" data-confirm-label="Confirmar aluguel" data-confirm-loading="Registrando aluguel...">
   <label for="cliente_id">Cliente</label>
   <select id="cliente_id" name="cliente_id" required autofocus>
     <option value="" selected disabled>Selecione um cliente</option>

@@ -227,7 +227,12 @@
 
             <form id="form-venda"
                   action="/pdv/finalizar"
-                  method="post">
+                  method="post"
+                  data-confirm-form
+                  data-confirm-title="Confirmar pagamento?"
+                  data-confirm-message="Confirma finalizar esta venda e registrar o pagamento informado?"
+                  data-confirm-label="Finalizar venda"
+                  data-confirm-loading="Finalizando venda...">
 
                 <input type="hidden"
                        name="carrinho_json"

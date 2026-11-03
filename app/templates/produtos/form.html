@@ -22,7 +22,7 @@
         method="post"
         enctype="multipart/form-data"
         id="produto-form"
-        {% if not editando %}data-confirm-form data-confirm-title="Tem certeza?" data-confirm-message="Tem certeza que deseja criar este produto?" data-confirm-label="Confirmar" data-confirm-loading="Criando produto..."{% endif %}
+        data-confirm-form data-confirm-title="{{ 'Salvar edição do produto?' if editando else 'Criar produto?' }}" data-confirm-message="{{ 'Confirma salvar as alterações deste produto?' if editando else 'Confirma criar este produto com os dados informados?' }}" data-confirm-label="Salvar" data-confirm-loading="Salvando produto..."
     >
         <label>
             Nome

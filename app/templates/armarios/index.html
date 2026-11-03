@@ -54,7 +54,7 @@ endif %}
                             href="/armarios/{{ armario.id }}/editar" class="btn-table">Editar</a>{% endif %}{% if
                         armario.status == 'disponivel' %}<a href="/armarios/{{ armario.id }}/alugar"
                             class="btn-table btn-table--reserve">Alugar</a>{% elif armario.status == 'alugado' %}<form
-                            action="/armarios/{{ armario.id }}/devolver" method="post"><button type="submit"
+                            action="/armarios/{{ armario.id }}/devolver" method="post" data-confirm-form data-confirm-title="Devolver armário?" data-confirm-message="Confirma registrar a devolução e liberar o armário {{ armario.numero }}?" data-confirm-label="Devolver" data-confirm-loading="Registrando devolução..."><button type="submit"
                                 class="btn-table btn-table--return">Devolver</button></form>{% endif %}</td>
                 </tr>{% else %}<tr>
                     <td colspan="5" class="empty-state">Nenhum armário encontrado.</td>

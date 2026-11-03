@@ -80,9 +80,20 @@
                 loadingText: form.dataset.confirmLoading || 'Processando...',
                 onConfirm: () => {
                     form.dataset.confirmed = 'true';
-                    if (button) button.disabled = true;
                     form.requestSubmit(button || undefined);
                 }
+            });
+        });
+    });
+    document.querySelectorAll('[data-confirm-link]').forEach(link => {
+        link.addEventListener('click', event => {
+            event.preventDefault();
+            const destino = link.href;
+            window.openConfirmation({
+                title: link.dataset.confirmTitle,
+                message: link.dataset.confirmMessage,
+                confirmText: link.dataset.confirmLabel || 'Confirmar',
+                onConfirm: () => { window.location.href = destino; }
             });
         });
     });

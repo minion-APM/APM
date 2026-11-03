@@ -46,7 +46,7 @@
       <div class="header-user">
         <span class="header-user__name">{{ usuario.nome }}</span>
         <span class="role-badge role-badge--{{ usuario.role|lower }}">{{ usuario.role }}</span>
-        <a href="/auth/logout" class="btn-logout">Sair</a>
+        <a href="/auth/logout" class="btn-logout" data-confirm-link data-confirm-title="Sair do sistema?" data-confirm-message="Deseja realmente sair do sistema?" data-confirm-label="Sair">Sair</a>
       </div>
       {% endif %}
  
